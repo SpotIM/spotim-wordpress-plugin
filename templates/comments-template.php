@@ -27,6 +27,7 @@ switch( $options->get( 'disqus_identifier' ) ) {
     ?>
     <script async
         data-spotim-module="spotim-launcher"
+        data-article-tags="<?php echo implode(', ' , wp_get_post_tags( get_the_ID(), array( 'fields' => 'names' ) )); ?>"
         src="<?php echo esc_url( 'https://launcher.spot.im/spot/' . $spot_id ); ?>"
         data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
         data-post-url="<?php echo esc_url( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"
