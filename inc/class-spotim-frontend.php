@@ -244,6 +244,7 @@ class SpotIM_Frontend
             $spot_id = self::$options->get('spot_id');
 
             if (!empty($spot_id)) {
+                wp_enqueue_style( 'comments_number_stylesheet', self::$options->require_stylesheet( 'comments-number.css', true ) );
                 self::$options->require_template('comments-number-template.php');
             }
         }
