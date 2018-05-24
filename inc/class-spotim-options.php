@@ -98,11 +98,11 @@ class SpotIM_Options {
             // Display
             'display_post' => '1',
             'display_page' => '1',
-            'display_attachment' => '0',
+            'display_attachment' => '1',
             'comments_per_page' => 10,
             'display_comments_count' => '0',
             // Advanced
-            'embed_method' => 'comments',
+            'embed_method' => 'content',
             'rc_embed_method' => 'regular',
             'display_priority' => 9999,
             'enable_seo' => 'false',
