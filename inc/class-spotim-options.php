@@ -319,7 +319,7 @@ class SpotIM_Options {
     public function require_file( $path = '', $return_path = false ) {
         $valid = validate_file( $path );
 
-        if ( 0 === $valid || false === strpos( $path, '..' )) {
+        if ( 0 === $valid ) {
             if ( $return_path ) {
                 $output = $path;
             } else {
