@@ -272,7 +272,7 @@ class SpotIM_Frontend
             // Comments count scripts
             add_filter('wp_footer', array(__CLASS__, 'comments_number_tags'));
 
-            $commentsNumberContainerSpan = '<span class="spot-im-replies-count" data-post-id="' . absint($post->ID) . '"></span>';
+            $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="spot-im-replies-count" data-post-id="' . absint($post->ID) . '"></span></a>';
 
             return $commentsNumberContainerSpan . $content;
         }
