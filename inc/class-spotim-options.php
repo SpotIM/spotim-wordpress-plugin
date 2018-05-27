@@ -98,10 +98,11 @@ class SpotIM_Options {
             // Display
             'display_post' => '1',
             'display_page' => '1',
-            'display_attachment' => '0',
+            'display_attachment' => '1',
             'comments_per_page' => 10,
+            'display_comments_count' => '0',
             // Advanced
-            'embed_method' => 'comments',
+            'embed_method' => 'content',
             'rc_embed_method' => 'regular',
             'display_priority' => 9999,
             'enable_seo' => 'false',
@@ -167,6 +168,7 @@ class SpotIM_Options {
         if ( empty( $data ) ) {
             $data = $this->create_options();
         } else {
+            $data['display_comments_count'] = sanitize_text_field( $data['display_comments_count'] );
             $data['display_post'] = sanitize_text_field( $data['display_post'] );
             $data['display_page'] = sanitize_text_field( $data['display_page'] );
             $data['display_attachment'] = sanitize_text_field( $data['display_attachment'] );
@@ -268,6 +270,7 @@ class SpotIM_Options {
 
         foreach ( $input as $key => $value ) {
             switch( $key ) {
+                case 'display_comments_count':
                 case 'display_post':
                 case 'display_page':
                 case 'display_attachment':

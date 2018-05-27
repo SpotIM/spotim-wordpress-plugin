@@ -202,6 +202,23 @@ class SpotIM_Settings_Fields {
         }
 
         add_settings_field(
+            'display_comments_count',
+            esc_html__( 'Display Comments Count', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'display_settings_section',
+            array(
+                'id' => "display_comments_count",
+                'page' => $this->options->slug,
+                'fields' => array(
+                    '0' => esc_html__( 'Disable', 'spotim-comments' ),
+                    'title' => esc_html__( 'Below title', 'spotim-comments' )
+                ),
+                'value' => $this->options->get( 'display_comments_count' )
+            )
+        );
+
+        add_settings_field(
             'comments_per_page',
             esc_html__( 'Comments Per Page', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'number_field' ),
