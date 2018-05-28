@@ -148,7 +148,7 @@ class SpotIM_Message
             $comments_query = new WP_Comment_Query;
             $comments = $comments_query->query($args);
 
-            if ($comments) {
+            if (!empty($comments)) {
                 return $comments[0];
             }
         }
