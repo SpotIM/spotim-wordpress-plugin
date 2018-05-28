@@ -56,6 +56,10 @@ class SpotIM_Comment {
             $comment_id = wp_insert_comment( $message->get_comment_data() );
 
             if ( $comment_id ) {
+
+                //Generate the spotim_id comment meta-data
+                $message->update_comment_meta($comment_id);
+
                 $comment_created = $message->update_messages_map( $comment_id );
             }
         } else {
