@@ -3,7 +3,7 @@
  * Plugin Name:         Spot.IM Comments
  * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem.
- * Version:             4.3.0
+ * Version:             4.3.2
  * Author:              Spot.IM
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
