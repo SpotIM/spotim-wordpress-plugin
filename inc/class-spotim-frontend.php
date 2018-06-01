@@ -239,7 +239,7 @@ class SpotIM_Frontend
     {
 
         // Check wheter the singular and applied spotIm comments
-        if (is_singular() && self::$options->get('display_comments_count') !== '0') {
+        if (is_singular() && self::$options->get('display_comments_count') !== FALSE && self::$options->get('display_comments_count') !== '0') {
 
             $spot_id = self::$options->get('spot_id');
 
