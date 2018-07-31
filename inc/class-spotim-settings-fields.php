@@ -266,6 +266,7 @@ class SpotIM_Settings_Fields {
                 'fields' => array(
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
                     'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
+                    'manual' => esc_html__( 'Manual call to SpotIM_Frontend::display_comments() ', 'spotim-comments' ),
                 ),
                 'value' => $this->options->get( 'embed_method' )
             )

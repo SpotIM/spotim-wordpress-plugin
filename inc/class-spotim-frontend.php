@@ -68,11 +68,12 @@ class SpotIM_Frontend
 
             // Add after the content
             add_action('the_content', array(__CLASS__, 'the_content_comments_template'), $display_priority);
-            add_filter('comments_template', array(__CLASS__, 'empty_comments_template'), 20);
 
-        } else {
+        } else if($embed_method == 'comments'){
             // Replace the WordPress comments
             add_filter('comments_template', array(__CLASS__, 'filter_comments_template'), 20);
+        }else if($embed_method == 'manual'){
+            add_filter('comments_template', array(__CLASS__, 'empty_comments_template'));
         }
 
         // Comments count assign
@@ -81,6 +82,11 @@ class SpotIM_Frontend
         // OG tags
         add_action('wp_head', array(__CLASS__, 'open_graph_tags'));
 
+    }
+
+    public static function display_comments(){
+        if(self::$options->get('embed_method') == 'manual')
+            echo self::the_content_comments_template("");
     }
 
     /**
