@@ -15,7 +15,7 @@ switch( $options->get( 'disqus_identifier' ) ) {
         $disqus_identifier = get_the_id() . ' ' . esc_url( site_url( '/?p=' . get_the_id() ) );
 }
 ?>
-<div class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
+<div id="comments-anchor" class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
     <?php
     if ( ( 'top' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
         ob_start();
