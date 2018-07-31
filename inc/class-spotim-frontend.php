@@ -68,11 +68,14 @@ class SpotIM_Frontend
 
             // Add after the content
             add_action('the_content', array(__CLASS__, 'the_content_comments_template'), $display_priority);
+            //Remove WP comments section (We expect for SPOT.IM section, we don't need the WP one)
+            add_filter('comments_template', array(__CLASS__, 'empty_comments_template'));
 
         } else if($embed_method == 'comments'){
             // Replace the WordPress comments
             add_filter('comments_template', array(__CLASS__, 'filter_comments_template'), 20);
         }else if($embed_method == 'manual'){
+            //Remove WP comments section (We expect for SPOT.IM section, we don't need the WP one)
             add_filter('comments_template', array(__CLASS__, 'empty_comments_template'));
         }
 
