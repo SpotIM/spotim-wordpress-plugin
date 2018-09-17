@@ -357,7 +357,7 @@ class SpotIM_Import {
         if(!$sec_ago)
             $sec_ago = time()*2;
 
-        $sec_ago = time() - $sec_ago;
+        $sec_ago = time()+ (60*30) - $sec_ago;
 
         $stream = $this->request( array(
             'spot_id' => $spot_id,
