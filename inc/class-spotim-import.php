@@ -17,7 +17,7 @@ class SpotIM_Import {
      * SpotIM Sync API URL
      */
     const SPOTIM_SYNC_API_URL = 'https://www.spot.im/api/open-api/v1/export/wordpress';
-
+    const SPOTIM_LAST_MODIFIED_API_URL = 'https://www.spot.im/api/open-api/v1/spot-last-modified-conversations';
     /**
      * Options
      *
@@ -28,6 +28,8 @@ class SpotIM_Import {
      * @var SpotIM_Options
      */
     private $options;
+
+    private $total_changed_posts = [];
 
     /**
      * Posts Per Request
@@ -118,15 +120,19 @@ class SpotIM_Import {
             $this->posts_per_request = $this->options->update(
                 'posts_per_request', absint( $posts_per_request )
             );
+
+            $this->total_changed_posts = get_option("wp-spotim-settings_total_changed_posts", []);
         } else {
             $this->page_number = $page_number;
             $this->posts_per_request = $posts_per_request;
         }
 
-        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
+//        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
+        if(!is_array($this->total_changed_posts) || empty($this->total_changed_posts))
+            $this->get_changed_post_ids();
 
         // fetch, merge comments and return a response
-        $this->pull_comments( $post_ids );
+        $this->pull_comments( $this->total_changed_posts, $this->posts_per_request, $this->page_number*$this->posts_per_request );
 
         // return a response to client via json
         return $this->finish();
@@ -145,11 +151,11 @@ class SpotIM_Import {
      *
      * @return void
      */
-    private function pull_comments( $post_ids = array() ) {
+    private function pull_comments( $post_ids = array(), $limit = 10, $offset = 0 ) {
         if ( ! empty( $post_ids ) ) {
             // import comments data from Spot.IM
             $streams = array();
-            $streams = $this->fetch_comments( $post_ids );
+            $streams = $this->fetch_comments( $post_ids, $limit, $offset );
 
             // sync comments data with wordpress comments
             $this->merge_comments( $streams );
@@ -169,12 +175,14 @@ class SpotIM_Import {
      *
      * @return array $streams An array of streams.
      */
-    private function fetch_comments( $post_ids = array() ) {
+    private function fetch_comments( $post_ids = array(), $limit, $offset ) {
         $streams = array();
         $errored_streams = array();
 
-        while ( ! empty( $post_ids ) ) {
-            $post_id = array_shift( $post_ids );
+
+        for($i=$offset;$i<count($post_ids) && $i < $limit+$offset; $i++){
+
+            $post_id = $post_ids[$i];
             $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
 
             $stream = $this->request( array(
@@ -246,9 +254,6 @@ class SpotIM_Import {
                     absint( $stream->new_etag ),
                     absint( $stream->from_etag )
                 );
-
-
-                $this->pull_comments( array( $stream->post_id ) );
             }
         }
     }
@@ -279,7 +284,7 @@ class SpotIM_Import {
 
         if ( 0 === $total_posts_count ) {
             $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( 'Your website doesn\'t have any published posts.', 'spotim-comments' );
+            $response_args['message'] = esc_html__( "Your website doesn't have any posts to sync.", 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
             $parsed_message = sprintf(
                 esc_html__( '%d / %d posts are synchronizing.', 'spotim-comments' ),
@@ -298,7 +303,9 @@ class SpotIM_Import {
             $response_args['message'] = $parsed_message;
         } else {
             $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( 'Sync has been completed.', 'spotim-comments' );
+            $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count);
+
+            $this->options->update("spotim_last_sync_timestamp", time());
 
             if ( ! $this->return ) {
                 $this->options->reset( 'page_number' );
@@ -311,7 +318,7 @@ class SpotIM_Import {
     /**
      * Get post count
      *
-     * Retrieves count for all published posts
+     * Retrieves count for all need to update posts
      *
      * @since 4.2.0
      *
@@ -320,8 +327,64 @@ class SpotIM_Import {
      * @return int
      */
     public function get_posts_count() {
-        $count = wp_count_posts();
-        return $count->publish;
+
+        if($this->total_changed_posts)
+            return count($this->total_changed_posts);
+        return 0;
+    }
+
+    /**
+     * Get Changed Post IDs
+     *
+     * Retrieve an array of changed post IDs.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param int $posts_per_page Posts per page (Max 100). Default is 100.
+     * @param int $page_number Page number. Default is 0.
+     *
+     * @return array
+     */
+    private function get_changed_post_ids($offset = 0){
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        $spot_id = $this->options->get( 'spot_id' );
+        $sec_ago = $this->options->get("spotim_last_sync_timestamp", null);
+
+        if(!$sec_ago)
+            $sec_ago = time()*2;
+
+        $sec_ago = time() - $sec_ago;
+
+        $stream = $this->request( array(
+            'spot_id' => $spot_id,
+            'sec_ago' => $sec_ago,
+            'limit' => 5000,
+            'offset' => $offset
+        ), self::SPOTIM_LAST_MODIFIED_API_URL );
+
+        $body = ($stream && isset($stream->body))? $stream->body : null;
+
+        if(is_array($body)){
+
+            $body = array_map(function($val) use ($spot_id){
+                return str_replace($spot_id."_",'', $val);
+            }, $body);
+
+            if(!$this->total_changed_posts)
+                $this->total_changed_posts = [];
+
+            $this->total_changed_posts = array_merge($body, $this->total_changed_posts);
+            update_option("wp-spotim-settings_total_changed_posts", $this->total_changed_posts);
+
+            $offset += 5000;
+
+            if(count($body) >= 5000)
+                $this->get_changed_post_ids($offset);
+        }
     }
 
     /**
@@ -382,11 +445,12 @@ class SpotIM_Import {
      * @access private
      *
      * @param string|array $query_args Either a query variable key, or an associative array of query variables.
+     * @param string $custom_url custom url to fetch from
      *
      * @return object
      */
-    private function request( $query_args ) {
-        $url = add_query_arg( $query_args, self::SPOTIM_SYNC_API_URL );
+    private function request( $query_args, $custom_url = null) {
+        $url = add_query_arg( $query_args, ($custom_url)? $custom_url : self::SPOTIM_SYNC_API_URL );
 
         $result = new stdClass();
         $result->is_ok = false;
@@ -404,7 +468,9 @@ class SpotIM_Import {
             } else {
                 $result->is_ok = true;
                 $result->body = $response_body;
-                $result->body->url = $url;
+
+                if(is_object($result->body))
+                    $result->body->url = $url;
             }
         }
 

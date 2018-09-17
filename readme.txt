@@ -4,7 +4,7 @@ Tags: Comment, comment form, commenting, comments, comment author, comment form,
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 4.3.2
+Stable tag: 4.3.5
 License: GPLv2 or later
 License URI: license.txt
 
