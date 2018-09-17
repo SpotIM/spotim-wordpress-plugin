@@ -266,8 +266,9 @@ class SpotIM_Settings_Fields {
                 'fields' => array(
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
                     'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
-                    'manual' => esc_html__( 'Manual call to SpotIM_Frontend::display_comments() ', 'spotim-comments' ),
+                    'manual' => esc_html__( 'Let the theme decide', 'spotim-comments' ),
                 ),
+                'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed.", 'spotim-comments' ),
                 'value' => $this->options->get( 'embed_method' )
             )
         );
