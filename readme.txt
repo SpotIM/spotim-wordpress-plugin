@@ -4,7 +4,7 @@ Tags: Comment, comment form, commenting, comments, comment author, comment form,
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 4.3.5
+Stable tag: 4.3.6
 License: GPLv2 or later
 License URI: license.txt
 
@@ -203,12 +203,8 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
-= 4.3.2 =
-* Bug fixes
-
-= 4.3.1 =
-* Adding comments number feature
-* Under the hood features
+= 4.3.6 =
+* Improve sync mechanism
 
 = 4.3.0 =
 * Add admin notice when global WordPress comments are disabled.
@@ -221,6 +217,8 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Fix Manual Sync to display error log only when error messages are not empty.
 * Fix Auto Sync when validating cron to check against all registered schedules, not only WordPress default schedules.
 * Remove default value of deprecated "plugin_secret" field.
+* Adding comments number feature
+* Under the hood features
 
 = 4.2.0 =
 * Add new Siderail Widget.
