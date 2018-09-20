@@ -31,6 +31,8 @@ class SpotIM_Import {
 
     private $total_changed_posts = [];
 
+    private $needto_load_more_changed_posts = 0;
+
     /**
      * Posts Per Request
      *
@@ -122,13 +124,14 @@ class SpotIM_Import {
             );
 
             $this->total_changed_posts = get_option("wp-spotim-settings_total_changed_posts", []);
+            $this->needto_load_more_changed_posts = $this->options->get('needto_load_more_changed_posts',0);
         } else {
             $this->page_number = $page_number;
             $this->posts_per_request = $posts_per_request;
         }
 
 //        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
-        if(!is_array($this->total_changed_posts) || empty($this->total_changed_posts))
+        if(!is_array($this->total_changed_posts) || empty($this->total_changed_posts) || $this->needto_load_more_changed_posts > 0)
             $this->get_changed_post_ids();
 
         // fetch, merge comments and return a response
@@ -284,7 +287,16 @@ class SpotIM_Import {
 
         if ( 0 === $total_posts_count ) {
             $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( "Your website doesn't have any posts to sync.", 'spotim-comments' );
+            $response_args['message'] = esc_html__("Your website doesn't have any posts to sync.", 'spotim-comments');
+        }else if($this->needto_load_more_changed_posts > 0){
+            $parsed_message = sprintf(
+                esc_html__( 'Loading %d total posts to sync.', 'spotim-comments' ),
+                $total_posts_count
+            );
+
+            $response_args['status'] = 'continue';
+            $response_args['message'] = $parsed_message;
+
         } else if ( $current_posts_count < $total_posts_count ) {
             $parsed_message = sprintf(
                 esc_html__( '%d / %d posts are synchronizing.', 'spotim-comments' ),
@@ -347,10 +359,11 @@ class SpotIM_Import {
      *
      * @return array
      */
-    private function get_changed_post_ids($offset = 0){
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
+    private function get_changed_post_ids(){
+
+        $offset = $this->needto_load_more_changed_posts;
+        $limit = 5000;
+
         $spot_id = $this->options->get( 'spot_id' );
         $sec_ago = $this->options->get("spotim_last_sync_timestamp", null);
 
@@ -362,7 +375,7 @@ class SpotIM_Import {
         $stream = $this->request( array(
             'spot_id' => $spot_id,
             'sec_ago' => $sec_ago,
-            'limit' => 5000,
+            'limit' => $limit,
             'offset' => $offset
         ), self::SPOTIM_LAST_MODIFIED_API_URL );
 
@@ -380,10 +393,13 @@ class SpotIM_Import {
             $this->total_changed_posts = array_merge($body, $this->total_changed_posts);
             update_option("wp-spotim-settings_total_changed_posts", $this->total_changed_posts);
 
-            $offset += 5000;
+            $offset += $limit;
 
-            if(count($body) >= 5000)
-                $this->get_changed_post_ids($offset);
+            if(count($body) >= 1){
+                $this->needto_load_more_changed_posts = $this->options->update('needto_load_more_changed_posts', $offset);
+                $this->finish();
+            }else
+                $this->needto_load_more_changed_posts = $this->options->update('needto_load_more_changed_posts', 0);
         }
     }
 
