@@ -368,9 +368,9 @@ class SpotIM_Import {
         $sec_ago = $this->options->get("spotim_last_sync_timestamp", null);
 
         if(!$sec_ago)
-            $sec_ago = time()*2;
-
-        $sec_ago = time()+ (60*30) - $sec_ago;
+            $sec_ago = time()+ (60*30);
+        else
+            $sec_ago = time() + (60*30) - $sec_ago;
 
         $stream = $this->request( array(
             'spot_id' => $spot_id,
