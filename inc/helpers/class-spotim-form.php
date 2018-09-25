@@ -290,7 +290,7 @@ class SpotIM_Form_Helper {
 
         // Force re-import (Delete import cache)
         $template .= sprintf(
-            '<br /><br /><button id="%1$s" class="button button-primary sync-button force" data-import-token="%2$s" data-spot-id="%3$s" data-posts-per-request="%4$s" data-force="true">%5$s</button>',
+            '<button id="%1$s" style="margin:0 10px;" class="button button-primary sync-button force" data-import-token="%2$s" data-spot-id="%3$s" data-posts-per-request="%4$s" data-force="true">%5$s</button>',
             esc_attr( $args['force_import_button']['id'] ), // Button's id.
             esc_attr( $spotim->options->get( 'import_token' ) ), // Import token
             esc_attr( $spotim->options->get( 'spot_id' ) ), // Spot ID
