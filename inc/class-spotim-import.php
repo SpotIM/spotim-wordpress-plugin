@@ -106,7 +106,7 @@ class SpotIM_Import {
      *
      * @return void
      */
-    public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1 ) {
+    public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1, $force = false ) {
 
         // If not run in return mode, update these options
         if ( ! $this->return ) {
@@ -118,7 +118,7 @@ class SpotIM_Import {
             $this->page_number = $this->options->update(
                 'page_number', absint( $page_number )
             );
-    
+
             $this->posts_per_request = $this->options->update(
                 'posts_per_request', absint( $posts_per_request )
             );
@@ -128,6 +128,14 @@ class SpotIM_Import {
         } else {
             $this->page_number = $page_number;
             $this->posts_per_request = $posts_per_request;
+        }
+
+        if($force){
+            $this->total_changed_posts = [];
+
+            $this->page_number = $this->options->update('page_number', 0);
+            $this->needto_load_more_changed_posts = $this->options->update("needto_load_more_changed_posts", 0);
+            $this->options->update("spotim_last_sync_timestamp", null);
         }
 
 //        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
@@ -395,7 +403,7 @@ class SpotIM_Import {
 
             $offset += $limit;
 
-            if(count($body) >= 1){
+            if(count($body) > 0){
                 $this->needto_load_more_changed_posts = $this->options->update('needto_load_more_changed_posts', $offset);
                 $this->finish();
             }else

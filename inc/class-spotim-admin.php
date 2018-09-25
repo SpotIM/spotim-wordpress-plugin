@@ -213,6 +213,7 @@ class SpotIM_Admin {
             $spot_id = sanitize_text_field( $_POST['spotim_spot_id'] );
             $import_token = sanitize_text_field( $_POST['spotim_import_token'] );
             $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
+            $force = isset( $_POST['force'] ) ? true : false;
 
             if($page_number === 0)
                 update_option("wp-spotim-settings_total_changed_posts", null);
@@ -224,7 +225,7 @@ class SpotIM_Admin {
                 $posts_per_request = 1;
             }
 
-            $import->start( $spot_id, $import_token, $page_number, $posts_per_request );
+            $import->start( $spot_id, $import_token, $page_number, $posts_per_request, $force );
         }
     }
 

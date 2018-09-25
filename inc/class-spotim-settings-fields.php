@@ -396,6 +396,11 @@ class SpotIM_Settings_Fields {
                     'id' => 'import_button',
                     'text' => esc_html__( 'Sync Now', 'spotim-comments' )
                 ),
+                'force_import_button' => array(
+                    'id' => 'force_import_button',
+                    'text' => esc_html__( 'Re-Sync Now', 'spotim-comments' ),
+                    'description' => esc_html__( 'Force re-sync all posts', 'spotim-comments' )
+                ),
                 'cancel_import_link' => array(
                     'id' => 'cancel_import_link',
                     'text' => esc_html__( 'Cancel', 'spotim-comments' )
