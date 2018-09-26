@@ -399,7 +399,7 @@ class SpotIM_Settings_Fields {
                 'force_import_button' => array(
                     'id' => 'force_import_button',
                     'text' => esc_html__( 'Reset + Sync Now', 'spotim-comments' ),
-                    'description' => esc_html__( 'Use Sync Now to perform sync operation from latest sync, and Reset + Sync Now perform full sync operation on all posts', 'spotim-comments' )
+                    'description' => esc_html__( 'Use Sync Now to sync data starting from the last sync time.', 'spotim-comments' )."<br />".esc_html__('Use Reset + Sync Now to clear any old synced data and start a fresh sync.', 'spotim-comments')
                 ),
                 'cancel_import_link' => array(
                     'id' => 'cancel_import_link',

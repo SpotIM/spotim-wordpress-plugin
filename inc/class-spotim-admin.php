@@ -215,9 +215,6 @@ class SpotIM_Admin {
             $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
             $force = isset( $_POST['force'] ) ? true : false;
 
-            if($page_number === 0)
-                update_option("wp-spotim-settings_total_changed_posts", null);
-
             if ( isset( $_POST['spotim_posts_per_request'] ) ) {
                 $posts_per_request = absint( $_POST['spotim_posts_per_request'] );
                 $posts_per_request = ( 0 === $posts_per_request ) ? 1 : $posts_per_request;
@@ -245,6 +242,7 @@ class SpotIM_Admin {
 
         update_option("wp-spotim-settings_total_changed_posts", null);
         self::$options->update( 'page_number', $page_number );
+        self::$options->reset('is_force_sync');
 
         $import->response( array(
             'status' => 'cancel'

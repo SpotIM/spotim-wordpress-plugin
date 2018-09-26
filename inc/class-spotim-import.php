@@ -33,6 +33,7 @@ class SpotIM_Import {
 
     private $needto_load_more_changed_posts = 0;
 
+    private $is_force_sync = false;
     /**
      * Posts Per Request
      *
@@ -122,7 +123,9 @@ class SpotIM_Import {
             $this->posts_per_request = $this->options->update(
                 'posts_per_request', absint( $posts_per_request )
             );
-
+            $this->is_force_sync = $this->options->get(
+                'is_force_sync', false
+            );
             $this->total_changed_posts = get_option("wp-spotim-settings_total_changed_posts", []);
             $this->needto_load_more_changed_posts = $this->options->get('needto_load_more_changed_posts',0);
         } else {
@@ -131,11 +134,10 @@ class SpotIM_Import {
         }
 
         if($force){
-            $this->total_changed_posts = [];
-
-            $this->page_number = $this->options->update('page_number', 0);
-            $this->needto_load_more_changed_posts = $this->options->update("needto_load_more_changed_posts", 0);
-            $this->options->update("spotim_last_sync_timestamp", null);
+           $this->reset_params();
+           $this->is_force_sync = $this->options->update(
+               'is_force_sync', true
+           );
         }
 
 //        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
@@ -149,6 +151,13 @@ class SpotIM_Import {
         return $this->finish();
     }
 
+
+    private function reset_params(){
+        $this->total_changed_posts = [];
+        $this->page_number = $this->options->update('page_number', 0);
+        $this->needto_load_more_changed_posts = $this->options->update("needto_load_more_changed_posts", 0);
+        $this->options->update("spotim_last_sync_timestamp", null);
+    }
     /**
      * Pull Comments
      *
@@ -194,7 +203,7 @@ class SpotIM_Import {
         for($i=$offset;$i<count($post_ids) && $i < $limit+$offset; $i++){
 
             $post_id = $post_ids[$i];
-            $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
+            $post_etag = $this->is_force_sync ? 0 : get_post_meta( $post_id, 'spotim_etag', true );
 
             $stream = $this->request( array(
                 'spot_id' => $this->options->get( 'spot_id' ),
@@ -294,6 +303,7 @@ class SpotIM_Import {
         }
 
         if ( 0 === $total_posts_count ) {
+            $this->options->reset('is_force_sync', false );
             $response_args['status'] = 'success';
             $response_args['message'] = esc_html__("Your website doesn't have any posts to sync.", 'spotim-comments');
         }else if($this->needto_load_more_changed_posts > 0){
@@ -302,7 +312,7 @@ class SpotIM_Import {
                 $total_posts_count
             );
 
-            $response_args['status'] = 'continue';
+            $response_args['status'] = 'refresh';
             $response_args['message'] = $parsed_message;
 
         } else if ( $current_posts_count < $total_posts_count ) {
@@ -326,6 +336,7 @@ class SpotIM_Import {
             $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count);
 
             $this->options->update("spotim_last_sync_timestamp", time());
+            $this->options->reset('is_force_sync', false );
 
             if ( ! $this->return ) {
                 $this->options->reset( 'page_number' );
@@ -528,7 +539,7 @@ class SpotIM_Import {
      * @return void
      */
     public function response( $args = array() ) {
-        $statuses_list = array( 'continue', 'success', 'cancel', 'error' );
+        $statuses_list = array( 'continue', 'refresh', 'success', 'cancel', 'error' );
 
         $defaults = array(
             'status' => '',

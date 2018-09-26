@@ -203,8 +203,8 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
-= 4.3.6 =
-* Improve sync mechanism
+= 4.3.7 =
+* Added force sync button
 
 = 4.3.0 =
 * Add admin notice when global WordPress comments are disabled.
@@ -219,6 +219,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Remove default value of deprecated "plugin_secret" field.
 * Adding comments number feature
 * Under the hood features
+* Improve sync mechanism
 
 = 4.2.0 =
 * Add new Siderail Widget.

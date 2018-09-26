@@ -298,7 +298,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['force_import_button']['text'] ) // Button's text.
         );
 
-        $template .= "<br />".esc_attr( $args['force_import_button']['description'] );
+        $template .= "<br />".$args['force_import_button']['description'];
 
         // Cancel import
         $template .= sprintf(

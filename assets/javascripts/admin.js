@@ -82,12 +82,14 @@ jQuery( document ).ready(function ( $ ) {
                 return;
             }
 
+            delete params.force;
+
             switch( response.status ) {
+                case 'refresh':
+                    importCommentsToWP( params, $importButton, $messageField, $errorsField );
+                    break;
                 case 'continue':
                     params.spotim_page_number = params.spotim_page_number + 1;
-
-                    delete params.force;
-
                     importCommentsToWP( params, $importButton, $messageField, $errorsField );
                     break;
                 case 'success':
