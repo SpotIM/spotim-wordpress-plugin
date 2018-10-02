@@ -122,10 +122,11 @@ class SpotIM_Cron {
             
             $import->log( 'Iteration (end) #' . $page_number . ', Token:' . $execution_token );
             $import->log( $response );
+
+            if($response && $response['status'] == 'continue')
+                $page_number++; // Increment
             
-            $page_number++; // Increment
-            
-        } while ( $response && $response['status'] == 'continue' );
+        } while ( $response && ($response['status'] == 'continue' ||  $response['status'] == 'refresh'));
         
         $import->log( 'Finished Cron auto-sync', $response );
         

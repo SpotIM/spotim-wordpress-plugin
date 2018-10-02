@@ -104,6 +104,7 @@ class SpotIM_Import {
      * @param string $import_token Import token,
      * @param int $page_number Page number. Default is 0.
      * @param int $posts_per_request Posts Per Request. Default is 1.
+     * @param bool $force ignore post eTag and force re-sync everything.
      *
      * @return void
      */

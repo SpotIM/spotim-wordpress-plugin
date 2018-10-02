@@ -276,7 +276,7 @@ class SpotIM_Frontend
 
         $counterPosition = self::$options->get('display_comments_count');
 
-        if ('0' !== $counterPosition) {
+        if ('0' !== $counterPosition && self::has_spotim_comments()) {
 
             // Comments count scripts
             add_filter('wp_footer', array(__CLASS__, 'comments_number_tags'));

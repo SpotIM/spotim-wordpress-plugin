@@ -4,7 +4,7 @@ Tags: Comment, comment form, commenting, comments, comment author, comment form,
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 4.3.6
+Stable tag: 4.3.8
 License: GPLv2 or later
 License URI: license.txt
 
@@ -202,6 +202,10 @@ We know managing a website can get complicated. That’s why we made Spot.IM eas
 You are also always more than welcome to contact our team at support@spot.im. We’ll be glad to help.
 
 == Changelog ==
+
+= 4.3.8 =
+* Comments counter hotfix
+* Auto sync hotfix
 
 = 4.3.7 =
 * Added force sync button
