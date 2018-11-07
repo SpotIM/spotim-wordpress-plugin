@@ -68,11 +68,15 @@ class SpotIM_Frontend
 
             // Add after the content
             add_action('the_content', array(__CLASS__, 'the_content_comments_template'), $display_priority);
-            add_filter('comments_template', array(__CLASS__, 'empty_comments_template'), 20);
+            //Remove WP comments section (We expect for SPOT.IM section, we don't need the WP one)
+            add_filter('comments_template', array(__CLASS__, 'empty_comments_template'));
 
-        } else {
+        } else if($embed_method == 'comments'){
             // Replace the WordPress comments
             add_filter('comments_template', array(__CLASS__, 'filter_comments_template'), 20);
+        }else if($embed_method == 'manual'){
+            //Remove WP comments section (We expect for SPOT.IM section, we don't need the WP one)
+            add_filter('comments_template', array(__CLASS__, 'empty_comments_template'));
         }
 
         // Comments count assign
@@ -81,6 +85,11 @@ class SpotIM_Frontend
         // OG tags
         add_action('wp_head', array(__CLASS__, 'open_graph_tags'));
 
+    }
+
+    public static function display_comments(){
+        if(self::$options->get('embed_method') == 'manual')
+            echo self::the_content_comments_template("");
     }
 
     /**
@@ -239,7 +248,7 @@ class SpotIM_Frontend
     {
 
         // Check wheter the singular and applied spotIm comments
-        if (is_singular() && self::$options->get('display_comments_count') !== '0') {
+        if (is_singular() && self::$options->get('display_comments_count') !== FALSE && self::$options->get('display_comments_count') !== '0') {
 
             $spot_id = self::$options->get('spot_id');
 
@@ -267,7 +276,7 @@ class SpotIM_Frontend
 
         $counterPosition = self::$options->get('display_comments_count');
 
-        if ('0' !== $counterPosition) {
+        if ('0' !== $counterPosition && self::has_spotim_comments()) {
 
             // Comments count scripts
             add_filter('wp_footer', array(__CLASS__, 'comments_number_tags'));

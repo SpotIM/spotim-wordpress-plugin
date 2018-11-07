@@ -266,7 +266,9 @@ class SpotIM_Settings_Fields {
                 'fields' => array(
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
                     'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
+                    'manual' => esc_html__( 'Let the theme decide', 'spotim-comments' ),
                 ),
+                'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed.", 'spotim-comments' ),
                 'value' => $this->options->get( 'embed_method' )
             )
         );
@@ -393,6 +395,11 @@ class SpotIM_Settings_Fields {
                 'import_button' => array(
                     'id' => 'import_button',
                     'text' => esc_html__( 'Sync Now', 'spotim-comments' )
+                ),
+                'force_import_button' => array(
+                    'id' => 'force_import_button',
+                    'text' => esc_html__( 'Reset + Sync Now', 'spotim-comments' ),
+                    'description' => esc_html__( 'Use Sync Now to sync data starting from the last sync time.', 'spotim-comments' )."<br />".esc_html__('Use Reset + Sync Now to clear any old synced data and start a fresh sync.', 'spotim-comments')
                 ),
                 'cancel_import_link' => array(
                     'id' => 'cancel_import_link',

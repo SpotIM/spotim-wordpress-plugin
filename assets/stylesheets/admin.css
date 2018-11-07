@@ -41,10 +41,18 @@
 .spotim-page-wrap .spotim-hide {
     display: none;
 }
-.spotim-page-wrap #import_button[disabled] {
+.spotim-page-wrap #force_import_button{
+    margin:0 10px;
+    color:black;
+    background-color: #EDEDED;
+    text-shadow: none;
+    border:none;
+    box-shadow: none;
+}
+.spotim-page-wrap #force_import_button[disabled] {
     position: relative;
 }
-.spotim-page-wrap #import_button[disabled]:after {
+.spotim-page-wrap #force_import_button[disabled]:after {
     background-image: url('../images/ajax-loader.gif');
     background-position: 0 0;
     background-repeat: no-repeat;

@@ -4,7 +4,7 @@ jQuery( document ).ready(function ( $ ) {
     spotimVariables.pageNumber = parseInt( spotimVariables.pageNumber, 10 );
 
     // Import
-    $( '#import_button' ).on( 'click', function( event ) {
+    $( '.sync-button' ).on( 'click', function( event ) {
         var $importButton = $(this),
             $parentElement = $importButton.parent(),
             $messageField = $importButton.siblings( '.description' ),
@@ -21,7 +21,7 @@ jQuery( document ).ready(function ( $ ) {
             .empty();
 
         // Disable the import button
-        $importButton.attr( 'disabled', true );
+        $( '.sync-button' ).attr( 'disabled', true );
 
         var data = {
             'action': 'start_import',
@@ -34,7 +34,10 @@ jQuery( document ).ready(function ( $ ) {
             'spotim_page_number': spotimVariables.pageNumber
         };
 
-        importCommentsToWP( data, $importButton, $messageField, $errorsField );
+        if($importButton.hasClass('force'))
+            data.force = true;
+
+        importCommentsToWP( data, $( '.sync-button' ), $messageField, $errorsField );
 
         event.preventDefault();
     });
@@ -79,10 +82,14 @@ jQuery( document ).ready(function ( $ ) {
                 return;
             }
 
+            delete params.force;
+
             switch( response.status ) {
+                case 'refresh':
+                    importCommentsToWP( params, $importButton, $messageField, $errorsField );
+                    break;
                 case 'continue':
                     params.spotim_page_number = params.spotim_page_number + 1;
-
                     importCommentsToWP( params, $importButton, $messageField, $errorsField );
                     break;
                 case 'success':
