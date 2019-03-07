@@ -18,7 +18,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      *
      * Get things started.
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      */
@@ -38,7 +38,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
     /**
      * Widget
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -69,7 +69,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
     /**
      * Form
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -83,7 +83,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
         ) );
 
         // Retrieve an existing value from the database
-        $spotim_title = !empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
+        $spotim_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
         // Form fields
         echo '<p>';
@@ -96,7 +96,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
     /**
      * Update
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -106,14 +106,13 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
         $instance = $old_instance;
 
-        $instance['spotim_title'] = !empty( $new_instance['spotim_title'] ) ? strip_tags( $new_instance['spotim_title'] ) : '';
+        $instance['spotim_title'] = ( ! empty( $new_instance['spotim_title'] ) ) ? wp_strip_all_tags( $new_instance['spotim_title'] ) : '';
 
         return $instance;
 
     }
 
 }
-
 
 
 /**
@@ -130,7 +129,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
      *
      * Get things started.
      *
-     * @since 4.2.0
+     * @since  4.2.0
      *
      * @access public
      */
@@ -150,7 +149,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
     /**
      * Widget
      *
-     * @since 4.2.0
+     * @since  4.2.0
      *
      * @access public
      *
@@ -181,7 +180,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
     /**
      * Form
      *
-     * @since 4.2.0
+     * @since  4.2.0
      *
      * @access public
      *
@@ -195,7 +194,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
         ) );
 
         // Retrieve an existing value from the database
-        $spotim_title = !empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
+        $spotim_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
         // Form fields
         echo '<p>';
@@ -208,7 +207,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
     /**
      * Update
      *
-     * @since 4.2.0
+     * @since  4.2.0
      *
      * @access public
      *
@@ -218,14 +217,13 @@ class SpotIM_Siderail_Widget extends WP_Widget {
 
         $instance = $old_instance;
 
-        $instance['spotim_title'] = !empty( $new_instance['spotim_title'] ) ? strip_tags( $new_instance['spotim_title'] ) : '';
+        $instance['spotim_title'] = ( ! empty( $new_instance['spotim_title'] ) ) ? wp_strip_all_tags( $new_instance['spotim_title'] ) : '';
 
         return $instance;
 
     }
 
 }
-
 
 
 /**
@@ -240,4 +238,5 @@ function spotim_register_widgets() {
     register_widget( 'SpotIM_Recirculation_Widget' );
     register_widget( 'SpotIM_Siderail_Widget' );
 }
+
 add_action( 'widgets_init', 'spotim_register_widgets' );

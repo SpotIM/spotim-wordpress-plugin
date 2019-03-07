@@ -16,7 +16,7 @@ class SpotIM_Options {
     /**
      * Instance
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access private
      * @static
@@ -28,7 +28,7 @@ class SpotIM_Options {
     /**
      * Data
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access private
      *
@@ -39,7 +39,7 @@ class SpotIM_Options {
     /**
      * Default Options
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access private
      *
@@ -50,7 +50,7 @@ class SpotIM_Options {
     /**
      * Slug
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -61,7 +61,7 @@ class SpotIM_Options {
     /**
      * Option Group
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -72,7 +72,7 @@ class SpotIM_Options {
     /**
      * Active Tab
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -85,45 +85,50 @@ class SpotIM_Options {
      *
      * Get things started.
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access protected
      */
     protected function __construct() {
-        $this->slug = 'wp-spotim-settings';
-        $this->option_group = 'wp-spotim-options';
+        $this->slug            = 'wp-spotim-settings';
+        $this->option_group    = 'wp-spotim-options';
         $this->default_options = array(
             // General
-            'spot_id' => '',
+            'spot_id'                      => '',
             // Display
-            'display_post' => '1',
-            'display_page' => '1',
-            'display_attachment' => '1',
-            'comments_per_page' => 10,
-            'display_comments_count' => '0',
+            'display_post'                 => '1',
+            'display_page'                 => '1',
+            'display_attachment'           => '1',
+            'comments_per_page'            => 10,
+            'display_comments_count'       => '0',
+            'display_newsfeed'             => '1',
             // Advanced
-            'embed_method' => 'content',
-            'rc_embed_method' => 'regular',
-            'display_priority' => 9999,
-            'enable_seo' => 'false',
-            'enable_og' => 'false',
-            'class' => 'comments-area',
-            'disqus_shortname' => '',
-            'disqus_identifier' => 'id_short_url',
+            'embed_method'                 => 'content',
+            'rc_embed_method'              => 'regular',
+            'display_priority'             => 9999,
+            'enable_seo'                   => 'false',
+            'enable_og'                    => 'false',
+            'class'                        => 'comments-area',
+            'disqus_shortname'             => '',
+            'disqus_identifier'            => 'id_short_url',
             // Import
-            'import_token' => '',
-            'auto_import' => 0,
-            'posts_per_request' => 10,
+            'import_token'                 => '',
+            'auto_import'                  => 0,
+            'posts_per_request'            => 10,
         );
+
         $this->data = $this->get_meta_data();
 
-        $this->active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general';
+        $tab = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING );
+
+        // Tab value is stored and only used for current tab verification.
+        $this->active_tab = ( ! empty( $tab ) ) ? $tab : 'general';
     }
 
     /**
      * Get Instance
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      * @static
@@ -141,7 +146,7 @@ class SpotIM_Options {
     /**
      * Create Options
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access private
      *
@@ -156,7 +161,7 @@ class SpotIM_Options {
     /**
      * Get Meta Data
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access private
      *
@@ -169,9 +174,10 @@ class SpotIM_Options {
             $data = $this->create_options();
         } else {
             $data['display_comments_count'] = sanitize_text_field( $data['display_comments_count'] );
-            $data['display_post'] = sanitize_text_field( $data['display_post'] );
-            $data['display_page'] = sanitize_text_field( $data['display_page'] );
-            $data['display_attachment'] = sanitize_text_field( $data['display_attachment'] );
+            $data['display_post']           = sanitize_text_field( $data['display_post'] );
+            $data['display_page']           = sanitize_text_field( $data['display_page'] );
+            $data['display_attachment']     = sanitize_text_field( $data['display_attachment'] );
+            $data['display_newsfeed']       = sanitize_text_field( $data['display_newsfeed'] );
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -182,7 +188,7 @@ class SpotIM_Options {
     /**
      * Get
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -198,7 +204,7 @@ class SpotIM_Options {
     /**
      * Update
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
@@ -209,7 +215,7 @@ class SpotIM_Options {
      */
     public function update( $name, $value ) {
 
-        $new_option = array();
+        $new_option          = array();
         $new_option[ $name ] = $value;
 
         // validate new option and retrive with old ones to update as a whole
@@ -228,7 +234,7 @@ class SpotIM_Options {
     /**
      * Reset
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
@@ -239,7 +245,7 @@ class SpotIM_Options {
     public function reset( $name ) {
         $value = $this->get( $name );
 
-        switch( gettype( $value ) ) {
+        switch ( gettype( $value ) ) {
             case 'number':
                 $value = 0;
                 break;
@@ -257,7 +263,7 @@ class SpotIM_Options {
     /**
      * Validate
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
@@ -269,15 +275,16 @@ class SpotIM_Options {
         $options = $this->get_meta_data();
 
         foreach ( $input as $key => $value ) {
-            switch( $key ) {
+            switch ( $key ) {
                 case 'display_comments_count':
                 case 'display_post':
                 case 'display_page':
                 case 'display_attachment':
+                case 'display_newsfeed':
                     $options[ $key ] = sanitize_text_field( $value );
                     break;
                 case 'posts_per_request':
-                    $value = absint( $value );
+                    $value           = absint( $value );
                     $options[ $key ] = 0 === $value ? 1 : $value;
                     break;
                 case 'page_number':
@@ -307,7 +314,7 @@ class SpotIM_Options {
     /**
      * Require File
      *
-     * @since 2.1.0
+     * @since  2.1.0
      *
      * @access public
      *
@@ -319,7 +326,7 @@ class SpotIM_Options {
     public function require_file( $path = '', $return_path = false ) {
         $valid = validate_file( $path );
 
-        if ( 0 === $valid || false === strpos( $path, '..' )) {
+        if ( 0 === $valid || false === strpos( $path, '..' ) ) {
             if ( $return_path ) {
                 $output = $path;
             } else {
@@ -340,7 +347,7 @@ class SpotIM_Options {
     /**
      * Require Template
      *
-     * @since 2.1.0
+     * @since  2.1.0
      *
      * @access public
      *
@@ -358,7 +365,7 @@ class SpotIM_Options {
     /**
      * Require JavaScript
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
@@ -376,7 +383,7 @@ class SpotIM_Options {
     /**
      * Require Stylesheet
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
@@ -394,7 +401,7 @@ class SpotIM_Options {
     /**
      * Get next cron execution
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -408,7 +415,7 @@ class SpotIM_Options {
         $recurrence = $this->get( 'auto_import' );
 
         // Get allowed schedules
-        $allowed_schedules = array();
+        $allowed_schedules    = array();
         $registered_schedules = wp_get_schedules();
         if ( ! empty( $registered_schedules ) ) {
             foreach ( $registered_schedules as $key => $value ) {
@@ -417,8 +424,9 @@ class SpotIM_Options {
         }
 
         // Check if auto import enabled
-        if ( ! in_array( $recurrence, $allowed_schedules, true ) )
+        if ( ! in_array( $recurrence, $allowed_schedules, true ) ) {
             return;
+        }
 
         // Return the next cron execution text
         if ( ( $timestamp - time() ) <= 0 ) {

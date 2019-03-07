@@ -18,7 +18,7 @@ class SpotIM_Settings_Fields {
      *
      * Get things started.
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -33,7 +33,7 @@ class SpotIM_Settings_Fields {
      *
      * Register admin settings for the plugin.
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -50,7 +50,7 @@ class SpotIM_Settings_Fields {
     /**
      * General Settings Section Header
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -61,8 +61,9 @@ class SpotIM_Settings_Fields {
         esc_html_e( 'Spot.IM\'s WordPress plugin is currently available for Spot.IM partners only.', 'spotim-comments' );
         echo '<br>';
         printf(
-            __( 'To become a partner and retrieve your Spot ID, please submit your information <a href="%s" target="_blank">here</a>.', 'spotim-comments'),
-            'https://www.spot.im/request-an-invite/'
+            esc_html__( 'To become a partner and retrieve your Spot ID, please submit your information %1$shere%2$s', 'spotim-comments' ),
+            '<a href="https://www.spot.im/request-an-invite/" target="_blank">',
+            '</a>'
         );
         echo '</p>';
     }
@@ -70,7 +71,7 @@ class SpotIM_Settings_Fields {
     /**
      * Display Settings Section Header
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -83,7 +84,7 @@ class SpotIM_Settings_Fields {
     /**
      * Advanced Settings Section Header
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
@@ -96,7 +97,7 @@ class SpotIM_Settings_Fields {
     /**
      * Import Settings Section Header
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -115,7 +116,7 @@ class SpotIM_Settings_Fields {
     /**
      * Register General Section
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -138,10 +139,10 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'general_settings_section',
             array(
-                'id' => 'spot_id',
-                'page' => $this->options->slug,
-                'description' => esc_html__( 'Contact your Spot.IM account manager to get your Spot ID.' , 'spotim-comments' ),
-                'value' => $spot_id
+                'id'          => 'spot_id',
+                'page'        => $this->options->slug,
+                'description' => esc_html__( 'Contact your Spot.IM account manager to get your Spot ID.', 'spotim-comments' ),
+                'value'       => $spot_id
             )
         );
 
@@ -150,7 +151,7 @@ class SpotIM_Settings_Fields {
     /**
      * Register Display Section
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -176,7 +177,9 @@ class SpotIM_Settings_Fields {
                     $display_value = $this->options->get( "display_{$value->name}" );
 
                     // Backwards compitability check - rewrite old structure
-                    if ( ( 'comments' === $display_value ) || ( 'comments_recirculation' === $display_value ) ) { $display_value = 1; }
+                    if ( ( 'comments' === $display_value ) || ( 'comments_recirculation' === $display_value ) ) {
+                        $display_value = 1;
+                    }
 
                     add_settings_field(
                         "display_{$value->name}",
@@ -185,13 +188,13 @@ class SpotIM_Settings_Fields {
                         $this->options->slug,
                         'display_settings_section',
                         array(
-                            'id' => "display_{$value->name}",
-                            'page' => $this->options->slug,
+                            'id'     => "display_{$value->name}",
+                            'page'   => $this->options->slug,
                             'fields' => array(
                                 '0' => esc_html__( 'Disable', 'spotim-comments' ),
                                 '1' => esc_html__( 'Enable', 'spotim-comments' ),
                             ),
-                            'value' => $display_value
+                            'value'  => $display_value
                         )
                     );
 
@@ -208,13 +211,30 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'display_settings_section',
             array(
-                'id' => "display_comments_count",
-                'page' => $this->options->slug,
+                'id'     => "display_comments_count",
+                'page'   => $this->options->slug,
                 'fields' => array(
-                    '0' => esc_html__( 'Disable', 'spotim-comments' ),
+                    '0'     => esc_html__( 'Disable', 'spotim-comments' ),
                     'title' => esc_html__( 'Below title', 'spotim-comments' )
                 ),
-                'value' => $this->options->get( 'display_comments_count' )
+                'value'  => $this->options->get( 'display_comments_count' )
+            )
+        );
+
+        add_settings_field(
+            'display_newsfeed',
+            esc_html__( 'Display Newsfeed on non-article pages', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'display_settings_section',
+            array(
+                'id'     => "display_newsfeed",
+                'page'   => $this->options->slug,
+                'fields' => array(
+                    '0' => esc_html__( 'Disable', 'spotim-comments' ),
+                    '1' => esc_html__( 'Enable', 'spotim-comments' )
+                ),
+                'value'  => $this->options->get( 'display_newsfeed' )
             )
         );
 
@@ -225,12 +245,12 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'display_settings_section',
             array(
-                'id' => 'comments_per_page',
+                'id'          => 'comments_per_page',
                 'description' => esc_html__( 'Default: 10', 'spotim-comments' ),
-                'page' => $this->options->slug,
-                'value' => $this->options->get( 'comments_per_page' ),
-                'min' => 1,
-                'max' => '999'
+                'page'        => $this->options->slug,
+                'value'       => $this->options->get( 'comments_per_page' ),
+                'min'         => 1,
+                'max'         => '999'
             )
         );
 
@@ -239,7 +259,7 @@ class SpotIM_Settings_Fields {
     /**
      * Register Advanced Section
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
@@ -261,15 +281,15 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'embed_method',
-                'page' => $this->options->slug,
-                'fields' => array(
+                'id'          => 'embed_method',
+                'page'        => $this->options->slug,
+                'fields'      => array(
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
-                    'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
-                    'manual' => esc_html__( 'Let the theme decide', 'spotim-comments' ),
+                    'content'  => esc_html__( 'Insert After the Content', 'spotim-comments' ),
+                    'manual'   => esc_html__( 'Let the theme decide', 'spotim-comments' ),
                 ),
                 'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed.", 'spotim-comments' ),
-                'value' => $this->options->get( 'embed_method' )
+                'value'       => $this->options->get( 'embed_method' )
             )
         );
 
@@ -280,15 +300,15 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'rc_embed_method',
-                'page' => $this->options->slug,
+                'id'     => 'rc_embed_method',
+                'page'   => $this->options->slug,
                 'fields' => array(
                     'regular' => esc_html__( 'Regular', 'spotim-comments' ),
-                    'top' => esc_html__( 'Inline - top', 'spotim-comments' ),
-                    'bottom' => esc_html__( 'Inline - bottom', 'spotim-comments' ),
-                    'none' => esc_html__( 'None', 'spotim-comments' ),
+                    'top'     => esc_html__( 'Inline - top', 'spotim-comments' ),
+                    'bottom'  => esc_html__( 'Inline - bottom', 'spotim-comments' ),
+                    'none'    => esc_html__( 'None', 'spotim-comments' ),
                 ),
-                'value' => $this->options->get( 'rc_embed_method' )
+                'value'  => $this->options->get( 'rc_embed_method' )
             )
         );
 
@@ -299,11 +319,11 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'display_priority',
-                'page' => $this->options->slug,
+                'id'    => 'display_priority',
+                'page'  => $this->options->slug,
                 'value' => $this->options->get( 'display_priority' ),
-                'min' => '0',
-                'max' => '10000'
+                'min'   => '0',
+                'max'   => '10000'
             )
         );
 
@@ -314,13 +334,13 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'enable_seo',
-                'page' => $this->options->slug,
+                'id'     => 'enable_seo',
+                'page'   => $this->options->slug,
                 'fields' => array(
                     'false' => esc_html__( 'Disable', 'spotim-comments' ),
-                    'true' => esc_html__( 'Enable', 'spotim-comments' ),
+                    'true'  => esc_html__( 'Enable', 'spotim-comments' ),
                 ),
-                'value' => $this->options->get( 'enable_seo' )
+                'value'  => $this->options->get( 'enable_seo' )
             )
         );
 
@@ -331,13 +351,13 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'enable_og',
-                'page' => $this->options->slug,
+                'id'     => 'enable_og',
+                'page'   => $this->options->slug,
                 'fields' => array(
                     'false' => esc_html__( 'Disable', 'spotim-comments' ),
-                    'true' => esc_html__( 'Enable', 'spotim-comments' ),
+                    'true'  => esc_html__( 'Enable', 'spotim-comments' ),
                 ),
-                'value' => $this->options->get( 'enable_og' )
+                'value'  => $this->options->get( 'enable_og' )
             )
         );
 
@@ -348,8 +368,8 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'class',
-                'page' => $this->options->slug,
+                'id'    => 'class',
+                'page'  => $this->options->slug,
                 'value' => $this->options->get( 'class' ),
             )
         );
@@ -361,8 +381,8 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'disqus_shortname',
-                'page' => $this->options->slug,
+                'id'    => 'disqus_shortname',
+                'page'  => $this->options->slug,
                 'value' => $this->options->get( 'disqus_shortname' ),
             )
         );
@@ -374,14 +394,14 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'disqus_identifier',
-                'page' => $this->options->slug,
+                'id'     => 'disqus_identifier',
+                'page'   => $this->options->slug,
                 'fields' => array(
-                    'id' => esc_html__( 'ID', 'spotim-comments' ),
-                    'short_url' => esc_html__( 'Short URL', 'spotim-comments' ),
+                    'id'           => esc_html__( 'ID', 'spotim-comments' ),
+                    'short_url'    => esc_html__( 'Short URL', 'spotim-comments' ),
                     'id_short_url' => esc_html__( 'ID + Short URL (Default)', 'spotim-comments' ),
                 ),
-                'value' => $this->options->get( 'disqus_identifier' )
+                'value'  => $this->options->get( 'disqus_identifier' )
             )
         );
 
@@ -392,17 +412,17 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'import_button' => array(
-                    'id' => 'import_button',
+                'import_button'       => array(
+                    'id'   => 'import_button',
                     'text' => esc_html__( 'Sync Now', 'spotim-comments' )
                 ),
                 'force_import_button' => array(
-                    'id' => 'force_import_button',
-                    'text' => esc_html__( 'Reset + Sync Now', 'spotim-comments' ),
-                    'description' => esc_html__( 'Use Sync Now to sync data starting from the last sync time.', 'spotim-comments' )."<br />".esc_html__('Use Reset + Sync Now to clear any old synced data and start a fresh sync.', 'spotim-comments')
+                    'id'          => 'force_import_button',
+                    'text'        => esc_html__( 'Reset + Sync Now', 'spotim-comments' ),
+                    'description' => esc_html__( 'Use Sync Now to sync data starting from the last sync time.', 'spotim-comments' ) . "<br />" . esc_html__( 'Use Reset + Sync Now to clear any old synced data and start a fresh sync.', 'spotim-comments' )
                 ),
-                'cancel_import_link' => array(
-                    'id' => 'cancel_import_link',
+                'cancel_import_link'  => array(
+                    'id'   => 'cancel_import_link',
                     'text' => esc_html__( 'Cancel', 'spotim-comments' )
                 )
             )
@@ -413,7 +433,7 @@ class SpotIM_Settings_Fields {
     /**
      * Register Import Section
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -435,15 +455,15 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'import_settings_section',
             array(
-                'id' => 'import_token',
-                'page' => $this->options->slug,
+                'id'          => 'import_token',
+                'page'        => $this->options->slug,
                 'description' => esc_html__( 'Contact your Spot.IM account manager to get your sync token.', 'spotim-comments' ),
-                'value' => $this->options->get( 'import_token' )
+                'value'       => $this->options->get( 'import_token' )
             )
         );
 
-        $spot_id = $this->options->get( 'spot_id' );
-        $import_token = $this->options->get( 'import_token' );
+        $spot_id              = $this->options->get( 'spot_id' );
+        $import_token         = $this->options->get( 'import_token' );
         $schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
         $registered_schedules = wp_get_schedules();
         if ( ! empty( $registered_schedules ) ) {
@@ -459,15 +479,15 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'import_settings_section',
             array(
-                'id' => 'auto_import',
-                'page' => $this->options->slug,
+                'id'          => 'auto_import',
+                'page'        => $this->options->slug,
                 'description' => esc_html__( 'Enable auto-sync and set how often should it reoccur.', 'spotim-comments' )
-                    . '<br>'
-                    . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
-                    . ( empty( $spot_id ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
-                    . ( empty( $import_token ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
-                'fields' => $schedule_fields,
-                'value' => $this->options->get( 'auto_import' )
+                                 . '<br>'
+                                 . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
+                                 . ( empty( $spot_id ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
+                                 . ( empty( $import_token ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
+                'fields'      => $schedule_fields,
+                'value'       => $this->options->get( 'auto_import' )
             )
         );
 
@@ -484,13 +504,13 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'import_settings_section',
             array(
-                'id' => 'posts_per_request',
-                'page' => $this->options->slug,
+                'id'          => 'posts_per_request',
+                'page'        => $this->options->slug,
                 'description' => esc_html__( 'On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10.', 'spotim-comments' ),
-                'value' => $this->options->get( 'posts_per_request' ),
-                'min' => '0',
-                'max' => '100',
-                'other' => $other_attr
+                'value'       => $this->options->get( 'posts_per_request' ),
+                'min'         => '0',
+                'max'         => '100',
+                'other'       => $other_attr
             )
         );
 
@@ -502,8 +522,8 @@ class SpotIM_Settings_Fields {
             $this->options->slug,
             'import_settings_section',
             array(
-                'id' => 'spot_id',
-                'page' => $this->options->slug,
+                'id'    => 'spot_id',
+                'page'  => $this->options->slug,
                 'value' => $spot_id
             )
         );

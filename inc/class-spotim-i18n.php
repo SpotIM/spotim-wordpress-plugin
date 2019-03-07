@@ -18,7 +18,7 @@ class SpotIM_i18n {
      *
      * Get things started.
      *
-     * @since 4.0.1
+     * @since  4.0.1
      *
      * @access public
      */
@@ -33,7 +33,7 @@ class SpotIM_i18n {
      *
      * Load the plugin translation text domain.
      *
-     * @since 4.0.1
+     * @since  4.0.1
      *
      * @access public
      */

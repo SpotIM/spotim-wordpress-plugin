@@ -58,7 +58,7 @@ class SpotIM_Comment {
             if ( $comment_id ) {
 
                 //Generate the spotim_id comment meta-data
-                $message->update_comment_meta($comment_id);
+                $message->update_comment_meta( $comment_id );
 
                 $comment_created = $message->update_messages_map( $comment_id );
             }
@@ -66,7 +66,7 @@ class SpotIM_Comment {
             $comment_created = self::update_comment( $sp_message, $sp_users, $post_id );
         }
 
-        return !! $comment_created;
+        return ! ! $comment_created;
     }
 
     private static function update_comment( $sp_message, $sp_users, $post_id ) {
@@ -80,24 +80,24 @@ class SpotIM_Comment {
             $comment_updated = true;
         }
 
-        return !! $comment_updated;
+        return ! ! $comment_updated;
     }
 
     private static function delete_comment( $sp_message, $sp_users, $post_id ) {
-        $comment_deleted = false;
+        $comment_deleted          = false;
         $message_deleted_from_map = false;
 
         $message = new SpotIM_Message( 'delete', $sp_message, $sp_users, $post_id );
         if ( $message->get_comment_id() ) {
             $messages_ids = $message->get_message_and_children_ids_map();
 
-            foreach( $messages_ids as $message_id => $comment_id ) {
+            foreach ( $messages_ids as $message_id => $comment_id ) {
                 $comment_deleted = wp_delete_comment( $comment_id, true );
 
                 if ( $comment_deleted ) {
                     $message_deleted_from_map = $message->delete_from_messages_map( $message_id );
 
-                    if ( !! $message_deleted_from_map ) {
+                    if ( ! ! $message_deleted_from_map ) {
                         break;
                     }
                 } else {
@@ -105,11 +105,11 @@ class SpotIM_Comment {
                 }
             }
         } else {
-            $comment_deleted = true;
+            $comment_deleted          = true;
             $message_deleted_from_map = true;
         }
 
-        return !! $comment_deleted && !! $message_deleted_from_map;
+        return ! ! $comment_deleted && ! ! $message_deleted_from_map;
     }
 
     private static function soft_delete_comment( $sp_message, $sp_users, $post_id ) {
@@ -121,7 +121,7 @@ class SpotIM_Comment {
             $comment_soft_deleted = wp_update_comment( $message->get_comment_data() );
         }
 
-        return !! $comment_soft_deleted;
+        return ! ! $comment_soft_deleted;
     }
 
     private static function anonymous_comment( $sp_message, $sp_users, $post_id ) {
@@ -135,6 +135,6 @@ class SpotIM_Comment {
             $comment_anonymized = true;
         }
 
-        return !! $comment_anonymized;
+        return ! ! $comment_anonymized;
     }
 }

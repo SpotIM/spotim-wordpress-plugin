@@ -28,6 +28,7 @@ jQuery( document ).ready(function ( $ ) {
             'spotim_spot_id': spotIdInputValue,
             'spotim_import_token': importTokenInputValue,
             'spotim_posts_per_request': postsPerRequestValue,
+            'security' : spotimVariables.sync_nonce,
 
             // pageNumber is defined in options class,
             // inject from admin_javascript > spotim_variables.
@@ -49,7 +50,8 @@ jQuery( document ).ready(function ( $ ) {
             $parentElement = cancelImportLink.parent(),
             data = {
                 'action': 'cancel_import',
-                'spotim_page_number': 0
+                'spotim_page_number': 0,
+                'security' : spotimVariables.sync_nonce,
             };
 
         $parentElement.removeClass( 'in-progress' );
@@ -105,15 +107,31 @@ jQuery( document ).ready(function ( $ ) {
                 case 'error':
                     var displayErrorLog = false;
 
+                    if ( 'undefined' !== typeof response.message ) {
+
+                        $messageField.text( response.message );
+                        $messageField.addClass( 'red-color' );
+
+                        // Enable the import button and hide cancel link
+                        $importButton
+                            .attr( 'disabled', false )
+                            .parent()
+                            .removeClass( 'in-progress' );
+
+                        return;
+                    }
+
                     // Append to error box
-                    for (var message of response.messages) {
-                        // Check if message is not empty, display error log
-                        if ( message.trim() ) {
-                            displayErrorLog = true;
+                    if ( 'undefined' !== typeof response.messages ) {
+                        for ( var message of response.messages ) {
+                            // Check if message is not empty, display error log
+                            if ( message.trim() ) {
+                                displayErrorLog = true;
+                            }
+                            $errorsField.append(
+                                $( '<p>' ).text( message )
+                            );
                         }
-                        $errorsField.append(
-                            $( '<p>' ).text( message )
-                        );
                     }
 
                     if ( displayErrorLog ) {

@@ -18,7 +18,7 @@ class SpotIM_Feed {
      *
      * Feed name to access in URL (eg. /feed/spotim/)
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
@@ -31,7 +31,7 @@ class SpotIM_Feed {
      *
      * Get things started.
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      */
@@ -46,7 +46,7 @@ class SpotIM_Feed {
     /**
      * Init
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
@@ -63,12 +63,12 @@ class SpotIM_Feed {
      *
      * Return the correct HTTP header for Content-type.
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
      * @param string $content_type Content type indicating the type of data that a feed contains.
-     * @param string $type Type of feed.
+     * @param string $type         Type of feed.
      *
      * @return string
      */
@@ -87,7 +87,7 @@ class SpotIM_Feed {
      *
      * Modify the query.
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
@@ -111,9 +111,9 @@ class SpotIM_Feed {
     /**
      * Output
      *
-     * Raturn the feed output.
+     * Return the feed output.
      *
-     * @since 4.1.0
+     * @since  4.1.0
      *
      * @access public
      *
@@ -123,14 +123,10 @@ class SpotIM_Feed {
 
         if ( have_posts() ) {
 
-            while( have_posts() ) {
-
+            while ( have_posts() ) {
                 the_post();
-                $json_feed = new SpotIM_JSON_Feed( get_the_id() );
-                echo json_encode( $json_feed );
-
+                echo wp_json_encode( new SpotIM_JSON_Feed( get_the_id() ) );
             }
-
         }
 
     }

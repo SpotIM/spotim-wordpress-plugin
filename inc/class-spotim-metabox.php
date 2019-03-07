@@ -16,7 +16,7 @@ class Spotim_Meta_Box {
     /**
      * Options
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access private
      * @static
@@ -30,7 +30,7 @@ class Spotim_Meta_Box {
      *
      * Get things started.
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -40,7 +40,7 @@ class Spotim_Meta_Box {
 
         if ( is_admin() ) {
             self::$options = $options;
-            add_action( 'load-post.php',     array( $this, 'init_metabox' ) );
+            add_action( 'load-post.php', array( $this, 'init_metabox' ) );
             add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
         }
 
@@ -49,7 +49,7 @@ class Spotim_Meta_Box {
     /**
      * Init Meta Box
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -57,15 +57,15 @@ class Spotim_Meta_Box {
      */
     public function init_metabox() {
 
-        add_action( 'add_meta_boxes',        array( $this, 'add_metabox' )         );
-        add_action( 'save_post',             array( $this, 'save_metabox' ), 10, 2 );
+        add_action( 'add_meta_boxes', array( $this, 'add_metabox' ) );
+        add_action( 'save_post', array( $this, 'save_metabox' ), 10, 2 );
 
     }
 
     /**
      * Add Meta Box
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -90,8 +90,9 @@ class Spotim_Meta_Box {
         }
 
         // Bail if no post types selected
-        if ( empty( $screen ) )
+        if ( empty( $screen ) ) {
             return;
+        }
 
         // Add metaboxes to selected post types
         add_meta_box(
@@ -108,7 +109,7 @@ class Spotim_Meta_Box {
     /**
      * Render Meta Box
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -125,9 +126,15 @@ class Spotim_Meta_Box {
         $spotim_display_recirculation = get_post_meta( $post->ID, 'spotim_display_recirculation', true );
 
         // Set default values.
-        if ( empty( $spotim_display_comments      ) ) $spotim_display_comments      = 'enable';
-        if ( empty( $spotim_display_question      ) ) $spotim_display_question      = '';
-        if ( empty( $spotim_display_recirculation ) ) $spotim_display_recirculation = 'enable';
+        if ( empty( $spotim_display_comments ) ) {
+            $spotim_display_comments = 'enable';
+        }
+        if ( empty( $spotim_display_question ) ) {
+            $spotim_display_question = '';
+        }
+        if ( empty( $spotim_display_recirculation ) ) {
+            $spotim_display_recirculation = 'enable';
+        }
 
         // Form fields.
         echo '<table class="form-table">';
@@ -136,7 +143,7 @@ class Spotim_Meta_Box {
         echo '		<th><label for="spotim_display_comments" class="spotim_display_comments_label">' . esc_html__( 'Comments', 'spotim-comments' ) . '</label></th>';
         echo '		<td>';
         echo '			<select id="spotim_display_comments" name="spotim_display_comments" class="spotim_display_comments_field">';
-        echo '			<option value="enable" '  . selected( $spotim_display_comments, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+        echo '			<option value="enable" ' . selected( $spotim_display_comments, 'enable', false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
         echo '			<option value="disable" ' . selected( $spotim_display_comments, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
         echo '			</select>';
         echo '			<p class="description">' . esc_html__( 'Show Spot.IM comments.', 'spotim-comments' ) . '</p>';
@@ -151,16 +158,16 @@ class Spotim_Meta_Box {
         echo '		</td>';
         echo '	</tr>';
 
-		// Check if recirculation is disabled globally
-		$hide_recirculation = '';
-        if ( 'none' === self::$options->get( 'rc_embed_method' ) )
-            $hide_recirculation = 'style="display: none;"';
-
-        echo '	<tr ' . $hide_recirculation . '>';
+        // Check if recirculation is disabled globally
+        if ( 'none' === self::$options->get( 'rc_embed_method' ) ) {
+            echo '<tr style="display: none;" />';
+        } else {
+            echo '<tr>';
+        }
         echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
         echo '		<td>';
         echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
-        echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+        echo '			<option value="enable" ' . selected( $spotim_display_recirculation, 'enable', false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
         echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
         echo '			</select>';
         echo '			<p class="description">' . esc_html__( 'Show Spot.IM recirculation.', 'spotim-comments' ) . '</p>';
@@ -174,7 +181,7 @@ class Spotim_Meta_Box {
     /**
      * Save Meta Box
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
@@ -182,26 +189,36 @@ class Spotim_Meta_Box {
      */
     public function save_metabox( $post_id, $post ) {
 
+        $spot_nonce = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
+
         // Check if a nonce is set and is valid.
-        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'nonce_action' ) )
+        if ( empty( $spot_nonce ) || ! wp_verify_nonce( $spot_nonce, 'nonce_action' ) ) {
             return;
+        }
 
         // Check if the user has permissions to save data.
-        if ( ! current_user_can( 'edit_post', $post_id ) )
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
             return;
+        }
 
         // Check if it's not an autosave.
-        if ( wp_is_post_autosave( $post_id ) )
+        if ( wp_is_post_autosave( $post_id ) ) {
             return;
+        }
 
         // Check if it's not a revision.
-        if ( wp_is_post_revision( $post_id ) )
+        if ( wp_is_post_revision( $post_id ) ) {
             return;
+        }
 
         // Sanitize user input.
-        $new_spotim_display_comments = isset( $_POST['spotim_display_comments'] ) ? sanitize_text_field( $_POST['spotim_display_comments'] ) : '';
-        $new_spotim_display_question = isset( $_POST['spotim_display_question'] ) ? sanitize_text_field( $_POST['spotim_display_question'] ) : '';
-        $new_spotim_display_recirculation = isset( $_POST['spotim_display_recirculation'] ) ? sanitize_text_field( $_POST['spotim_display_recirculation'] ) : '';
+        $display_comments_value      = filter_input( INPUT_POST, 'spotim_display_comments', FILTER_SANITIZE_STRING );
+        $display_question_value      = filter_input( INPUT_POST, 'spotim_display_question', FILTER_SANITIZE_STRING );
+        $display_recirculation_value = filter_input( INPUT_POST, 'spotim_display_recirculation', FILTER_SANITIZE_STRING );
+
+        $new_spotim_display_comments      = ( ! empty( $display_comments_value ) ) ? $display_comments_value : '';
+        $new_spotim_display_question      = ( ! empty( $display_question_value ) ) ? $display_question_value : '';
+        $new_spotim_display_recirculation = ( ! empty( $display_recirculation_value ) ) ? $display_recirculation_value : '';
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'spotim_display_comments', $new_spotim_display_comments );

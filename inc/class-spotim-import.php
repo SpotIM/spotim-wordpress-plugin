@@ -21,7 +21,7 @@ class SpotIM_Import {
     /**
      * Options
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
@@ -37,7 +37,7 @@ class SpotIM_Import {
     /**
      * Posts Per Request
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
@@ -48,18 +48,18 @@ class SpotIM_Import {
     /**
      * Page Number
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
      * @var int
      */
     private $page_number;
-    
+
     /**
      * Return values mode
      *
-     * @since 4.3.0
+     * @since  4.3.0
      *
      * @access private
      *
@@ -72,13 +72,13 @@ class SpotIM_Import {
      *
      * Get things started.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
      * @param SpotIM_Options $options Plugin options.
-     * @param bool $return Should return mode be on? This will return values instead of echo to browser.
-     *                     Default is false.
+     * @param bool           $return  Should return mode be on? This will return values instead of echo to browser.
+     *                                Default is false.
      */
     public function __construct( $options, $return = false ) {
 
@@ -86,8 +86,8 @@ class SpotIM_Import {
 
         // Set default values - if not defined by the user in the settings page
         $this->posts_per_request = 100;
-        $this->page_number = 0;
-        $this->return = $return;
+        $this->page_number       = 0;
+        $this->return            = $return;
 
     }
 
@@ -96,15 +96,15 @@ class SpotIM_Import {
      *
      * Start the import.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
-     * @param int $spot_id Sport ID.
-     * @param string $import_token Import token,
-     * @param int $page_number Page number. Default is 0.
-     * @param int $posts_per_request Posts Per Request. Default is 1.
-     * @param bool $force ignore post eTag and force re-sync everything.
+     * @param int    $spot_id           Sport ID.
+     * @param string $import_token      Import token,
+     * @param int    $page_number       Page number. Default is 0.
+     * @param int    $posts_per_request Posts Per Request. Default is 1.
+     * @param bool   $force             ignore post eTag and force re-sync everything.
      *
      * @return void
      */
@@ -112,59 +112,60 @@ class SpotIM_Import {
 
         // If not run in return mode, update these options
         if ( ! $this->return ) {
-            
+
             // save spot_id and import_token in plugin's options meta
             $this->options->update( 'spot_id', $spot_id );
             $this->options->update( 'import_token', $import_token );
-    
+
             $this->page_number = $this->options->update(
                 'page_number', absint( $page_number )
             );
 
-            $this->posts_per_request = $this->options->update(
+            $this->posts_per_request              = $this->options->update(
                 'posts_per_request', absint( $posts_per_request )
             );
-            $this->is_force_sync = $this->options->get(
+            $this->is_force_sync                  = $this->options->get(
                 'is_force_sync', false
             );
-            $this->total_changed_posts = get_option("wp-spotim-settings_total_changed_posts", []);
-            $this->needto_load_more_changed_posts = $this->options->get('needto_load_more_changed_posts',0);
+            $this->total_changed_posts            = get_option( "wp-spotim-settings_total_changed_posts", [] );
+            $this->needto_load_more_changed_posts = $this->options->get( 'needto_load_more_changed_posts', 0 );
         } else {
-            $this->page_number = $page_number;
+            $this->page_number       = $page_number;
             $this->posts_per_request = $posts_per_request;
         }
 
-        if($force){
-           $this->reset_params();
-           $this->is_force_sync = $this->options->update(
-               'is_force_sync', true
-           );
+        if ( $force ) {
+            $this->reset_params();
+            $this->is_force_sync = $this->options->update(
+                'is_force_sync', true
+            );
         }
 
-//        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
-        if(!is_array($this->total_changed_posts) || empty($this->total_changed_posts) || $this->needto_load_more_changed_posts > 0)
+        if ( ! is_array( $this->total_changed_posts ) || empty( $this->total_changed_posts ) || $this->needto_load_more_changed_posts > 0 ) {
             $this->get_changed_post_ids();
+        }
 
         // fetch, merge comments and return a response
-        $this->pull_comments( $this->total_changed_posts, $this->posts_per_request, $this->page_number*$this->posts_per_request );
+        $this->pull_comments( $this->total_changed_posts, $this->posts_per_request, $this->page_number * $this->posts_per_request );
 
         // return a response to client via json
         return $this->finish();
     }
 
 
-    private function reset_params(){
-        $this->total_changed_posts = [];
-        $this->page_number = $this->options->update('page_number', 0);
-        $this->needto_load_more_changed_posts = $this->options->update("needto_load_more_changed_posts", 0);
-        $this->options->update("spotim_last_sync_timestamp", null);
+    private function reset_params() {
+        $this->total_changed_posts            = [];
+        $this->page_number                    = $this->options->update( 'page_number', 0 );
+        $this->needto_load_more_changed_posts = $this->options->update( 'needto_load_more_changed_posts', 0 );
+        $this->options->update( 'spotim_last_sync_timestamp', null );
     }
+
     /**
      * Pull Comments
      *
      * Import comments from Spot.IM and merge them.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
@@ -176,6 +177,8 @@ class SpotIM_Import {
         if ( ! empty( $post_ids ) ) {
             // import comments data from Spot.IM
             $streams = array();
+
+            $this->log( 'Starting to fetch comments from Spot.IM for ' . count( $post_ids ) . ' Posts.' );
             $streams = $this->fetch_comments( $post_ids, $limit, $offset );
 
             // sync comments data with wordpress comments
@@ -188,36 +191,46 @@ class SpotIM_Import {
      *
      * Import comments from Spot.IM.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
      * @param array $post_ids An array of post IDs.
+     * @param int   $limit    Limit No of Comments.
+     * @param int   $offset   Offset.
      *
      * @return array $streams An array of streams.
      */
     private function fetch_comments( $post_ids = array(), $limit, $offset ) {
-        $streams = array();
+        $streams         = array();
         $errored_streams = array();
 
 
-        for($i=$offset;$i<count($post_ids) && $i < $limit+$offset; $i++){
+        for ( $i = $offset; $i < count( $post_ids ) && $i < $limit + $offset; $i ++ ) {
 
-            $post_id = $post_ids[$i];
+            $post_id   = $post_ids[ $i ];
+
+            $this->log( 'Syncing Comments for Post Id :- ' . $post_id );
+
             $post_etag = $this->is_force_sync ? 0 : get_post_meta( $post_id, 'spotim_etag', true );
 
             $stream = $this->request( array(
                 'spot_id' => $this->options->get( 'spot_id' ),
                 'post_id' => $post_id,
-                'etag' => absint( $post_etag ),
-                'count' => 1000,
-                'token' => $this->options->get( 'import_token' )
+                'etag'    => absint( $post_etag ),
+                'count'   => 1000,
+                'token'   => $this->options->get( 'import_token' )
             ) );
 
             if ( $stream->is_ok ) {
+
+                $this->log( 'Successfully Synced Post Id :- ' . $post_id . PHP_EOL );
                 // Posts that synced successfully
                 $streams[] = $stream->body;
             } else {
+
+                $this->log( 'Sync Errored for Post Id :- ' . $post_id );
+                $this->log( $stream->body );
                 // Posts that returned errors
                 $errored_streams[] = $stream->body;
             }
@@ -236,7 +249,7 @@ class SpotIM_Import {
      *
      * Sync comments data with wordpress comments.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
@@ -259,12 +272,13 @@ class SpotIM_Import {
                     if ( ! $sync_status ) {
 
                         $return = array(
-                            'status' => 'error',
+                            'status'  => 'error',
                             'message' => sprintf(
                                 esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' ),
                                 esc_attr( $stream->url )
                             )
                         );
+
                         return ( $this->return ) ? $return : $this->response( $return );
                     }
                 }
@@ -284,19 +298,19 @@ class SpotIM_Import {
      *
      * Return a response to client via json.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
-     * @return void
+     * @return mixed
      */
     private function finish() {
         $response_args = array(
-            'status' => '',
+            'status'  => '',
             'message' => ''
         );
 
-        $total_posts_count = $this->get_posts_count();
+        $total_posts_count   = $this->get_posts_count();
         $current_posts_count = $this->posts_per_request;
 
         if ( 0 < $this->page_number ) {
@@ -304,16 +318,16 @@ class SpotIM_Import {
         }
 
         if ( 0 === $total_posts_count ) {
-            $this->options->reset('is_force_sync', false );
-            $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__("Your website doesn't have any posts to sync.", 'spotim-comments');
-        }else if($this->needto_load_more_changed_posts > 0){
+            $this->options->reset( 'is_force_sync', false );
+            $response_args['status']  = 'success';
+            $response_args['message'] = sanitize_text_field( __( 'Your website doesn\'t have any posts to sync.', 'spotim-comments' ) );
+        } else if ( $this->needto_load_more_changed_posts > 0 ) {
             $parsed_message = sprintf(
                 esc_html__( 'Loading %d total posts to sync.', 'spotim-comments' ),
                 $total_posts_count
             );
 
-            $response_args['status'] = 'refresh';
+            $response_args['status']  = 'refresh';
             $response_args['message'] = $parsed_message;
 
         } else if ( $current_posts_count < $total_posts_count ) {
@@ -326,18 +340,22 @@ class SpotIM_Import {
             $response_args['status'] = 'continue';
 
             if ( isset( $this->errored_streams ) && $this->errored_streams ) {
-                $response_args['status'] = 'error';
-                $parsed_message .= ' ' . esc_html__( 'Some posts have errored.', 'spotim-comments' );
+                $response_args['status']   = 'error';
+                $parsed_message            .= ' ' . esc_html__( 'Some posts have errored.', 'spotim-comments' );
                 $response_args['messages'] = $this->errored_streams;
+
+                $this->log( 'Some posts have errored.' );
+                $this->log( $this->errored_streams );
             }
 
             $response_args['message'] = $parsed_message;
         } else {
-            $response_args['status'] = 'success';
-            $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count);
+            $response_args['status']  = 'success';
+            $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count );
 
-            $this->options->update("spotim_last_sync_timestamp", time());
-            $this->options->reset('is_force_sync', false );
+            $this->options->update( 'spotim_last_sync_timestamp', time() );
+            $this->options->reset( 'is_force_sync', false );
+            update_option( 'wp-spotim-settings_total_changed_posts', [] );
 
             if ( ! $this->return ) {
                 $this->options->reset( 'page_number' );
@@ -352,7 +370,7 @@ class SpotIM_Import {
      *
      * Retrieves count for all need to update posts
      *
-     * @since 4.2.0
+     * @since  4.2.0
      *
      * @access public
      *
@@ -360,8 +378,10 @@ class SpotIM_Import {
      */
     public function get_posts_count() {
 
-        if($this->total_changed_posts)
-            return count($this->total_changed_posts);
+        if ( $this->total_changed_posts ) {
+            return count( $this->total_changed_posts );
+        }
+
         return 0;
     }
 
@@ -370,56 +390,59 @@ class SpotIM_Import {
      *
      * Retrieve an array of changed post IDs.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
      * @param int $posts_per_page Posts per page (Max 100). Default is 100.
-     * @param int $page_number Page number. Default is 0.
+     * @param int $page_number    Page number. Default is 0.
      *
      * @return array
      */
-    private function get_changed_post_ids(){
+    private function get_changed_post_ids() {
 
         $offset = $this->needto_load_more_changed_posts;
-        $limit = 5000;
+        $limit  = 5000;
 
         $spot_id = $this->options->get( 'spot_id' );
-        $sec_ago = $this->options->get("spotim_last_sync_timestamp", null);
+        $sec_ago = $this->options->get( 'spotim_last_sync_timestamp', null );
 
-        if(!$sec_ago)
-            $sec_ago = time()+ (60*30);
-        else
-            $sec_ago = time() + (60*30) - $sec_ago;
+        if ( ! $sec_ago ) {
+            $sec_ago = time() + ( 60 * 30 );
+        } else {
+            $sec_ago = time() + ( 60 * 30 ) - $sec_ago;
+        }
 
         $stream = $this->request( array(
             'spot_id' => $spot_id,
             'sec_ago' => $sec_ago,
-            'limit' => $limit,
-            'offset' => $offset
+            'limit'   => $limit,
+            'offset'  => $offset
         ), self::SPOTIM_LAST_MODIFIED_API_URL );
 
-        $body = ($stream && isset($stream->body))? $stream->body : null;
+        $body = ( $stream && isset( $stream->body ) ) ? $stream->body : null;
 
-        if(is_array($body)){
+        if ( is_array( $body ) ) {
 
-            $body = array_map(function($val) use ($spot_id){
-                return str_replace($spot_id."_",'', $val);
-            }, $body);
+            $body = array_map( function ( $val ) use ( $spot_id ) {
+                return str_replace( $spot_id . "_", '', $val );
+            }, $body );
 
-            if(!$this->total_changed_posts)
+            if ( ! $this->total_changed_posts ) {
                 $this->total_changed_posts = [];
+            }
 
-            $this->total_changed_posts = array_merge($body, $this->total_changed_posts);
-            update_option("wp-spotim-settings_total_changed_posts", $this->total_changed_posts);
+            $this->total_changed_posts = array_merge( $body, $this->total_changed_posts );
+            update_option( 'wp-spotim-settings_total_changed_posts', $this->total_changed_posts );
 
             $offset += $limit;
 
-            if(count($body) > 0){
-                $this->needto_load_more_changed_posts = $this->options->update('needto_load_more_changed_posts', $offset);
+            if ( count( $body ) > 0 ) {
+                $this->needto_load_more_changed_posts = $this->options->update( 'needto_load_more_changed_posts', $offset );
                 $this->finish();
-            }else
-                $this->needto_load_more_changed_posts = $this->options->update('needto_load_more_changed_posts', 0);
+            } else {
+                $this->needto_load_more_changed_posts = $this->options->update( 'needto_load_more_changed_posts', 0 );
+            }
         }
     }
 
@@ -428,12 +451,12 @@ class SpotIM_Import {
      *
      * Retrieve an array of post IDs.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
      * @param int $posts_per_page Posts per page (Max 100). Default is 100.
-     * @param int $page_number Page number. Default is 0.
+     * @param int $page_number    Page number. Default is 0.
      *
      * @return array
      */
@@ -446,11 +469,11 @@ class SpotIM_Import {
         // Set default values
         $args = array(
             'posts_per_page' => $posts_per_page,
-            'post_type' => array( 'post' ),
-            'post_status' => 'publish',
-            'orderby' => 'id',
-            'order' => 'ASC',
-            'fields' => 'ids'
+            'post_type'      => array( 'post' ),
+            'post_status'    => 'publish',
+            'orderby'        => 'id',
+            'order'          => 'ASC',
+            'fields'         => 'ids'
         );
 
         // Set offset
@@ -468,6 +491,7 @@ class SpotIM_Import {
         } else {
             $post_ids = array();
         }
+
         return $post_ids;
     }
 
@@ -476,22 +500,26 @@ class SpotIM_Import {
      *
      * Retrieve data from a remote server.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      *
      * @param string|array $query_args Either a query variable key, or an associative array of query variables.
-     * @param string $custom_url custom url to fetch from
+     * @param string       $custom_url custom url to fetch from
      *
      * @return object
      */
-    private function request( $query_args, $custom_url = null) {
-        $url = add_query_arg( $query_args, ($custom_url)? $custom_url : self::SPOTIM_SYNC_API_URL );
+    private function request( $query_args, $custom_url = null ) {
+        $url = add_query_arg( $query_args, ( $custom_url ) ? $custom_url : self::SPOTIM_SYNC_API_URL );
 
-        $result = new stdClass();
+        $result        = new stdClass();
         $result->is_ok = false;
 
-        $response = wp_remote_get( $url, array( 'sslverify' => true, 'timeout' => 60 ) );
+        // 60 second timeout will only work in non VIP env.
+        $response = SpotIM_WP::spotim_remote_get( $url, array(
+            'sslverify' => true,
+            'timeout'   => 60 //phpcs:ignore
+        ), '', 5, 3 );
 
         if ( ! is_wp_error( $response ) &&
              'OK' === wp_remote_retrieve_response_message( $response ) &&
@@ -503,10 +531,11 @@ class SpotIM_Import {
                 $result->is_ok = false;
             } else {
                 $result->is_ok = true;
-                $result->body = $response_body;
+                $result->body  = $response_body;
 
-                if(is_object($result->body))
+                if ( is_object( $result->body ) ) {
                     $result->body->url = $url;
+                }
             }
         }
 
@@ -531,7 +560,7 @@ class SpotIM_Import {
      *
      * Retrieve an array of post IDs.
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      *
@@ -543,7 +572,7 @@ class SpotIM_Import {
         $statuses_list = array( 'continue', 'refresh', 'success', 'cancel', 'error' );
 
         $defaults = array(
-            'status' => '',
+            'status'  => '',
             'message' => ''
         );
 
@@ -565,7 +594,7 @@ class SpotIM_Import {
      *
      * Log any debug messages.
      *
-     * @since 4.2.0
+     * @since  4.2.0
      *
      * @access public
      *
@@ -574,6 +603,8 @@ class SpotIM_Import {
      * @return void
      */
     public function log( $message ) {
+        // Logging will done only if enabled via config.
+        // @codingStandardsIgnoreStart
         // Can we safely log?
         if ( WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
             $logText = 'SpotIM Log: ';
@@ -586,6 +617,7 @@ class SpotIM_Import {
 
             error_log( $logText );
         }
+        // @codingStandardsIgnoreEnd
     }
 
 }

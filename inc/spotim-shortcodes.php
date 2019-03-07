@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function spotim_comments_shortcode() {
 
-    $options = SpotIM_Options::get_instance();
-    $spot_id = $options->get( 'spot_id' );
+    $options  = SpotIM_Options::get_instance();
+    $spot_id  = $options->get( 'spot_id' );
     $template = '';
 
     /**
@@ -43,6 +43,7 @@ function spotim_comments_shortcode() {
 
     return $template;
 }
+
 add_shortcode( 'spotim_comments', 'spotim_comments_shortcode' );
 
 
@@ -53,8 +54,8 @@ add_shortcode( 'spotim_comments', 'spotim_comments_shortcode' );
  */
 function spotim_recirculation_shortcode() {
 
-    $options = SpotIM_Options::get_instance();
-    $spot_id = $options->get( 'spot_id' );
+    $options  = SpotIM_Options::get_instance();
+    $spot_id  = $options->get( 'spot_id' );
     $template = '';
 
     /**
@@ -85,8 +86,8 @@ function spotim_recirculation_shortcode() {
 
     return $template;
 }
-add_shortcode( 'spotim_recirculation', 'spotim_recirculation_shortcode' );
 
+add_shortcode( 'spotim_recirculation', 'spotim_recirculation_shortcode' );
 
 
 /**
@@ -96,8 +97,8 @@ add_shortcode( 'spotim_recirculation', 'spotim_recirculation_shortcode' );
  */
 function spotim_siderail_shortcode() {
 
-    $options = SpotIM_Options::get_instance();
-    $spot_id = $options->get( 'spot_id' );
+    $options  = SpotIM_Options::get_instance();
+    $spot_id  = $options->get( 'spot_id' );
     $template = '';
 
     /**
@@ -128,4 +129,5 @@ function spotim_siderail_shortcode() {
 
     return $template;
 }
+
 add_shortcode( 'spotim_siderail', 'spotim_siderail_shortcode' );

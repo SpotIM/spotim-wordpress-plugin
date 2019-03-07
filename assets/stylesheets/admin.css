@@ -23,6 +23,9 @@
     margin-top: 10px;
     padding: 5px 15px;
 }
+.spotim-page-wrap form th {
+    width: 225px;
+}
 .spotim-page-wrap h2 {
     font-weight: bold;
 }

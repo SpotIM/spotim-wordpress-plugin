@@ -1,4 +1,4 @@
-# Copyright (C) 2017 Spot.IM Comments
+# Copyright (C) 2019 Spot.IM Comments
 # This file is distributed under the same license as the Spot.IM Comments package.
 msgid ""
 msgstr ""
@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Language-Team: Spot.IM <support@spot.im>\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -16,283 +16,311 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inc/class-spotim-admin.php:133
-msgid "To properly run %1$s please visit your sites <a href=\"%2$s\">Discussion Settings</a> and turn on \"%3$s\"."
+#: inc/class-spotim-admin.php:131
+msgid "%1$sTo properly run %2$sSpot.IM%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on \"%2$sAllow people to post comments on new articles%3$s\". %6$s"
 msgstr ""
 
-#: inc/class-spotim-admin.php:135, inc/class-spotim-admin.php:257, inc/class-spotim-metabox.php:197
-msgid "Spot.IM"
-msgstr ""
-
-#: inc/class-spotim-admin.php:139
-msgid "Allow people to post comments on new articles"
-msgstr ""
-
-#: inc/class-spotim-admin.php:197
+#: inc/class-spotim-admin.php:205
 msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
 msgstr ""
 
-#: inc/class-spotim-admin.php:199
+#: inc/class-spotim-admin.php:207
 msgid "Cancel importing..."
 msgstr ""
 
-#: inc/class-spotim-admin.php:255
+#: inc/class-spotim-admin.php:263
 msgid "Spot.IM Settings"
 msgstr ""
 
-#: inc/class-spotim-admin.php:401, inc/class-spotim-settings-fields.php:885
+#: inc/class-spotim-admin.php:265, inc/class-spotim-metabox.php:199
+msgid "Spot.IM"
+msgstr ""
+
+#: inc/class-spotim-admin.php:427, inc/class-spotim-settings-fields.php:487
 msgid "Spot ID is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:415, inc/class-spotim-settings-fields.php:887
+#: inc/class-spotim-admin.php:441, inc/class-spotim-settings-fields.php:488
 msgid "Import token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:469
+#: inc/class-spotim-import.php:553
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:563
-msgid "Your website doesn't have any published posts."
+#: inc/class-spotim-import.php:645
+msgid "Your website doesn't have any posts to sync."
 msgstr ""
 
-#: inc/class-spotim-import.php:569
+#: inc/class-spotim-import.php:651
+msgid "Loading %d total posts to sync."
+msgstr ""
+
+#: inc/class-spotim-import.php:669
 msgid "%d / %d posts are synchronizing."
 msgstr ""
 
-#: inc/class-spotim-import.php:587
+#: inc/class-spotim-import.php:687
 msgid "Some posts have errored."
 msgstr ""
 
-#: inc/class-spotim-import.php:601
-msgid "Sync has been completed."
+#: inc/class-spotim-import.php:707
+msgid "posts has been synced."
 msgstr ""
 
-#: inc/class-spotim-import.php:825
+#: inc/class-spotim-import.php:1087
 msgid "Failed retriving data for Post ID %s"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:271
+#: inc/class-spotim-metabox.php:285
 msgid "Comments"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:277, inc/class-spotim-metabox.php:325, inc/class-spotim-settings-fields.php:383, inc/class-spotim-settings-fields.php:603, inc/class-spotim-settings-fields.php:637
+#: inc/class-spotim-metabox.php:291, inc/class-spotim-metabox.php:339, inc/class-spotim-settings-fields.php:195, inc/class-spotim-settings-fields.php:235, inc/class-spotim-settings-fields.php:341, inc/class-spotim-settings-fields.php:358
 msgid "Enable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:279, inc/class-spotim-metabox.php:327, inc/class-spotim-settings-fields.php:381, inc/class-spotim-settings-fields.php:601, inc/class-spotim-settings-fields.php:635
+#: inc/class-spotim-metabox.php:293, inc/class-spotim-metabox.php:341, inc/class-spotim-settings-fields.php:194, inc/class-spotim-settings-fields.php:217, inc/class-spotim-settings-fields.php:234, inc/class-spotim-settings-fields.php:340, inc/class-spotim-settings-fields.php:357
 msgid "Disable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:283
+#: inc/class-spotim-metabox.php:297
 msgid "Show Spot.IM comments."
 msgstr ""
 
-#: inc/class-spotim-metabox.php:293
+#: inc/class-spotim-metabox.php:307
 msgid "Community Question"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:299
+#: inc/class-spotim-metabox.php:313
 msgid "Show Spot.IM community question."
 msgstr ""
 
-#: inc/class-spotim-metabox.php:319
+#: inc/class-spotim-metabox.php:333
 msgid "Recirculation"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:331
+#: inc/class-spotim-metabox.php:345
 msgid "Show Spot.IM recirculation."
 msgstr ""
 
-#: inc/class-spotim-options.php:422
+#: inc/class-spotim-options.php:433
 msgid "Next sync on next page refresh."
 msgstr ""
 
-#: inc/class-spotim-options.php:425
+#: inc/class-spotim-options.php:436
 msgid "Next sync in %s."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:121
+#: inc/class-spotim-settings-fields.php:61
 msgid "Spot.IM's WordPress plugin is currently available for Spot.IM partners only."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:127
-msgid "To become a partner and retrieve your Spot ID, please submit your information <a href=\"%s\" target=\"_blank\">here</a>."
+#: inc/class-spotim-settings-fields.php:64
+msgid "To become a partner and retrieve your Spot ID, please submit your information %1$shere%2$s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:159
+#: inc/class-spotim-settings-fields.php:81
 msgid "Select where to display Spot.IM."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:185
+#: inc/class-spotim-settings-fields.php:94
 msgid "Your Spot.IM account manager may ask you to change these settings after revewing the installation."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:213
+#: inc/class-spotim-settings-fields.php:108
 msgid "Export your comments from Spot.IM to WordPress."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:217
+#: inc/class-spotim-settings-fields.php:110
 msgid "This is different from importing comments from WordPress to Spot.IM."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:221
+#: inc/class-spotim-settings-fields.php:112
 msgid "Contact your Spot.IM account manager to configure import from WordPress to Spot.IM."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:257
+#: inc/class-spotim-settings-fields.php:130
 msgid "General Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:271
+#: inc/class-spotim-settings-fields.php:137
 msgid "Spot ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:285
+#: inc/class-spotim-settings-fields.php:144
 msgid "Contact your Spot.IM account manager to get your Spot ID."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:323
+#: inc/class-spotim-settings-fields.php:163
 msgid "Display Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:365
+#: inc/class-spotim-settings-fields.php:186
 msgid "Display on %s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:411
+#: inc/class-spotim-settings-fields.php:209
+msgid "Display Comments Count"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:218
+msgid "Below title"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:226
+msgid "Display Newsfeed on non-article pages"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:243
 msgid "Comments Per Page"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:423
+#: inc/class-spotim-settings-fields.php:249
 msgid "Default: 10"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:469
+#: inc/class-spotim-settings-fields.php:272
 msgid "Advanced Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:483
+#: inc/class-spotim-settings-fields.php:279
 msgid "Comments Embed Method"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:499
+#: inc/class-spotim-settings-fields.php:287
 msgid "Replace WordPress Comments"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:501
+#: inc/class-spotim-settings-fields.php:288
 msgid "Insert After the Content"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:517
+#: inc/class-spotim-settings-fields.php:289
+msgid "Let the theme decide"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:291
+msgid "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:298
 msgid "Recirculation Embed Method"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:533
+#: inc/class-spotim-settings-fields.php:306
 msgid "Regular"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:535
+#: inc/class-spotim-settings-fields.php:307
 msgid "Inline - top"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:537
+#: inc/class-spotim-settings-fields.php:308
 msgid "Inline - bottom"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:539
+#: inc/class-spotim-settings-fields.php:309
 msgid "None"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:555
+#: inc/class-spotim-settings-fields.php:317
 msgid "Display Priority"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:585
+#: inc/class-spotim-settings-fields.php:332
 msgid "Enable SEO"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:619
+#: inc/class-spotim-settings-fields.php:349
 msgid "OpenGraph Tags"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:653
+#: inc/class-spotim-settings-fields.php:366
 msgid "Container Class"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:679
+#: inc/class-spotim-settings-fields.php:379
 msgid "Disqus Shortname"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:705
+#: inc/class-spotim-settings-fields.php:392
 msgid "Disqus Identifier Structure"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:721
+#: inc/class-spotim-settings-fields.php:400
 msgid "ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:723
+#: inc/class-spotim-settings-fields.php:401
 msgid "Short URL"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:725
+#: inc/class-spotim-settings-fields.php:402
 msgid "ID + Short URL (Default)"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:741
+#: inc/class-spotim-settings-fields.php:410
 msgid "Start Manual Sync"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:755
+#: inc/class-spotim-settings-fields.php:417
 msgid "Sync Now"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:763
+#: inc/class-spotim-settings-fields.php:421
+msgid "Reset + Sync Now"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:422
+msgid "Use Sync Now to sync data starting from the last sync time."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:422
+msgid "Use Reset + Sync Now to clear any old synced data and start a fresh sync."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:426
 msgid "Cancel"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:803
+#: inc/class-spotim-settings-fields.php:446
 msgid "Comments Sync Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:817
+#: inc/class-spotim-settings-fields.php:453
 msgid "Sync Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:831
+#: inc/class-spotim-settings-fields.php:460
 msgid "Contact your Spot.IM account manager to get your sync token."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:845, inc/helpers/class-spotim-form.php:235
+#: inc/class-spotim-settings-fields.php:467
 msgid "No"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:865
+#: inc/class-spotim-settings-fields.php:477
 msgid "Enable Auto Sync"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:879
+#: inc/class-spotim-settings-fields.php:484
 msgid "Enable auto-sync and set how often should it reoccur."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:915
+#: inc/class-spotim-settings-fields.php:502
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:929
+#: inc/class-spotim-settings-fields.php:509
 msgid "On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10."
 msgstr ""
 
-#: inc/helpers/class-spotim-form.php:219
-msgid "Yes"
-msgstr ""
-
-#: inc/helpers/class-spotim-message.php:449
+#: inc/helpers/class-spotim-message.php:523
 msgid "This message was deleted."
 msgstr ""
 
-#: inc/helpers/class-spotim-message.php:481
+#: inc/helpers/class-spotim-message.php:555
 msgid "Guest"
 msgstr ""
 
@@ -300,34 +328,34 @@ msgstr ""
 msgid "Spot.IM Recirculation"
 msgstr ""
 
-#: inc/spotim-widgets.php:61, inc/spotim-widgets.php:285
+#: inc/spotim-widgets.php:61, inc/spotim-widgets.php:283
 msgid "Spot.IM related content."
 msgstr ""
 
-#: inc/spotim-widgets.php:179, inc/spotim-widgets.php:403
+#: inc/spotim-widgets.php:179, inc/spotim-widgets.php:401
 msgid "Title"
 msgstr ""
 
-#: inc/spotim-widgets.php:281
+#: inc/spotim-widgets.php:279
 msgid "Spot.IM Siderail"
 msgstr ""
 
-#: templates/admin-template.php:9
+#: templates/admin-template.php:5
 msgid "General"
 msgstr ""
 
-#: templates/admin-template.php:11
+#: templates/admin-template.php:6
 msgid "Display"
 msgstr ""
 
-#: templates/admin-template.php:13
+#: templates/admin-template.php:7
 msgid "Comments Sync"
 msgstr ""
 
-#: templates/admin-template.php:15
+#: templates/admin-template.php:8
 msgid "Advanced"
 msgstr ""
 
-#: templates/admin-template.php:17
+#: templates/admin-template.php:9
 msgid "Spot.IM Dashboard"
 msgstr ""

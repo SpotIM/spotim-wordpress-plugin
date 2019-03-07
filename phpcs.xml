@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="SpotIM">
+	<description>A custom set of rules to check for SpotIM Comments WordPress plugin</description>
+	<rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="indent" value="4"/>
+			<property name="ignoreIndentationTokens" type="array" value="T_COMMENT,T_DOC_COMMENT"/>
+			<property name="tabIndent" value="false"/>
+		</properties>
+	</rule>
+
+	<arg name="extensions" value="php"/>
+	<arg name="extensions" value="js"/>
+
+	<rule ref="PHPCompatibilityWP"/>
+	<config name="testVersion" value="5.4-"/>
+
+	<rule ref="WordPress-VIP-Go" />
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+
+	<!-- Exclude minified Javascript files. -->
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- Exclude development files. -->
+	<exclude-pattern>gulpfile.js</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+</ruleset>

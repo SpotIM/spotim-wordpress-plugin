@@ -16,7 +16,7 @@ class SpotIM_Admin {
     /**
      * Options
      *
-     * @since 1.0.2
+     * @since  1.0.2
      *
      * @access private
      * @static
@@ -28,7 +28,7 @@ class SpotIM_Admin {
     /**
      * Launch
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      *
@@ -52,7 +52,7 @@ class SpotIM_Admin {
     /**
      * Admin Notice
      *
-     * @since 4.3.0
+     * @since  4.3.0
      *
      * @access public
      * @static
@@ -62,14 +62,15 @@ class SpotIM_Admin {
     public static function admin_notice() {
 
         if ( 'closed' === get_default_comment_status() ) {
-            $message = sprintf(
-                /* translators: 1: Spot.IM 2: Elementor */
-                __( 'To properly run %1$s please visit your sites <a href="%2$s">Discussion Settings</a> and turn on "%3$s".', 'spotim-comments' ),
-                '<strong>' . esc_html__( 'Spot.IM', 'spotim-comments' ) . '</strong>',
-                admin_url( 'options-discussion.php' ),
-                '<strong>' . esc_html__( 'Allow people to post comments on new articles', 'spotim-comments' ) . '</strong>'
+            printf(
+                esc_html__( '%1$sTo properly run %2$sSpot.IM%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on "%2$sAllow people to post comments on new articles%3$s". %6$s', 'spotim-comments' ),
+                '<div class="notice notice-warning"><p>',
+                '<strong>',
+                '</strong>',
+                '<a href="' . esc_url( admin_url( 'options-discussion.php' ) ) . '">',
+                '</a>',
+                '</p></div>'
             );
-            printf( '<div class="notice notice-warning"><p>%1$s</p></div>', $message );
         }
 
     }
@@ -77,7 +78,7 @@ class SpotIM_Admin {
     /**
      * Admin Assets
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      * @static
@@ -94,9 +95,12 @@ class SpotIM_Admin {
         wp_enqueue_style( 'admin_stylesheet', self::$options->require_stylesheet( 'admin.css', true ) );
         wp_enqueue_script( 'admin_javascript', self::$options->require_javascript( 'admin.js', true ), array( 'jquery' ) );
 
+        $nonce = wp_create_nonce( 'sync_nonce' );
+
         wp_localize_script( 'admin_javascript', 'spotimVariables', array(
-            'pageNumber' => self::$options->get( 'page_number' ),
-            'errorMessage' => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im.', 'spotim-comments' ),
+            'pageNumber'          => self::$options->get( 'page_number' ),
+            'sync_nonce'          => $nonce,
+            'errorMessage'        => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im.', 'spotim-comments' ),
             'cancelImportMessage' => esc_html__( 'Cancel importing...', 'spotim-comments' )
         ) );
     }
@@ -104,7 +108,7 @@ class SpotIM_Admin {
     /**
      * Admin Menu
      *
-     * @since 1.0.2
+     * @since  1.0.2
      *
      * @access public
      * @static
@@ -138,7 +142,7 @@ class SpotIM_Admin {
     /**
      * Register Settings
      *
-     * @since 1.0.2
+     * @since  1.0.2
      *
      * @access public
      * @static
@@ -170,7 +174,7 @@ class SpotIM_Admin {
     /**
      * Admin Page Callback
      *
-     * @since 1.0.2
+     * @since  1.0.2
      *
      * @access public
      * @static
@@ -184,7 +188,7 @@ class SpotIM_Admin {
     /**
      * Import Callback
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      * @static
@@ -192,31 +196,38 @@ class SpotIM_Admin {
      * @return void
      */
     public static function import_callback() {
+
+        check_ajax_referer( 'sync_nonce', 'security' );
+
         $import = new SpotIM_Import( self::$options );
 
+        $spot_id           = filter_input( INPUT_POST, 'spotim_spot_id', FILTER_SANITIZE_STRING );
+        $import_token      = filter_input( INPUT_POST, 'spotim_import_token', FILTER_SANITIZE_STRING );
+        $page_number       = filter_input( INPUT_POST, 'spotim_page_number', FILTER_SANITIZE_NUMBER_INT );
+        $force             = filter_input( INPUT_POST, 'force', FILTER_SANITIZE_STRING );
+        $posts_per_request = filter_input( INPUT_POST, 'spotim_posts_per_request', FILTER_SANITIZE_NUMBER_INT );
+
         // check for spot id
-        if ( ! isset( $_POST['spotim_spot_id'] ) || empty( $_POST['spotim_spot_id'] ) ) {
+        if ( empty( $spot_id ) ) {
             $import->response( array(
-                'status' => 'error',
+                'status'  => 'error',
                 'message' => esc_html__( 'Spot ID is missing.', 'spotim-comments' )
             ) );
 
-        // check for import token
-        } else if ( ! isset( $_POST['spotim_import_token'] ) || empty( $_POST['spotim_import_token'] ) ) {
+            // check for import token
+        } else if ( empty( $import_token ) ) {
             $import->response( array(
-                'status' => 'error',
+                'status'  => 'error',
                 'message' => esc_html__( 'Import token is missing.', 'spotim-comments' )
             ) );
 
-        //  else start the comments importing process
+            //  else start the comments importing process
         } else {
-            $spot_id = sanitize_text_field( $_POST['spotim_spot_id'] );
-            $import_token = sanitize_text_field( $_POST['spotim_import_token'] );
-            $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
-            $force = isset( $_POST['force'] ) ? true : false;
+            $page_number = ( ! empty( $page_number ) ) ? absint( $page_number ) : 0;
+            $force       = ( ! empty( $force ) ) ? true : false;
 
-            if ( isset( $_POST['spotim_posts_per_request'] ) ) {
-                $posts_per_request = absint( $_POST['spotim_posts_per_request'] );
+            if ( ! empty( $posts_per_request ) ) {
+                $posts_per_request = absint( $posts_per_request );
                 $posts_per_request = ( 0 === $posts_per_request ) ? 1 : $posts_per_request;
             } else {
                 $posts_per_request = 1;
@@ -229,7 +240,7 @@ class SpotIM_Admin {
     /**
      * Cancel Import Callback
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      * @static
@@ -237,12 +248,15 @@ class SpotIM_Admin {
      * @return void
      */
     public static function cancel_import_callback() {
-        $import = new SpotIM_Import( self::$options );
-        $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
 
-        update_option("wp-spotim-settings_total_changed_posts", null);
+        check_ajax_referer( 'sync_nonce', 'security' );
+
+        $import      = new SpotIM_Import( self::$options );
+        $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0; // WPCS: input var ok.
+
+        update_option( "wp-spotim-settings_total_changed_posts", null );
         self::$options->update( 'page_number', $page_number );
-        self::$options->reset('is_force_sync');
+        self::$options->reset( 'is_force_sync' );
 
         $import->response( array(
             'status' => 'cancel'

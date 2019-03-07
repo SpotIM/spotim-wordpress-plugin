@@ -16,7 +16,7 @@ class SpotIM_Form_Helper {
     /**
      * Set name
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      * @static
@@ -40,7 +40,7 @@ class SpotIM_Form_Helper {
     /**
      * Get description
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access private
      * @static
@@ -56,7 +56,7 @@ class SpotIM_Form_Helper {
     /**
      * Hidden fields
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      * @static
@@ -66,7 +66,7 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function hidden_field( $args ) {
-        $args = self::set_name( $args );
+        $args          = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
 
         // Text input template
@@ -78,58 +78,9 @@ class SpotIM_Form_Helper {
     }
 
     /**
-     * Yes/No fields
-     *
-     * @since 3.0.0
-     *
-     * @access public
-     * @static
-     *
-     * @param array $args
-     *
-     * @return string
-     */
-    public static function yes_no_fields( $args ) {
-        $args = self::set_name( $args );
-        $radio_template = '<label class="description"><input type="radio" name="%s" value="%d" %s /> %s &nbsp;&nbsp;&nbsp;</label>';
-        $yes_value = 1;
-        $no_value = 0;
-
-        // Backward compatability condition
-        if ( ! isset( $args['value'] ) || false === $args['value'] ) {
-            $args['value'] = $no_value;
-        } else if ( true === $args['value'] ) {
-            $args['value'] = $yes_value;
-        }
-
-        // Yes template
-        $template = sprintf( $radio_template,
-            esc_attr( $args['name'] ), // Input's name.
-            esc_html( $yes_value ), // Input's value.
-            checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            esc_html__( 'Yes', 'spotim-comments' ) // Translated text.
-        );
-
-        // No template
-        $template .= sprintf( $radio_template,
-            esc_attr( $args['name'] ), // Input's name.
-            esc_html( $no_value ), // Input's value.
-            checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            esc_html__( 'No', 'spotim-comments' ) // Translated text.
-        );
-
-        // Description template
-        if ( isset( $args['description'] ) ) {
-            $template .= self::get_description_html( $args['description'] );
-        }
-
-        echo $template;
-    }
-
-    /**
      * Radio fields
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      * @static
@@ -139,7 +90,7 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function radio_fields( $args ) {
-        $args = self::set_name( $args );
+        $args     = self::set_name( $args );
         $template = '';
 
         foreach ( $args['fields'] as $key => $value ) {
@@ -157,13 +108,13 @@ class SpotIM_Form_Helper {
             $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $template;
+        echo wp_kses( $template, self::get_whitelisted_tags() );
     }
 
     /**
      * Text fields
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      * @static
@@ -173,7 +124,7 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function text_field( $args ) {
-        $args = self::set_name( $args );
+        $args          = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
         if ( isset( $args['other'] ) ) {
             $args['other'] = sanitize_text_field( $args['other'] );
@@ -194,13 +145,13 @@ class SpotIM_Form_Helper {
             $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $template;
+        echo wp_kses( $template, self::get_whitelisted_tags() );
     }
 
     /**
      * Number fields
      *
-     * @since 4.0.4
+     * @since  4.0.4
      *
      * @access public
      * @static
@@ -210,7 +161,7 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function number_field( $args ) {
-        $args = self::set_name( $args );
+        $args          = self::set_name( $args );
         $args['value'] = (int) $args['value'];
         if ( isset( $args['other'] ) ) {
             $args['other'] = sanitize_text_field( $args['other'] );
@@ -233,13 +184,13 @@ class SpotIM_Form_Helper {
             $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $template;
+        echo wp_kses( $template, self::get_whitelisted_tags() );
     }
 
     /**
      * Button fields
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      * @static
@@ -260,13 +211,13 @@ class SpotIM_Form_Helper {
             $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $template;
+        echo wp_kses( $template, self::get_whitelisted_tags() );
     }
 
     /**
      * Import Button fields
      *
-     * @since 3.0.0
+     * @since  3.0.0
      *
      * @access public
      * @static
@@ -298,7 +249,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['force_import_button']['text'] ) // Button's text.
         );
 
-        $template .= "<br />".$args['force_import_button']['description'];
+        $template .= "<br />" . $args['force_import_button']['description'];
 
         // Cancel import
         $template .= sprintf(
@@ -311,6 +262,54 @@ class SpotIM_Form_Helper {
         $template .= self::get_description_html();
         $template .= '<div class="errors spotim-errors spotim-hide red-color"></div>';
 
-        echo $template;
+        echo wp_kses( $template, self::get_whitelisted_tags() );
+    }
+
+    /**
+     * Get Allowed tags and attributes for form fields.
+     *
+     * @return array
+     */
+    public static function get_whitelisted_tags() {
+
+        $allowed_tags = array(
+            'label'  => array(
+                'class' => 'description',
+            ),
+            'input'  => array(
+                'type'         => array( 'radio', 'text', 'number' ),
+                'name'         => array(),
+                'value'        => array(),
+                'checked'      => array(),
+                'autocomplete' => array(),
+                'min'          => array(),
+                'max'          => array(),
+                'readonly'     => array(),
+                'disabled'     => array(),
+            ),
+            'br'     => array(),
+            'p'      => array(
+                'class' => array(),
+            ),
+            'button' => array(
+                'id'                     => array(),
+                'class'                  => array(),
+                'data-import-token'      => array(),
+                'data-spot-id'           => array(),
+                'data-posts-per-request' => array(),
+                'data-force'             => array(),
+                'style'                  => array()
+            ),
+            'a'      => array(
+                'id'    => array(),
+                'href'  => array(),
+                'class' => array()
+            ),
+            'div'    => array(
+                'class' => array(),
+            ),
+        );
+
+        return $allowed_tags;
     }
 }

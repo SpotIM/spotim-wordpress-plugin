@@ -3,7 +3,7 @@
  * Plugin Name:         Spot.IM Comments
  * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem.
- * Version:             4.3.8
+ * Version:             4.4.0
  * Author:              Spot.IM
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
@@ -15,6 +15,16 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
+}
+
+// Store Plugin version for internal use.
+if ( ! defined( 'SPOTIM_VERSION' ) ) {
+    /**
+     * The version of the plugin
+     *
+     * @since  4.4.0
+     */
+    define( 'SPOTIM_VERSION', '4.4.0' );
 }
 
 /**
@@ -29,7 +39,7 @@ class WP_SpotIM {
     /**
      * Instance
      *
-     * @since 1.0.2
+     * @since  1.0.2
      *
      * @access private
      * @static
@@ -43,15 +53,11 @@ class WP_SpotIM {
      *
      * Get things started.
      *
-     * @since 1.0.2
+     * @since  1.0.2
      *
      * @access protected
      */
     protected function __construct() {
-
-        // Activation/Deactivation hooks
-        register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
-        register_deactivation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
 
         // Load plugin files
         $this->load_files();
@@ -81,7 +87,7 @@ class WP_SpotIM {
     /**
      * Get Instance
      *
-     * @since 2.0.0
+     * @since  2.0.0
      *
      * @access public
      * @static
@@ -98,22 +104,9 @@ class WP_SpotIM {
     }
 
     /**
-     * Flush rewrite rules
-     *
-     * @since 4.1.0
-     *
-     * @access public
-     *
-     * @return void
-     */
-    public function flush_rewrite_rules() {
-        flush_rewrite_rules();
-    }
-
-    /**
      * Load plugin files
      *
-     * @since 4.3.0 The functionality moved to a method.
+     * @since  4.3.0 The functionality moved to a method.
      *
      * @access public
      *
@@ -125,6 +118,7 @@ class WP_SpotIM {
             'helpers/class-spotim-message.php',
             'helpers/class-spotim-comment.php',
             'helpers/class-spotim-json-feed.php',
+            'helpers/class-spotim-wp.php',
             'class-spotim-i18n.php',
             'class-spotim-import.php',
             'class-spotim-options.php',
@@ -142,7 +136,7 @@ class WP_SpotIM {
             require_once( 'inc/' . $file );
         }
 
-	}
+    }
 
 }
 
@@ -156,4 +150,22 @@ class WP_SpotIM {
 function spotim_instance() {
     return WP_SpotIM::get_instance();
 }
+
 add_action( 'plugins_loaded', 'spotim_instance', 0 );
+
+/**
+ * Check if current environment is `VIP-GO` or not.
+ *
+ * @return bool returns true if current site is available on VIP-GO, otherwise false
+ */
+function spotim_is_vip() {
+    if ( defined( 'SPOTIM_IS_VIP_DEBUG' ) && SPOTIM_IS_VIP_DEBUG ) { // Setting WPCOM_IS_VIP_ENV in local won't work.
+        return true;
+    }
+
+    if ( defined( 'WPCOM_IS_VIP_ENV' ) && true === WPCOM_IS_VIP_ENV ) {
+        return true;
+    } else {
+        return false;
+    }
+}

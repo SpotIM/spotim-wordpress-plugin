@@ -16,7 +16,7 @@ class SpotIM_Cron {
     /**
      * Options
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access private
      * @static
@@ -30,7 +30,7 @@ class SpotIM_Cron {
      *
      * Get things started.
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @param SpotIM_Options $options Plugin options.
      *
@@ -44,20 +44,21 @@ class SpotIM_Cron {
     /**
      * Auto import cron job
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
      * @return void
      */
     public function auto_import_cron_job() {
-        
+
         // Auto import interval
         $interval = self::$options->get( 'auto_import' );
 
         // Check if auto import enabled
-        if ( ! in_array( $interval, array_keys( wp_get_schedules() ) ) )
+        if ( ! in_array( $interval, array_keys( wp_get_schedules() ), true ) ) {
             return;
+        }
 
         // Schedule cron job event, if not scheduled yet
         if ( ! wp_next_scheduled( 'spotim_scheduled_import', array() ) ) {
@@ -72,20 +73,20 @@ class SpotIM_Cron {
     /**
      * Run import
      *
-     * @since 4.0.0
+     * @since  4.0.0
      *
      * @access public
      *
      * @return void
      */
     public function run_import() {
-        
+
         // Are we currently running an auto-sync?
         if ( false !== ( $execution_token = get_transient( 'spotim_auto_sync_cron_token' ) ) ) {
             // We have a Cron job running already, let's quit here
             return;
         }
-        
+
         // Create execution token for facilitating a lock mechanism
         $execution_token = $this->generate_single_execution_token();
 
@@ -98,41 +99,44 @@ class SpotIM_Cron {
         $posts_per_request = self::$options->get( 'posts_per_request' );
         $posts_per_request = ( ! empty( $posts_per_request ) ) ? absint( $posts_per_request ) : 10;
 
-        if ( empty( $spot_id ) )
+        if ( empty( $spot_id ) ) {
             return;
+        }
 
-        if ( empty( $import_token ) )
+        if ( empty( $import_token ) ) {
             return;
-            
+        }
+
         $this->set_time_limit( 0 );
-        
-        $import = new SpotIM_Import( self::$options, true );
+
+        $import            = new SpotIM_Import( self::$options, true );
         $total_posts_count = $import->get_posts_count();
-        $response = false;
-        
+        $response          = false;
+
         // Iterate over all posts, in bumps of $posts_per_iteration
-        $import->log('Starting Cron auto-sync. Ex. ' . $execution_token);
-        
+        $import->log( 'Starting Cron auto-sync. Ex. ' . $execution_token );
+
         do {
             $import->log( 'Iteration (start) #' . $page_number . ', Token:' . $execution_token );
             $import->log( $spot_id, $import_token, $page_number, $posts_per_request );
-            
+
             // Launch import for $posts_per_request posts on page $page_number
             $response = $import->start( $spot_id, $import_token, $page_number, $posts_per_request );
-            
+
             $import->log( 'Iteration (end) #' . $page_number . ', Token:' . $execution_token );
             $import->log( $response );
 
-            if($response && $response['status'] == 'continue')
-                $page_number++; // Increment
-            
-        } while ( $response && ($response['status'] == 'continue' ||  $response['status'] == 'refresh'));
-        
+            if ( $response && 'continue' === $response['status'] ) {
+                $page_number ++;
+            } // Increment
+
+        } while ( $response && ( 'continue' === $response['status'] || 'refresh' === $response['status'] ) );
+
         $import->log( 'Finished Cron auto-sync', $response );
-        
+
         // Delete lock
         delete_transient( 'spotim_auto_sync_cron_token' );
-        
+
         // Are we successful?
         if ( $response['status'] == 'success' ) {
             $import->log( sprintf( 'Auto-sync ID %s finished successfully', $execution_token ) );
@@ -141,11 +145,11 @@ class SpotIM_Cron {
             $import->log( $response );
         }
     }
-    
+
     /**
      * Get lock interval
-     * 
-     * @since 4.3.0
+     *
+     * @since  4.3.0
      *
      * @access private
      *
@@ -156,17 +160,19 @@ class SpotIM_Cron {
         $interval  = self::$options->get( 'auto_import' );
 
         // Check if schedule exists in WP
-        if ( ! in_array( $interval, array_keys( $schedules ) ) )
+        if ( ! in_array( $interval, array_keys( $schedules ), true ) ) {
             return 0;
-        
+        }
+
         $full_interval = absint( $schedules[ $interval ]['interval'] );
+
         return floor( $full_interval / 2 );
     }
-    
+
     /**
      * Generate single execution token
-     * 
-     * @since 4.3.0
+     *
+     * @since  4.3.0
      *
      * @access private
      *
@@ -175,18 +181,18 @@ class SpotIM_Cron {
     private function generate_single_execution_token() {
         return sprintf( 'spotim_exec_%s', time() );
     }
-    
+
     /**
      * Set Time Limit
-     * 
+     *
      * Wrapper for set_time_limit to see if it is enabled.
-     * 
-     * @since 4.3.0
+     *
+     * @since  4.3.0
      *
      * @access private
      */
     private function set_time_limit( $limit = 0 ) {
-        if ( function_exists( 'set_time_limit' ) && false === strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) && ! ini_get( 'safe_mode' ) ) {
+        if ( function_exists( 'set_time_limit' ) && false === strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) ) {
             @set_time_limit( $limit );
         }
     }
