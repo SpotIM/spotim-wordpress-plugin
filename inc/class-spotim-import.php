@@ -259,7 +259,8 @@ class SpotIM_Import {
      */
     private function merge_comments( $streams = array() ) {
         while ( ! empty( $streams ) ) {
-            $stream = array_shift( $streams );
+            $stream    = array_shift( $streams );
+            $did_error = false;
 
             if ( $stream->from_etag < $stream->new_etag ) {
                 if ( ! empty( $stream->events ) ) {
@@ -279,16 +280,21 @@ class SpotIM_Import {
                             )
                         );
 
-                        return ( $this->return ) ? $return : $this->response( $return );
+                        $this->log( $return );
+                        $did_error = true; // Set to true so that post meta isn't updated.
+                    } else {
+                        $did_error = false; // Set to false to keep existing behaviour.
                     }
                 }
 
-                update_post_meta(
-                    absint( $stream->post_id ),
-                    'spotim_etag',
-                    absint( $stream->new_etag ),
-                    absint( $stream->from_etag )
-                );
+                if ( false === $did_error ) {
+                    update_post_meta(
+                        absint( $stream->post_id ),
+                        'spotim_etag',
+                        absint( $stream->new_etag ),
+                        absint( $stream->from_etag )
+                    );
+                }
             }
         }
     }
