@@ -183,7 +183,7 @@ class SpotIM_JSON_Feed {
      * @return bool Whether the comments has a perent comment.
      */
     public static function has_parent_comment( $comment ) {
-        return ( 0 == $comment->comment_parent );
+        return ( 0 === absint( $comment->comment_parent ) );
     }
 
     /**
@@ -310,6 +310,7 @@ class SpotIM_JSON_Feed {
     public function aggregate_messages() {
         $messages = array();
         foreach ( $this->comments as $comment_id => $comment ) {
+            unset( $comment_id );
             $messages[ $comment->comment_ID ]['content']    = apply_filters( 'get_comment_text', $comment->comment_content, $comment, array() );
             $messages[ $comment->comment_ID ]['written_at'] = strtotime( $comment->comment_date_gmt );
 
@@ -345,6 +346,7 @@ class SpotIM_JSON_Feed {
     public function aggregate_users() {
         $users = array();
         foreach ( $this->comments as $comment_id => $comment ) {
+            unset( $comment_id );
             if ( ! empty( $comment->comment_author_email ) ) {
                 // Registered User
                 $registered_user = get_user_by( 'email', $comment->comment_author_email );

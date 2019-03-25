@@ -419,6 +419,7 @@ class SpotIM_Options {
         $registered_schedules = wp_get_schedules();
         if ( ! empty( $registered_schedules ) ) {
             foreach ( $registered_schedules as $key => $value ) {
+                unset( $value );
                 $allowed_schedules[] = $key;
             }
         }

@@ -81,8 +81,11 @@ class SpotIM_Cron {
      */
     public function run_import() {
 
+        // Get auto_sync token value.
+        $execution_token = get_transient( 'spotim_auto_sync_cron_token' );
+
         // Are we currently running an auto-sync?
-        if ( false !== ( $execution_token = get_transient( 'spotim_auto_sync_cron_token' ) ) ) {
+        if ( false !== $execution_token ) {
             // We have a Cron job running already, let's quit here
             return;
         }
@@ -109,9 +112,8 @@ class SpotIM_Cron {
 
         $this->set_time_limit( 0 );
 
-        $import            = new SpotIM_Import( self::$options, true );
-        $total_posts_count = $import->get_posts_count();
-        $response          = false;
+        $import   = new SpotIM_Import( self::$options, true );
+        $response = false;
 
         // Iterate over all posts, in bumps of $posts_per_iteration
         $import->log( 'Starting Cron auto-sync. Ex. ' . $execution_token );
@@ -138,7 +140,7 @@ class SpotIM_Cron {
         delete_transient( 'spotim_auto_sync_cron_token' );
 
         // Are we successful?
-        if ( $response['status'] == 'success' ) {
+        if ( $response['status'] === 'success' ) {
             $import->log( sprintf( 'Auto-sync ID %s finished successfully', $execution_token ) );
         } else {
             $import->log( sprintf( 'Auto-sync ID %s FAILED', $execution_token ) );

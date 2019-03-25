@@ -47,7 +47,9 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
 
         $options = SpotIM_Options::get_instance();
-        $spot_id = $options->get( 'spot_id' );
+
+        // ignoring warning as variable is used in included template.
+        $spot_id = $options->get( 'spot_id' ); //phpcs:ignore
         $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
         // Before widget tag
@@ -158,7 +160,9 @@ class SpotIM_Siderail_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
 
         $options = SpotIM_Options::get_instance();
-        $spot_id = $options->get( 'spot_id' );
+
+        // ignoring warning as variable is used in included template.
+        $spot_id = $options->get( 'spot_id' ); // phpcs:ignore
         $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
         // Before widget tag
