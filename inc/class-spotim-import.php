@@ -342,6 +342,14 @@ class SpotIM_Import {
             if ( isset( $this->errored_streams ) && $this->errored_streams ) {
                 $response_args['status']   = 'error';
                 $parsed_message            .= ' ' . esc_html__( 'Some posts have errored.', 'spotim-comments' );
+
+                // Sanitize the error message before sending response.
+                if ( is_array( $this->errored_streams ) ) {
+                    $this->errored_streams = array_map( 'esc_js', $this->errored_streams );
+                } else {
+                    $this->errored_streams = esc_js( $this->errored_streams );
+                }
+
                 $response_args['messages'] = $this->errored_streams;
 
                 $this->log( 'Some posts have errored.' );
