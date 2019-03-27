@@ -101,7 +101,7 @@ class SpotIM_Options {
             'display_attachment'           => '1',
             'comments_per_page'            => 10,
             'display_comments_count'       => '0',
-            'display_newsfeed'             => '1',
+            'display_newsfeed'             => '0',
             // Advanced
             'embed_method'                 => 'content',
             'rc_embed_method'              => 'regular',
