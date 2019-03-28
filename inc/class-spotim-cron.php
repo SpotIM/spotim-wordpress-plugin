@@ -195,7 +195,7 @@ class SpotIM_Cron {
      */
     private function set_time_limit( $limit = 0 ) {
         if ( function_exists( 'set_time_limit' ) && false === strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) ) {
-            @set_time_limit( $limit );
+            set_time_limit( $limit );
         }
     }
 
