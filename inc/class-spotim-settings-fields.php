@@ -169,8 +169,7 @@ class SpotIM_Settings_Fields {
 
         if ( ! empty( $post_types ) ) {
 
-            foreach ( $post_types as $key => $value ) {
-                unset( $key );
+            foreach ( $post_types as $value ) {
 
                 // Check if post type support comments
                 if ( post_type_supports( $value->name, 'comments' ) ) {
