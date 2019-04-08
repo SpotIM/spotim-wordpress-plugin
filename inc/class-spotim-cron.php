@@ -140,7 +140,7 @@ class SpotIM_Cron {
         delete_transient( 'spotim_auto_sync_cron_token' );
 
         // Are we successful?
-        if ( $response['status'] === 'success' ) {
+        if ( 'success' === $response['status'] ) {
             $import->log( sprintf( 'Auto-sync ID %s finished successfully', $execution_token ) );
         } else {
             $import->log( sprintf( 'Auto-sync ID %s FAILED', $execution_token ) );
