@@ -180,11 +180,19 @@ class SpotIM_Frontend {
 
         if ( self::has_spotim_comments() ) {
 
-            // Load SpotIM comments template
-            ob_start();
-            include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
-            $content .= ob_get_contents();
-            ob_end_clean();
+            if ( ! SpotIM_WP::spotim_is_amp() ) {
+                // Load SpotIM comments template
+                ob_start();
+                include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
+                $content .= ob_get_contents();
+                ob_end_clean();
+            } else {
+                // Display AMP comments if AMP.
+                ob_start();
+                include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-amp-template.php';
+                $content .= ob_get_contents();
+                ob_end_clean();
+            }
 
         }
 
@@ -205,7 +213,6 @@ class SpotIM_Frontend {
      * @return string
      */
     public static function filter_comments_template( $template ) {
-
         if ( self::has_spotim_comments() ) {
             $spot_id = self::$options->get( 'spot_id' );
 
@@ -219,10 +226,19 @@ class SpotIM_Frontend {
              */
             $template = apply_filters( 'before_spotim_comments', $template, $spot_id );
 
-            // Load SpotIM comments template
-            $require_template_path = self::$options->require_template( 'comments-template.php', true );
-            if ( ! empty( $require_template_path ) ) {
-                $template = $require_template_path;
+            // Don't filter the template if page is AMP.
+            if ( SpotIM_WP::spotim_is_amp() ) {
+                // Load SpotIM comments template
+                $require_amp_template_path = self::$options->require_template( 'comments-amp-template.php', true );
+                if ( ! empty( $require_amp_template_path ) ) {
+                    $template = $require_amp_template_path;
+                }
+            } else {
+                // Load SpotIM comments template
+                $require_template_path = self::$options->require_template( 'comments-template.php', true );
+                if ( ! empty( $require_template_path ) ) {
+                    $template = $require_template_path;
+                }
             }
 
             /**
@@ -276,6 +292,11 @@ class SpotIM_Frontend {
      * @return string
      */
     public static function filter_comments_number( $content ) {
+
+        if ( SpotIM_WP::spotim_is_amp() ) {
+            return $content;
+        }
+
         global $post;
 
         $counterPosition = self::$options->get( 'display_comments_count' );
@@ -513,5 +534,20 @@ class SpotIM_Frontend {
         }
 
         do_action( 'spotim_after_open_tags' );
+    }
+
+    /**
+     * Display the markup of AMP comments.
+     */
+    public static function display_amp_comments() {
+        if ( self::has_spotim_comments() ) {
+            ob_start();
+            // Load SpotIM AMP comments template.
+            include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-amp-template.php';
+            $amp_comments = ob_get_contents();
+            ob_end_clean();
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in template.
+            echo $amp_comments;
+        }
     }
 }

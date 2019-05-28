@@ -38,4 +38,16 @@ class SpotIM_WP {
 
         return $response;
     }
+
+    /**
+     * Checks if plugin is active and the current page is amp page.
+     *
+     * @access public
+     * @static
+     *
+     * @return bool
+     */
+    public static function spotim_is_amp() {
+        return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
+    }
 }
