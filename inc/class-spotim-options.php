@@ -105,6 +105,7 @@ class SpotIM_Options {
             // Advanced
             'embed_method'                 => 'content',
             'rc_embed_method'              => 'regular',
+            'display_rc_amp_ad_tag'        => '0',
             'display_priority'             => 9999,
             'enable_seo'                   => 'false',
             'enable_og'                    => 'false',
@@ -178,6 +179,7 @@ class SpotIM_Options {
             $data['display_page']           = sanitize_text_field( $data['display_page'] );
             $data['display_attachment']     = sanitize_text_field( $data['display_attachment'] );
             $data['display_newsfeed']       = sanitize_text_field( $data['display_newsfeed'] );
+            $data['display_rc_amp_ad_tag']  = sanitize_text_field( $data['display_rc_amp_ad_tag'] );
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -281,6 +283,7 @@ class SpotIM_Options {
                 case 'display_page':
                 case 'display_attachment':
                 case 'display_newsfeed':
+                case 'display_rc_amp_ad_tag':
                     $options[ $key ] = sanitize_text_field( $value );
                     break;
                 case 'posts_per_request':
