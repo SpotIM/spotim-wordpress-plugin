@@ -85,6 +85,9 @@ class SpotIM_Frontend {
         // OG tags
         add_action( 'wp_head', array( __CLASS__, 'open_graph_tags' ) );
 
+        // Load frontend assets.
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_assets' ) );
+
     }
 
     public static function display_comments() {
@@ -513,5 +516,15 @@ class SpotIM_Frontend {
         }
 
         do_action( 'spotim_after_open_tags' );
+    }
+
+    /**
+     * Register scripts and styles required by plugin.
+     */
+    public function load_frontend_assets() {
+
+        wp_register_style( 'main_stylesheet', self::$options->require_stylesheet( 'main.css', true ) );
+        wp_enqueue_style( 'main_stylesheet' );
+
     }
 }
