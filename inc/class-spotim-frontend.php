@@ -250,8 +250,7 @@ class SpotIM_Frontend {
      * @access public
      * @static
      *
-     *
-     * @return string
+     * @return void
      */
     public static function comments_number_tags() {
 
@@ -286,7 +285,7 @@ class SpotIM_Frontend {
         if ( '0' !== $counterPosition && self::has_spotim_comments() ) {
 
             // Comments count scripts
-            add_filter( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
+            add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
             $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
@@ -297,7 +296,7 @@ class SpotIM_Frontend {
             // Display comment count on non singular pages for enabled post type.
 
             // Comments count scripts.
-            add_filter( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
+            add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
             $commentsNumberContainerSpan = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 

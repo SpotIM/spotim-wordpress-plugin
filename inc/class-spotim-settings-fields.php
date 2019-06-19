@@ -169,7 +169,7 @@ class SpotIM_Settings_Fields {
 
         if ( ! empty( $post_types ) ) {
 
-            foreach ( $post_types as $key => $value ) {
+            foreach ( $post_types as $value ) {
 
                 // Check if post type support comments
                 if ( post_type_supports( $value->name, 'comments' ) ) {
@@ -440,6 +440,9 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function register_import_section() {
+
+        // Initialize array to display cron schedules.
+        $schedule_fields = array();
 
         add_settings_section(
             'import_settings_section',
