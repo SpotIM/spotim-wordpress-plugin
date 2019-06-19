@@ -2,9 +2,9 @@
 Contributors: spotim, itay9001, ramiy, maor, rzvagelsky, idanm
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 4.0
-Tested up to: 5.1
+Tested up to: 5.2.2
 Requires PHP: 5.4
-Stable tag: 4.4.0
+Stable tag: 4.5.0
 License: GPLv2 or later
 License URI: license.txt
 
@@ -203,6 +203,14 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
+= 4.5.0 =
+* Add AMP support for Comments and Recirculation.
+* Add option to Enable / Disable Ad tags in AMP.
+* Updated import process.
+* Update Siderail embed code.
+* Update default option to disable newsfeed on non-article pages.
+* Hide Siderail widget on mobile devices.
+
 = 4.4.0 =
 * Add WordPress VIP standardization changes.
 * Add option to enable / disable Newsfeed.
@@ -385,9 +393,10 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Upgrade notice ==
 
-= 4.4.0 =
-* Add WordPress VIP standardization changes.
-* Add option to enable / disable newsfeed.
-* Add option to display comments count on non singular pages.
-* Update Siderail template.
-* Fix error display on sync error.
+= 4.5.0 =
+* Add AMP support for Comments and Recirculation.
+* Add option to Enable / Disable Ad tags in AMP.
+* Updated import process.
+* Update Siderail embed code.
+* Update default option to disable newsfeed on non-article pages.
+* Hide Siderail widget on mobile devices.
