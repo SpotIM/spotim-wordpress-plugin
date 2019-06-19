@@ -167,6 +167,7 @@ class SpotIM_Message {
     }
 
     public function get_message_and_children_ids_map() {
+        $messages_map  = [];
         $messages_map[ $this->message->id ] = $this->messages_map[ $this->message->id ]['comment_id'];
 
         foreach ( $this->messages_map as $message_id => $message ) {

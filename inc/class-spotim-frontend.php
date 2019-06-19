@@ -89,6 +89,9 @@ class SpotIM_Frontend {
         // OG tags
         add_action( 'wp_head', array( __CLASS__, 'open_graph_tags' ) );
 
+        // Load frontend assets.
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_assets' ) );
+
     }
 
     public static function display_comments() {
@@ -267,8 +270,7 @@ class SpotIM_Frontend {
      * @access public
      * @static
      *
-     *
-     * @return string
+     * @return void
      */
     public static function comments_number_tags() {
 
@@ -308,7 +310,7 @@ class SpotIM_Frontend {
         if ( '0' !== $counterPosition && self::has_spotim_comments() ) {
 
             // Comments count scripts
-            add_filter( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
+            add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
             $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
@@ -319,7 +321,7 @@ class SpotIM_Frontend {
             // Display comment count on non singular pages for enabled post type.
 
             // Comments count scripts.
-            add_filter( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
+            add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
             $commentsNumberContainerSpan = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
@@ -549,6 +551,16 @@ class SpotIM_Frontend {
     }
 
     /**
+     * Register scripts and styles required by plugin.
+     */
+    public function load_frontend_assets() {
+
+        wp_register_style( 'main_stylesheet', self::$options->require_stylesheet( 'main.css', true ) );
+        wp_enqueue_style( 'main_stylesheet' );
+
+    }
+
+    /**
      * Display the markup of AMP comments.
      */
     public static function display_amp_comments() {
@@ -567,9 +579,9 @@ class SpotIM_Frontend {
     /**
      * AMP's Post data action which is used to modify the data of post, other template and user information.
      * Used here to enqueue scripts.
-     * 
+     *
      * @param array $data Data related to posts and templates.
-     * 
+     *
      * @return array
      */
     public static function amp_recirculation_scripts( $data ) {

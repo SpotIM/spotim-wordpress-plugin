@@ -113,6 +113,9 @@ class WP_SpotIM {
      * @return void
      */
     public function load_files() {
+
+        $inc_class_dir = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
+
         $files = [
             'helpers/class-spotim-form.php',
             'helpers/class-spotim-message.php',
@@ -133,7 +136,12 @@ class WP_SpotIM {
         ];
 
         foreach ( $files as $file ) {
-            require_once( 'inc/' . $file );
+
+            $file = $inc_class_dir . $file;
+
+            if ( file_exists( $file ) ) {
+                require_once( $file );
+            }
         }
 
     }
