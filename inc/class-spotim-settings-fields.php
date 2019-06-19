@@ -313,6 +313,24 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
+            'display_rc_amp_ad_tag',
+            esc_html__( 'Recirculation AMP Ad tag', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id'          => 'display_rc_amp_ad_tag',
+                'page'        => $this->options->slug,
+                'fields'      => array(
+                    '1' => esc_html__( 'Enable', 'spotim-comments' ),
+                    '0' => esc_html__( 'Disable', 'spotim-comments' ),
+                ),
+                'description' => esc_html__( 'Please contact your account manager to activate the Ad tag for AMP powered pages.', 'spotim-comments' ),
+                'value'       => $this->options->get( 'display_rc_amp_ad_tag' ),
+            )
+        );
+
+        add_settings_field(
             'display_priority',
             esc_html__( 'Display Priority', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'number_field' ),
