@@ -570,8 +570,7 @@ class SpotIM_Frontend {
             include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-amp-template.php';
             $amp_comments = ob_get_contents();
             ob_end_clean();
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in template.
-            echo $amp_comments;
+            echo wp_kses( $amp_comments, SpotIM_WP::$allowed_amp_tags );
         }
     }
 
