@@ -40,7 +40,7 @@ style="border-top-color:#ec2223">
   layout="fixed-height"
   max-items="3"
   items="items"
-  src="<?php echo esc_url( 'https://recirculation.spot.im/spot/json/' . $option->get( 'spot_id' ) ); ?>"
+  src="<?php echo esc_url( 'https://recirculation.spot.im/spot/json/' . rawurlencode( $option->get( 'spot_id' ) ) ); ?>"
   class="spotim-amp-list "
 >
   <template type="amp-mustache" id="amp-spotim-rc">
