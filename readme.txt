@@ -4,7 +4,7 @@ Tags: Comment, comment form, commenting, comments, comment author, comment form,
 Requires at least: 4.0
 Tested up to: 5.2.2
 Requires PHP: 5.4
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 License: GPLv2 or later
 License URI: license.txt
 
@@ -203,6 +203,9 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
+= 4.5.1 =
+* Update AMP templates to comply with WordPress VIP standard.
+
 = 4.5.0 =
 * Add AMP support for Comments and Recirculation.
 * Add option to Enable / Disable Ad tags in AMP.
@@ -393,10 +396,5 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Upgrade notice ==
 
-= 4.5.0 =
-* Add AMP support for Comments and Recirculation.
-* Add option to Enable / Disable Ad tags in AMP.
-* Updated import process.
-* Update Siderail embed code.
-* Update default option to disable newsfeed on non-article pages.
-* Hide Siderail widget on mobile devices.
+= 4.5.1 =
+* Update AMP templates to comply with WordPress VIP standard.
