@@ -14,6 +14,80 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SpotIM_WP {
 
     /**
+     * List of allowed tags for AMP templates.
+     * @var array
+    */
+    public static $allowed_amp_tags = array(
+        'div' => array(
+            'class'       => array(),
+            'overflow'    => array(),
+            'tabindex'    => array(),
+            'role'        => array(),
+            'aria-label'  => array(),
+            'style'       => array(),
+            'placeholder' => array(),
+            'fallback'    => array(),
+        ),
+        'amp-iframe'      => array(
+            'width'       => array(),
+            'height'      => array(),
+            'resizable'   => array(),
+            'sandbox'     => array(),
+            'layout'      => array(),
+            'frameborder' => array(),
+            'src'         => array(),
+            'style'       => array(),
+        ),
+        'amp-analytics' => array(),
+        'script' => array(
+            'type' => array( 'application/json' ),
+        ),
+        'amp-list' => array(
+            'width'     => array(),
+            'height'    => array(),
+            'layout'    => array(),
+            'max-items' => array(),
+            'items'     => array(),
+            'src'       => array(),
+            'class'     => array(),
+        ),
+        'template' => array(
+            'type' => array(),
+            'id'   => array(),
+        ),
+        'amp-carousel' => array(
+            'height' => array(),
+            'layout' => array(),
+            'type'   => array(),
+        ),
+        'a' => array(
+            'class'       => array(),
+            'href'        => array(),
+            'data-spmark' => array(),
+            'target'      => array(),
+        ),
+        'amp-img' => array(
+            'layout'      => array(),
+            'width'       => array(),
+            'height'      => array(),
+            'alt'         => array(),
+            'src'         => array(),
+            'placeholder' => array(),
+        ),
+        'span' => array(
+            'class' => array(),
+        ),
+        'amp-ad' => array(
+            'width'     => array(),
+            'height'    => array(),
+            'type'      => array(),
+            'data-slot' => array(),
+            'json'      => array(),
+            'data-id'   => array(),
+        )
+    );
+
+    /**
      * Retrieve the raw response from the HTTP request using the GET method.
      *
      * @see wp_remote_request() For more information on the response array format.

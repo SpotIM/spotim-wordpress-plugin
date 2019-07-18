@@ -11,7 +11,7 @@ target="_blank">
   layout="fixed-height"
   max-items="1"
   items="items"
-  src="<?php echo esc_url( 'https://spotops.spot.im/spot/' . $option->get( 'spot_id' ) . '/recirculation/amp' ); ?>"
+  src="<?php echo esc_url( sprintf( 'https://spotops.spot.im/spot/%s/recirculation/amp', rawurlencode( $option->get( 'spot_id' ) ) ) ); ?>"
   class="spotim-amp-list-ad">
 
     <template type="amp-mustache" id="amp-spotim-rc">
