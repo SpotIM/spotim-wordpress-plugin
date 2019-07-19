@@ -106,6 +106,7 @@ class SpotIM_Options {
             'embed_method'                 => 'content',
             'rc_embed_method'              => 'regular',
             'display_rc_amp_ad_tag'        => '0',
+            'enable_rating_reviews'        => '0',
             'display_priority'             => 9999,
             'enable_seo'                   => 'false',
             'enable_og'                    => 'false',
@@ -179,7 +180,8 @@ class SpotIM_Options {
             $data['display_page']           = sanitize_text_field( $data['display_page'] );
             $data['display_attachment']     = sanitize_text_field( $data['display_attachment'] );
             $data['display_newsfeed']       = sanitize_text_field( $data['display_newsfeed'] );
-            $data['display_rc_amp_ad_tag']  = sanitize_text_field( $data['display_rc_amp_ad_tag'] );
+            $data['display_rc_amp_ad_tag']  = isset( $data['display_rc_amp_ad_tag'] ) ? sanitize_text_field( $data['display_rc_amp_ad_tag'] ) : $this->default_options['display_rc_amp_ad_tag'];
+            $data['enable_rating_reviews']  = isset( $data['enable_rating_reviews'] ) ? sanitize_text_field( $data['enable_rating_reviews'] ) : $this->default_options['enable_rating_reviews'];
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -284,6 +286,7 @@ class SpotIM_Options {
                 case 'display_attachment':
                 case 'display_newsfeed':
                 case 'display_rc_amp_ad_tag':
+                case 'enable_rating_reviews':
                     $options[ $key ] = sanitize_text_field( $value );
                     break;
                 case 'posts_per_request':

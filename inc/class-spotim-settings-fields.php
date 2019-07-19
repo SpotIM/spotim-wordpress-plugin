@@ -331,6 +331,25 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
+            'enable_rating_reviews',
+            esc_html__( 'Star rating reviews in conversation', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id'          => 'enable_rating_reviews',
+                'page'        => $this->options->slug,
+                'fields'      => array(
+                    '1' => esc_html__( 'Enable', 'spotim-comments' ),
+                    '0' => esc_html__( 'Disable', 'spotim-comments' ),
+                ),
+                'value'       => $this->options->get( 'enable_rating_reviews' ),
+            )
+        );
+
+
+
+        add_settings_field(
             'display_priority',
             esc_html__( 'Display Priority', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'number_field' ),
