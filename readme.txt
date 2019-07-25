@@ -4,7 +4,7 @@ Tags: Comment, comment form, commenting, comments, comment author, comment form,
 Requires at least: 4.0
 Tested up to: 5.2.2
 Requires PHP: 5.4
-Stable tag: 4.5.1
+Stable tag: 4.5.2
 License: GPLv2 or later
 License URI: license.txt
 
@@ -203,6 +203,9 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
+= 4.5.2 =
+* Add support for Star Rating Reviews.
+
 = 4.5.1 =
 * Update AMP templates to comply with WordPress VIP standard.
 
@@ -396,5 +399,5 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Upgrade notice ==
 
-= 4.5.1 =
-* Update AMP templates to comply with WordPress VIP standard.
+= 4.5.2 =
+* Add support for Star Rating Reviews.
