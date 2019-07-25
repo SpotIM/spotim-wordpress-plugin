@@ -1,8 +1,9 @@
 <?php
-$options              = SpotIM_Options::get_instance();
-$front                = new SpotIM_Frontend( $options );
-$spot_id              = $options->get( 'spot_id' );
-$recirculation_method = $options->get( 'rc_embed_method' );
+$options               = SpotIM_Options::get_instance();
+$front                 = new SpotIM_Frontend( $options );
+$spot_id               = $options->get( 'spot_id' );
+$recirculation_method  = $options->get( 'rc_embed_method' );
+$enable_rating_reviews = 0 === absint( $options->get( 'enable_rating_reviews' ) ) ? 'false' : 'true';
 
 switch ( $options->get( 'disqus_identifier' ) ) {
     case 'id':
@@ -33,6 +34,7 @@ switch ( $options->get( 'disqus_identifier' ) ) {
             data-spotim-module="spotim-launcher"
             data-article-tags="<?php echo esc_attr( implode( ', ', wp_get_post_tags( get_the_ID(), array( 'fields' => 'names' ) ) ) ); ?>"
             src="<?php echo esc_url( 'https://launcher.spot.im/spot/' . $spot_id ); ?>"
+            data-social-reviews="<?php echo esc_attr( $enable_rating_reviews ); ?>"
             data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
             data-post-url="<?php echo esc_url( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"
             data-short-url="<?php echo esc_url( apply_filters( 'spotim_comments_disqus_short_url', site_url( '/?p=' . get_the_id() ) ) ); ?>"
