@@ -39,7 +39,7 @@ class SpotIM_i18n {
      */
     public function load_textdomain() {
 
-        load_plugin_textdomain( 'spotim-comments' );
+        load_plugin_textdomain( 'ow' );
 
     }
 

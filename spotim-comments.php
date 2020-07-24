@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:         Spot.IM Comments
+ * Plugin Name:         OpenWeb.com Comments
  * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem.
  * Version:             4.5.2
- * Author:              Spot.IM
+ * Author:              OpenWeb.com
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
  * License URI:         license.txt
- * Text Domain:         spotim-comments
+ * Text Domain:         ow
  * GitHub Plugin URI:   git@github.com:SpotIM/wordpress-comments-plugin.git
  */
 

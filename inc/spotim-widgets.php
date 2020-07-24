@@ -26,9 +26,9 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
         parent::__construct(
             'spotim_recirculation_widget',
-            esc_html__( 'Spot.IM Recirculation', 'spotim-comments' ),
+            esc_html__( 'Spot.IM Recirculation', 'ow' ),
             array(
-                'description' => esc_html__( 'Spot.IM related content.', 'spotim-comments' ),
+                'description' => esc_html__( 'Spot.IM related content.', 'ow' ),
                 'classname'   => 'spotim_recirculation',
             )
         );
@@ -89,7 +89,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
         // Form fields
         echo '<p>';
-        echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
+        echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'ow' ) . '</label>';
         echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
         echo '</p>';
 
@@ -139,9 +139,9 @@ class SpotIM_Siderail_Widget extends WP_Widget {
 
         parent::__construct(
             'spotim_siderail_widget',
-            __( 'Spot.IM Siderail', 'spotim-comments' ),
+            __( 'Spot.IM Siderail', 'ow' ),
             array(
-                'description' => __( 'Spot.IM related content.', 'spotim-comments' ),
+                'description' => __( 'Spot.IM related content.', 'ow' ),
                 'classname'   => 'spotim_siderail',
             )
         );
@@ -202,7 +202,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
 
         // Form fields
         echo '<p>';
-        echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
+        echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'ow' ) . '</label>';
         echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
         echo '</p>';
 

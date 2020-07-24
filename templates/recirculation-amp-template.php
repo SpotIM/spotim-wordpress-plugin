@@ -30,8 +30,8 @@ $option = SpotIM_Options::get_instance();
 </amp-analytics>
 <div
 class="spotim-title"
-style="border-top-color:#ec2223"> 
-    <?php esc_html_e( 'Popular in the Community', 'spotim-comments' ); ?>
+style="border-top-color:#ec2223">
+    <?php esc_html_e( 'Popular in the Community', 'ow' ); ?>
 </div>
 
 <amp-list
