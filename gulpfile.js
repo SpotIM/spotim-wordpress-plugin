@@ -56,7 +56,4 @@ gulp.task('textdomain', function () {
 
 /* Default Gulp task
  ------------------------------------- */
-gulp.task('default', function () {
-    // Run all the tasks!
-    gulp.start('textdomain','pot');
-});
+gulp.task( 'default', gulp.series( 'textdomain', 'pot' ) );
