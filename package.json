@@ -8,5 +8,8 @@
     "gulp-sort": "^2.0.0",
     "gulp-util": "^3.0.7",
     "gulp-wp-pot": "^1.2.2"
+  },
+  "scripts": {
+    "prod": "gulp"
   }
 }
