@@ -121,7 +121,7 @@ class WP_OW {
 			'helpers/class-ow-message.php',
 			'helpers/class-ow-comment.php',
 			'helpers/class-ow-json-feed.php',
-			'helpers/class-spotim-wp.php',
+			'helpers/class-ow-wp.php',
 			'class-spotim-i18n.php',
 			'class-spotim-import.php',
 			'class-spotim-options.php',
@@ -165,7 +165,7 @@ add_action( 'plugins_loaded', 'ow_instance', 0 );
  *
  * @return bool returns true if current site is available on VIP-GO, otherwise false
  */
-function spotim_is_vip() {
+function ow_is_vip() {
 	if ( defined( 'SPOTIM_IS_VIP_DEBUG' ) && SPOTIM_IS_VIP_DEBUG ) { // Setting WPCOM_IS_VIP_ENV in local won't work.
 		return true;
 	}

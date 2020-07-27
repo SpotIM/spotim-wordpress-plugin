@@ -187,7 +187,7 @@ class SpotIM_Frontend {
 
         if ( self::has_spotim_comments() ) {
 
-            if ( ! SpotIM_WP::spotim_is_amp() ) {
+            if ( ! OW_WP::is_amp() ) {
                 // Load SpotIM comments template
                 ob_start();
                 include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
@@ -234,7 +234,7 @@ class SpotIM_Frontend {
             $template = apply_filters( 'before_spotim_comments', $template, $spot_id );
 
             // Don't filter the template if page is AMP.
-            if ( SpotIM_WP::spotim_is_amp() ) {
+            if ( OW_WP::is_amp() ) {
                 // Load SpotIM comments template
                 $require_amp_template_path = self::$options->require_template( 'comments-amp-template.php', true );
                 if ( ! empty( $require_amp_template_path ) ) {
@@ -299,7 +299,7 @@ class SpotIM_Frontend {
      */
     public static function filter_comments_number( $content ) {
 
-        if ( SpotIM_WP::spotim_is_amp() ) {
+        if ( OW_WP::is_amp() ) {
             return $content;
         }
 
@@ -444,7 +444,7 @@ class SpotIM_Frontend {
              */
             $content = apply_filters( 'before_spotim_recirculation', $content, $spot_id );
 
-            if ( SpotIM_WP::spotim_is_amp() ) {
+            if ( OW_WP::is_amp() ) {
                 // Load SpotIM recirculation AMP template.
                 ob_start();
                 include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-amp-template.php';
@@ -570,7 +570,7 @@ class SpotIM_Frontend {
             include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-amp-template.php';
             $amp_comments = ob_get_contents();
             ob_end_clean();
-            echo wp_kses( $amp_comments, SpotIM_WP::$allowed_amp_tags );
+            echo wp_kses( $amp_comments, OW_WP::$allowed_amp_tags );
         }
     }
 
@@ -584,7 +584,7 @@ class SpotIM_Frontend {
      * @return array
      */
     public static function amp_recirculation_scripts( $data ) {
-        if ( SpotIM_WP::spotim_is_amp() && self::has_spotim_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
+        if ( OW_WP::is_amp() && self::has_spotim_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
             $data['amp_component_scripts']['amp-ad']        = 'https://cdn.ampproject.org/v0/amp-ad-0.1.js';
             $data['amp_component_scripts']['amp-list']      = 'https://cdn.ampproject.org/v0/amp-list-0.1.js';
             $data['amp_component_scripts']['amp-carousel']  = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
@@ -602,7 +602,7 @@ class SpotIM_Frontend {
      * @return void
      */
     public static function amp_recirculation_styles() {
-        if ( SpotIM_WP::spotim_is_amp() && self::has_spotim_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
+        if ( OW_WP::is_amp() && self::has_spotim_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
             wp_enqueue_style( 'amp-recirculation-style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/recirculation-amp.css' );
         }
     }

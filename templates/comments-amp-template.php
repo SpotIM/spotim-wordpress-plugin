@@ -25,7 +25,7 @@ if ( ! empty( $spot_id ) && ! empty( $spot_post_id ) ) :
         $recirculation = ob_get_contents();
         ob_end_clean();
 
-        echo wp_kses( $recirculation, SpotIM_WP::$allowed_amp_tags );
+        echo wp_kses( $recirculation, OW_WP::$allowed_amp_tags );
     }
     ?>
 <amp-iframe width="375" height="815" resizable
@@ -42,7 +42,7 @@ if ( ! empty( $spot_id ) && ! empty( $spot_post_id ) ) :
         $recirculation = ob_get_contents();
         ob_end_clean();
 
-        echo wp_kses( $recirculation, SpotIM_WP::$allowed_amp_tags );
+        echo wp_kses( $recirculation, OW_WP::$allowed_amp_tags );
     }
     ?>
 </div>

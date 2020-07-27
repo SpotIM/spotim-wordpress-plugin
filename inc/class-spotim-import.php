@@ -530,7 +530,7 @@ class SpotIM_Import {
         $result->is_ok = false;
 
         // 60 second timeout will only work in non VIP env.
-        $response = SpotIM_WP::spotim_remote_get( $url, array(
+        $response = OW_WP::remote_get( $url, array(
             'sslverify' => true,
             'timeout'   => 60 //phpcs:ignore
         ), '', 5, 3 );
