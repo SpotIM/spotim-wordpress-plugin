@@ -117,7 +117,7 @@ class WP_OW {
 		$inc_class_dir = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
 
 		$files = [
-			'helpers/class-spotim-form.php',
+			'helpers/class-ow-form.php',
 			'helpers/class-spotim-message.php',
 			'helpers/class-spotim-comment.php',
 			'helpers/class-spotim-json-feed.php',

@@ -135,7 +135,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'spot_id',
             esc_html__( 'Spot ID', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'general_settings_section',
             array(
@@ -184,7 +184,7 @@ class SpotIM_Settings_Fields {
                     add_settings_field(
                         "display_{$value->name}",
                         sprintf( esc_html__( 'Display on %s', 'ow' ), $value->label ),
-                        array( 'SpotIM_Form_Helper', 'radio_fields' ),
+                        array( 'OW_Form_Helper', 'radio_fields' ),
                         $this->options->slug,
                         'display_settings_section',
                         array(
@@ -207,7 +207,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_comments_count',
             esc_html__( 'Display Comments Count', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'display_settings_section',
             array(
@@ -224,7 +224,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_newsfeed',
             esc_html__( 'Display Newsfeed on non-article pages', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'display_settings_section',
             array(
@@ -241,7 +241,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'comments_per_page',
             esc_html__( 'Comments Per Page', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
+            array( 'OW_Form_Helper', 'number_field' ),
             $this->options->slug,
             'display_settings_section',
             array(
@@ -277,7 +277,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'embed_method',
             esc_html__( 'Comments Embed Method', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -296,7 +296,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'rc_embed_method',
             esc_html__( 'Recirculation Embed Method', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -315,7 +315,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_rc_amp_ad_tag',
             esc_html__( 'Recirculation AMP Ad tag', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -333,7 +333,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_rating_reviews',
             esc_html__( 'Star rating reviews in conversation', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -352,7 +352,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_priority',
             esc_html__( 'Display Priority', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
+            array( 'OW_Form_Helper', 'number_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -367,7 +367,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_seo',
             esc_html__( 'Enable SEO', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -384,7 +384,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_og',
             esc_html__( 'OpenGraph Tags', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -401,7 +401,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'class',
             esc_html__( 'Container Class', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -414,7 +414,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'disqus_shortname',
             esc_html__( 'Disqus Shortname', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -427,7 +427,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'disqus_identifier',
             esc_html__( 'Disqus Identifier Structure', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -445,7 +445,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'import_button',
             esc_html__( 'Start Manual Sync', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'import_button' ),
+            array( 'OW_Form_Helper', 'import_button' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -491,7 +491,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'import_token',
             esc_html__( 'Sync Token', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
@@ -515,7 +515,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'auto_import',
             esc_html__( 'Enable Auto Sync', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'import_settings_section',
             array(
@@ -540,7 +540,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'posts_per_request',
             esc_html__( 'Posts Per Request', 'ow' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
+            array( 'OW_Form_Helper', 'number_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
@@ -558,7 +558,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'spot_id',
             null,
-            array( 'SpotIM_Form_Helper', 'hidden_field' ),
+            array( 'OW_Form_Helper', 'hidden_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
