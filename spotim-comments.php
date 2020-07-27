@@ -73,7 +73,7 @@ class WP_OW {
 		if ( is_admin() ) {
 
 			// Admin Page
-			new SpotIM_Admin( $this->options );
+			new OW_Admin( $this->options );
 
 		} else {
 
@@ -127,7 +127,7 @@ class WP_OW {
 			'class-ow-options.php',
 			'class-ow-settings-fields.php',
 			'class-ow-metabox.php',
-			'class-spotim-admin.php',
+			'class-ow-admin.php',
 			'class-spotim-frontend.php',
 			'class-spotim-feed.php',
 			'class-spotim-cron.php',
