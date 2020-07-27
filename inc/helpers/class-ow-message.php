@@ -94,7 +94,7 @@ class OW_Message {
 		$comment_exists = false;
 
 		// Query the spotim_id meta-data to check whether the comment already exist
-		if ( $this->get_comment_by_spot_id() ) {
+		if ( $this->get_comment_by_ow_id() ) {
 			return true;
 		}
 
@@ -179,13 +179,13 @@ class OW_Message {
 	}
 
 	/**
-	 * Query the commentsmeta Table to check if the comment already exists.
+	 * Query the comments_meta Table to check if the comment already exists.
 	 *
 	 * @return bool
 	 */
-	public function get_comment_by_spot_id() {
+	public function get_comment_by_ow_id() {
 		if ( $this->message->id ) {
-			// Meta query used to get comment by spot id.
+			// Meta query used to get comment by ow id.
 			$args = array(
 				'meta_query' => array( // WPCS: slow query ok.
 					array(
@@ -405,21 +405,27 @@ class OW_Message {
 				$author['comment_author'] = sanitize_text_field(
 					$this->users->{$this->message->user_id}->nick_name
 				);
-			} else if ( isset( $this->users->{$this->message->user_id}->display_name ) &&
-						! empty ( $this->users->{$this->message->user_id}->display_name ) ) {
+			} elseif (
+				isset( $this->users->{$this->message->user_id}->display_name ) &&
+				! empty ( $this->users->{$this->message->user_id}->display_name )
+			) {
 				$author['comment_author'] = sanitize_text_field(
 					$this->users->{$this->message->user_id}->display_name
 				);
-			} else if ( isset( $this->users->{$this->message->user_id}->user_name ) &&
-						! empty ( $this->users->{$this->message->user_id}->user_name ) ) {
+			} elseif (
+				isset( $this->users->{$this->message->user_id}->user_name ) &&
+				! empty ( $this->users->{$this->message->user_id}->user_name )
+			) {
 				$author['comment_author'] = sanitize_text_field(
 					$this->users->{$this->message->user_id}->user_name
 				);
 			}
 
 			// set author's email
-			if ( isset( $this->users->{$this->message->user_id}->email ) &&
-				 is_email( $this->users->{$this->message->user_id}->email ) ) {
+			if (
+				isset( $this->users->{$this->message->user_id}->email ) &&
+				is_email( $this->users->{$this->message->user_id}->email )
+			) {
 				$author['comment_author_email'] = $this->users->{$this->message->user_id}->email;
 			}
 		}
