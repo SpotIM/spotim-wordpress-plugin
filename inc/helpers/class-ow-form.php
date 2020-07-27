@@ -227,7 +227,7 @@ class OW_Form_Helper {
 	 * @return string
 	 */
 	public static function import_button( $args ) {
-		$ow = spotim_instance();
+		$ow = ow_instance();
 
 		// Import button
 		$template = sprintf(

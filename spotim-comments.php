@@ -149,17 +149,16 @@ class WP_OW {
 }
 
 /**
- * Spotim Instance
+ * OW Instance
  *
  * @since 1.0
  *
  * @return WP_OW
  */
-function spotim_instance() {
+function ow_instance() {
 	return WP_OW::get_instance();
 }
-
-add_action( 'plugins_loaded', 'spotim_instance', 0 );
+add_action( 'plugins_loaded', 'ow_instance', 0 );
 
 /**
  * Check if current environment is `VIP-GO` or not.
