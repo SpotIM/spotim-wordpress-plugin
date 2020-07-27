@@ -118,7 +118,7 @@ class WP_OW {
 
 		$files = [
 			'helpers/class-ow-form.php',
-			'helpers/class-spotim-message.php',
+			'helpers/class-ow-message.php',
 			'helpers/class-spotim-comment.php',
 			'helpers/class-spotim-json-feed.php',
 			'helpers/class-spotim-wp.php',

@@ -50,7 +50,7 @@ class SpotIM_Comment {
     private static function add_new_comment( $sp_message, $sp_users, $post_id ) {
         $comment_created = false;
 
-        $message = new SpotIM_Message( 'new', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'new', $sp_message, $sp_users, $post_id );
 
         if ( ! $message->is_comment_exists() ) {
             $comment_id = wp_insert_comment( $message->get_comment_data() );
@@ -72,7 +72,7 @@ class SpotIM_Comment {
     private static function update_comment( $sp_message, $sp_users, $post_id ) {
         $comment_updated = false;
 
-        $message = new SpotIM_Message( 'update', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'update', $sp_message, $sp_users, $post_id );
 
         if ( $message->is_comment_exists() && ! $message->is_same_comment() ) {
             $comment_updated = wp_update_comment( $message->get_comment_data() );
@@ -87,7 +87,7 @@ class SpotIM_Comment {
         $comment_deleted          = false;
         $message_deleted_from_map = false;
 
-        $message = new SpotIM_Message( 'delete', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'delete', $sp_message, $sp_users, $post_id );
         if ( $message->get_comment_id() ) {
             $messages_ids = $message->get_message_and_children_ids_map();
 
@@ -115,7 +115,7 @@ class SpotIM_Comment {
     private static function soft_delete_comment( $sp_message, $sp_users, $post_id ) {
         $comment_soft_deleted = false;
 
-        $message = new SpotIM_Message( 'soft_delete', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'soft_delete', $sp_message, $sp_users, $post_id );
 
         if ( $message->is_comment_exists() ) {
             $comment_soft_deleted = wp_update_comment( $message->get_comment_data() );
@@ -127,7 +127,7 @@ class SpotIM_Comment {
     private static function anonymous_comment( $sp_message, $sp_users, $post_id ) {
         $comment_anonymized = false;
 
-        $message = new SpotIM_Message( 'anonymous_comment', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'anonymous_comment', $sp_message, $sp_users, $post_id );
 
         if ( $message->is_comment_exists() && ! $message->is_same_comment() ) {
             $comment_anonymized = wp_update_comment( $message->get_comment_data() );
