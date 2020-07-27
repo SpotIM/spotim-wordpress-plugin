@@ -15,16 +15,51 @@ define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
  */
 class OW_Message {
 
+	/**
+	 * Variable to map messages.
+	 *
+	 * @var array
+	 */
 	private $messages_map;
 
+	/**
+	 * Variable to store message data.
+	 *
+	 * @var void
+	 */
 	private $message_data;
 
+	/**
+	 * Variable to store comment data.
+	 *
+	 * @var array
+	 */
 	private $comment_data;
 
+	/**
+	 * Variable to store user details.
+	 *
+	 * @var object
+	 */
 	private $users;
 
+	/**
+	 * Variable to store post id.
+	 *
+	 * @var int
+	 */
 	private $post_id;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $type    Type of comment.
+	 * @param object $message Message details.
+	 * @param object $users   Users details.
+	 * @param int    $post_id Post ID.
+	 *
+	 * @return void
+	 */
 	public function __construct( $type, $message, $users, $post_id ) {
 		$this->message = $message;
 		$this->users   = count( (array) $users ) ? $users : new stdClass();
@@ -50,6 +85,11 @@ class OW_Message {
 		}
 	}
 
+	/**
+	 * Function to check is comment is exist or not.
+	 *
+	 * @return bool
+	 */
 	public function is_comment_exists() {
 		$comment_exists = false;
 
@@ -91,6 +131,11 @@ class OW_Message {
 		return $comment_exists;
 	}
 
+	/**
+	 * Function to check same comment or not.
+	 *
+	 * @return bool
+	 */
 	public function is_same_comment() {
 		$same_comment = false;
 		$comment_id   = absint( $this->get_comment_id() );
@@ -109,10 +154,20 @@ class OW_Message {
 		return $same_comment;
 	}
 
+	/**
+	 * Function to get comment data.
+	 *
+	 * @return array
+	 */
 	public function get_comment_data() {
 		return $this->comment_data;
 	}
 
+	/**
+	 * Function to get comment ID.
+	 *
+	 * @return int
+	 */
 	public function get_comment_id() {
 		$comment_id = 0;
 
@@ -124,7 +179,8 @@ class OW_Message {
 	}
 
 	/**
-	 * Query the commentsmeta Table to check if the comment already exists
+	 * Query the commentsmeta Table to check if the comment already exists.
+	 *
 	 * @return bool
 	 */
 	public function get_comment_by_spot_id() {
@@ -150,10 +206,24 @@ class OW_Message {
 		return false;
 	}
 
+	/**
+	 * Function to update comment meta.
+	 *
+	 * @param int $comment_id Comment id to update meta.
+	 *
+	 * @return int|bool
+	 */
 	public function update_comment_meta( $comment_id ) {
 		return add_comment_meta( $comment_id, 'spotim_id', $this->message->id );
 	}
 
+	/**
+	 * Function to update message map.
+	 *
+	 * @param int $comment_id Comment ID.
+	 *
+	 * @return int|bool
+	 */
 	public function update_messages_map( $comment_id ) {
 		$this->messages_map[ $this->message->id ] = array(
 			'comment_id' => $comment_id
@@ -166,6 +236,11 @@ class OW_Message {
 		return update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
 	}
 
+	/**
+	 * Function to get message and children ids map.
+	 *
+	 * @return array
+	 */
 	public function get_message_and_children_ids_map() {
 		$messages_map  = [];
 		$messages_map[ $this->message->id ] = $this->messages_map[ $this->message->id ]['comment_id'];
@@ -180,6 +255,13 @@ class OW_Message {
 		return $messages_map;
 	}
 
+	/**
+	 * Function to delete message from map array.
+	 *
+	 * @param int $message_id Message id to delete message from map array.
+	 *
+	 * @return bool
+	 */
 	public function delete_from_messages_map( $message_id ) {
 		if ( isset( $this->messages_map[ $message_id ] ) ) {
 			unset( $this->messages_map[ $message_id ] );
@@ -190,6 +272,11 @@ class OW_Message {
 		}
 	}
 
+	/**
+	 * Function to get comment parent ID.
+	 *
+	 * @return int
+	 */
 	private function get_comment_parent_id() {
 		$comment_parent_id = 0;
 
@@ -202,6 +289,11 @@ class OW_Message {
 		return $comment_parent_id;
 	}
 
+	/**
+	 * Function to get message map.
+	 *
+	 * @return array
+	 */
 	private function get_messages_map() {
 		$messages_map = get_post_meta( $this->post_id, 'spotim_messages_map', true );
 
@@ -214,6 +306,11 @@ class OW_Message {
 		return $messages_map;
 	}
 
+	/**
+	 * Function to get new comment data.
+	 *
+	 * @return array
+	 */
 	private function new_comment_data() {
 		$author         = $this->get_comment_author();
 		$comment_parent = $this->get_comment_parent_id();
@@ -236,6 +333,11 @@ class OW_Message {
 		);
 	}
 
+	/**
+	 * Function to update comment data.
+	 *
+	 * @return array
+	 */
 	private function update_comment_data() {
 		$comment_id  = absint( $this->get_comment_id() );
 		$old_comment = get_comment( $comment_id, ARRAY_A );
@@ -257,6 +359,11 @@ class OW_Message {
 		return $new_comment;
 	}
 
+	/**
+	 * Function to soft delete comment data.
+	 *
+	 * @return array
+	 */
 	private function soft_delete_comment_data() {
 		$comment_data = $this->anonymous_comment_data();
 
@@ -265,6 +372,11 @@ class OW_Message {
 		return $comment_data;
 	}
 
+	/**
+	 * Get anonymous comment data.
+	 *
+	 * @return array
+	 */
 	private function anonymous_comment_data() {
 		$comment_data = $this->update_comment_data();
 		$author       = $this->get_comment_author();
@@ -274,6 +386,11 @@ class OW_Message {
 		return $comment_data;
 	}
 
+	/**
+	 * Function to get comment author.
+	 *
+	 * @return array
+	 */
 	private function get_comment_author() {
 		$author = array(
 			'comment_author'       => esc_html__( 'Guest', 'ow' ),
