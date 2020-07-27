@@ -66,7 +66,7 @@ class WP_OW {
 		$this->options = SpotIM_Options::get_instance();
 
 		// Run the plugin
-		new SpotIM_i18n();
+		new OW_i18n();
 		new SpotIM_Cron( $this->options );
 		new SpotIM_Feed();
 
@@ -122,7 +122,7 @@ class WP_OW {
 			'helpers/class-ow-comment.php',
 			'helpers/class-ow-json-feed.php',
 			'helpers/class-ow-wp.php',
-			'class-spotim-i18n.php',
+			'class-ow-i18n.php',
 			'class-spotim-import.php',
 			'class-spotim-options.php',
 			'class-spotim-settings-fields.php',
