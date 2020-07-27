@@ -46,7 +46,7 @@ switch ( $options->get( 'disqus_identifier' ) ) {
             data-disqus-identifier="<?php echo esc_attr( apply_filters( 'spotim_comments_disqus_identifier', $disqus_identifier ) ); ?>"
             data-community-question="<?php echo esc_attr( apply_filters( 'spotim_comments_community_question', get_post_meta( get_the_id(), 'spotim_display_question', true ) ) ); ?>"
             data-seo-enabled="<?php echo esc_attr( apply_filters( 'spotim_comments_seo_enabled', $options->get( 'enable_seo' ) ) ); ?>"
-            data-wp-v="<?php echo esc_attr( 'p-' . SPOTIM_VERSION .'/wp-' . get_bloginfo( 'version' ) ); ?>"
+            data-wp-v="<?php echo esc_attr( 'p-' . OW_VERSION .'/wp-' . get_bloginfo( 'version' ) ); ?>"
     ></script>
     <?php
     if ( ( 'bottom' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {

@@ -18,13 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Store Plugin version for internal use.
-if ( ! defined( 'SPOTIM_VERSION' ) ) {
+if ( ! defined( 'OW_VERSION' ) ) {
     /**
      * The version of the plugin
      *
      * @since  4.5.2
      */
-    define( 'SPOTIM_VERSION', '4.5.2' );
+    define( 'OW_VERSION', '4.5.2' );
 }
 
 /**
