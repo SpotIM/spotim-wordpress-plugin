@@ -264,7 +264,7 @@ class SpotIM_Import {
 
             if ( $stream->from_etag < $stream->new_etag ) {
                 if ( ! empty( $stream->events ) ) {
-                    $sync_status = SpotIM_Comment::sync(
+                    $sync_status = OW_Comment::sync(
                         $stream->events,
                         $stream->users,
                         $stream->post_id
