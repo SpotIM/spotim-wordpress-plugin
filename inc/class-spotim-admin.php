@@ -199,7 +199,7 @@ class SpotIM_Admin {
 
         check_ajax_referer( 'sync_nonce', 'security' );
 
-        $import = new SpotIM_Import( self::$options );
+        $import = new OW_Import( self::$options );
 
         $spot_id           = filter_input( INPUT_POST, 'spotim_spot_id', FILTER_SANITIZE_STRING );
         $import_token      = filter_input( INPUT_POST, 'spotim_import_token', FILTER_SANITIZE_STRING );
@@ -251,7 +251,7 @@ class SpotIM_Admin {
 
         check_ajax_referer( 'sync_nonce', 'security' );
 
-        $import      = new SpotIM_Import( self::$options );
+        $import      = new OW_Import( self::$options );
         $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0; // WPCS: input var ok.
 
         update_option( "wp-spotim-settings_total_changed_posts", null );

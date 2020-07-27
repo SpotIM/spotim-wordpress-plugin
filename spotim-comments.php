@@ -123,7 +123,7 @@ class WP_OW {
 			'helpers/class-ow-json-feed.php',
 			'helpers/class-ow-wp.php',
 			'class-ow-i18n.php',
-			'class-spotim-import.php',
+			'class-ow-import.php',
 			'class-spotim-options.php',
 			'class-spotim-settings-fields.php',
 			'class-spotim-metabox.php',

@@ -112,7 +112,7 @@ class SpotIM_Cron {
 
         $this->set_time_limit( 0 );
 
-        $import   = new SpotIM_Import( self::$options, true );
+        $import   = new OW_Import( self::$options, true );
         $response = false;
 
         // Iterate over all posts, in bumps of $posts_per_iteration
