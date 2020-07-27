@@ -120,7 +120,7 @@ class WP_OW {
 			'helpers/class-ow-form.php',
 			'helpers/class-ow-message.php',
 			'helpers/class-ow-comment.php',
-			'helpers/class-spotim-json-feed.php',
+			'helpers/class-ow-json-feed.php',
 			'helpers/class-spotim-wp.php',
 			'class-spotim-i18n.php',
 			'class-spotim-import.php',
