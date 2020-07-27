@@ -126,7 +126,7 @@ class WP_OW {
 			'class-ow-import.php',
 			'class-ow-options.php',
 			'class-ow-settings-fields.php',
-			'class-spotim-metabox.php',
+			'class-ow-metabox.php',
 			'class-spotim-admin.php',
 			'class-spotim-frontend.php',
 			'class-spotim-feed.php',

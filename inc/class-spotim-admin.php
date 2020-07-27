@@ -38,7 +38,7 @@ class SpotIM_Admin {
      */
     public function __construct( $options ) {
         self::$options = $options;
-        new SpotIM_Meta_Box( $options );
+        new OW_Meta_Box( $options );
 
         add_action( 'admin_menu', array( __CLASS__, 'create_admin_menu' ), 20 );
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
