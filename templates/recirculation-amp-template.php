@@ -5,7 +5,7 @@
  * @package spotim-comments
  */
 
-$option = SpotIM_Options::get_instance();
+$option = OW_Options::get_instance();
 ?>
 <amp-analytics>
     <script type="application/json">

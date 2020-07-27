@@ -26,7 +26,7 @@ class OW_Import {
 	 *
 	 * @access private
 	 *
-	 * @var SpotIM_Options
+	 * @var OW_Options
 	 */
 	private $options;
 
@@ -77,7 +77,7 @@ class OW_Import {
 	 *
 	 * @access public
 	 *
-	 * @param SpotIM_Options $options Plugin options.
+	 * @param OW_Options $options Plugin options.
 	 * @param bool           $return  Should return mode be on? This will return values instead of echo to browser.
 	 *                                Default is false.
 	 */

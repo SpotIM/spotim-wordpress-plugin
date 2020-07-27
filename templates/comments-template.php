@@ -1,5 +1,5 @@
 <?php
-$options               = SpotIM_Options::get_instance();
+$options               = OW_Options::get_instance();
 $front                 = new SpotIM_Frontend( $options );
 $spot_id               = $options->get( 'spot_id' );
 $recirculation_method  = $options->get( 'rc_embed_method' );

@@ -1,5 +1,5 @@
 <?php
-$options = SpotIM_Options::get_instance();
+$options = OW_Options::get_instance();
 $spot_id = $options->get( 'spot_id' );
 ?>
 <script async

@@ -279,7 +279,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Add new "data-wp-import-endpoint" attribute to the embed code, With "spotim" feed URL.
 * Add new feed type called "spotim", and a link to this feed from the embed code.
 * Hooks: Filter all the data attributes in embed template.
-* Backwards Compatibility: Fix singleton issue on `SpotIM_Options()` class.
+* Backwards Compatibility: Fix singleton issue on `OW_Options()` class.
 * Backwards Compatibility: Don't use short arrays syntax, to support sites using older PHP versions.
 * Backwards Compatibility: Fix `empty()` checks in for sites using older PHP versions.
 

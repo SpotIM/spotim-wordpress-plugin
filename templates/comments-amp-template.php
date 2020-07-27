@@ -9,7 +9,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-$options              = SpotIM_Options::get_instance();
+$options              = OW_Options::get_instance();
 $spot_id              = $options->get( 'spot_id' );
 $spot_post_id         = get_the_ID();
 $front                = new SpotIM_Frontend( $options );

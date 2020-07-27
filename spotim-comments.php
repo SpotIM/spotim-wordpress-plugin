@@ -63,7 +63,7 @@ class WP_OW {
 		$this->load_files();
 
 		// Get the Options
-		$this->options = SpotIM_Options::get_instance();
+		$this->options = OW_Options::get_instance();
 
 		// Run the plugin
 		new OW_i18n();
@@ -124,7 +124,7 @@ class WP_OW {
 			'helpers/class-ow-wp.php',
 			'class-ow-i18n.php',
 			'class-ow-import.php',
-			'class-spotim-options.php',
+			'class-ow-options.php',
 			'class-spotim-settings-fields.php',
 			'class-spotim-metabox.php',
 			'class-spotim-admin.php',

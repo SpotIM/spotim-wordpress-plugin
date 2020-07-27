@@ -46,7 +46,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {
 
-        $options = SpotIM_Options::get_instance();
+        $options = OW_Options::get_instance();
 
         // ignoring warning as variable is used in included template.
         $spot_id = $options->get( 'spot_id' ); //phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
@@ -159,7 +159,7 @@ class SpotIM_Siderail_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {
 
-        $options = SpotIM_Options::get_instance();
+        $options = OW_Options::get_instance();
 
         // ignoring warning as variable is used in included template.
         $spot_id = $options->get( 'spot_id' ); // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable

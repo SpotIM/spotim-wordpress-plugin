@@ -22,7 +22,7 @@ class SpotIM_Settings_Fields {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      */
     public function __construct( $options ) {
         $this->options = $options;

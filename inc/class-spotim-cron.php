@@ -21,7 +21,7 @@ class SpotIM_Cron {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $options;
 
@@ -32,7 +32,7 @@ class SpotIM_Cron {
      *
      * @since  4.0.0
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      *
      * @access public
      */

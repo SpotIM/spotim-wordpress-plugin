@@ -21,7 +21,7 @@ class Spotim_Meta_Box {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $options;
 
@@ -34,7 +34,7 @@ class Spotim_Meta_Box {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      */
     public function __construct( $options ) {
 

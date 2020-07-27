@@ -21,7 +21,7 @@ class SpotIM_Frontend {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $options;
 
@@ -32,7 +32,7 @@ class SpotIM_Frontend {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      *
      * @return void
      */
