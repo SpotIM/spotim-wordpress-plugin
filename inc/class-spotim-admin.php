@@ -150,7 +150,7 @@ class SpotIM_Admin {
      * @return void
      */
     public static function register_settings() {
-        $settings_fields = new SpotIM_Settings_Fields( self::$options );
+        $settings_fields = new OW_Settings_Fields( self::$options );
         $settings_fields->register_settings();
 
         // Register settings fields only for the active tab

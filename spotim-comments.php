@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name:         OpenWeb.com Comments
+ * Plugin Name:         OpenWeb.Com Comments
  * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem.
  * Version:             4.5.2
- * Author:              OpenWeb.com
+ * Author:              OpenWeb.Com
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
  * License URI:         license.txt
@@ -125,7 +125,7 @@ class WP_OW {
 			'class-ow-i18n.php',
 			'class-ow-import.php',
 			'class-ow-options.php',
-			'class-spotim-settings-fields.php',
+			'class-ow-settings-fields.php',
 			'class-spotim-metabox.php',
 			'class-spotim-admin.php',
 			'class-spotim-frontend.php',
