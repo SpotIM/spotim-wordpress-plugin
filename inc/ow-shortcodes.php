@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -12,37 +12,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function ow_comments_shortcode() {
 
-	$options  = OW_Options::get_instance();
-	$ow_id    = $options->get( 'spot_id' );
-	$template = '';
+    $options  = OW_Options::get_instance();
+    $ow_id    = $options->get( 'spot_id' );
+    $template = '';
 
-	/**
-	 * Before loading OpenWeb comments template.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $template Comments template file to load.
-	 * @param int    $ow_id    OpenWeb ID.
-	 */
-	$template = apply_filters( 'before_spotim_comments', $template, $ow_id );
+    /**
+     * Before loading OpenWeb comments template.
+     *
+     * @since 4.0.0
+     *
+     * @param string $template Comments template file to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters( 'before_spotim_comments', $template, $ow_id );
 
-	// Load OpenWeb comments template
-	ob_start();
-	include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
-	$template .= ob_get_contents();
-	ob_end_clean();
+    // Load OpenWeb comments template
+    ob_start();
+    include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
+    $template .= ob_get_contents();
+    ob_end_clean();
 
-	/**
-	 * After loading OpenWeb comments template
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $template Comments template file to load.
-	 * @param int    $ow_id    OpenWeb ID.
-	 */
-	$template = apply_filters( 'after_spotim_comments', $template, $ow_id );
+    /**
+     * After loading OpenWeb comments template
+     *
+     * @since 4.0.0
+     *
+     * @param string $template Comments template file to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters( 'after_spotim_comments', $template, $ow_id );
 
-	return $template;
+    return $template;
 }
 add_shortcode( 'spotim_comments', 'ow_comments_shortcode' );
 
@@ -54,37 +54,37 @@ add_shortcode( 'spotim_comments', 'ow_comments_shortcode' );
  */
 function ow_recirculation_shortcode() {
 
-	$options  = OW_Options::get_instance();
-	$ow_id  = $options->get( 'spot_id' );
-	$template = '';
+    $options  = OW_Options::get_instance();
+    $ow_id  = $options->get( 'spot_id' );
+    $template = '';
 
-	/**
-	 * Before loading OpenWeb recirculation template
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $template Recirculation template to load.
-	 * @param int    $ow_id    OpenWeb ID.
-	 */
-	$template = apply_filters( 'before_spotim_recirculation', $template, $ow_id );
+    /**
+     * Before loading OpenWeb recirculation template
+     *
+     * @since 4.0.0
+     *
+     * @param string $template Recirculation template to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters( 'before_spotim_recirculation', $template, $ow_id );
 
-	// Load OpenWeb recirculation template
-	ob_start();
-	include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
-	$template .= ob_get_contents();
-	ob_end_clean();
+    // Load OpenWeb recirculation template
+    ob_start();
+    include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
+    $template .= ob_get_contents();
+    ob_end_clean();
 
-	/**
-	 * After loading OpenWeb recirculation template
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $template Recirculation template to load.
-	 * @param int    $ow_id  OpenWeb ID.
-	 */
-	$template = apply_filters( 'after_spotim_recirculation', $template, $ow_id );
+    /**
+     * After loading OpenWeb recirculation template
+     *
+     * @since 4.0.0
+     *
+     * @param string $template Recirculation template to load.
+     * @param int    $ow_id  OpenWeb ID.
+     */
+    $template = apply_filters( 'after_spotim_recirculation', $template, $ow_id );
 
-	return $template;
+    return $template;
 }
 add_shortcode( 'spotim_recirculation', 'ow_recirculation_shortcode' );
 
@@ -96,36 +96,36 @@ add_shortcode( 'spotim_recirculation', 'ow_recirculation_shortcode' );
  */
 function ow_siderail_shortcode() {
 
-	$options  = OW_Options::get_instance();
-	$ow_id    = $options->get( 'spot_id' );
-	$template = '';
+    $options  = OW_Options::get_instance();
+    $ow_id    = $options->get( 'spot_id' );
+    $template = '';
 
-	/**
-	 * Before loading OpenWeb siderail template
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $template Siderail template to load.
-	 * @param int    $ow_id    OpenWeb ID.
-	 */
-	$template = apply_filters( 'before_spotim_siderail', $template, $ow_id );
+    /**
+     * Before loading OpenWeb siderail template
+     *
+     * @since 4.0.0
+     *
+     * @param string $template Siderail template to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters( 'before_spotim_siderail', $template, $ow_id );
 
-	// Load OpenWeb siderail template
-	ob_start();
-	include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/siderail-template.php' );
-	$template .= ob_get_contents();
-	ob_end_clean();
+    // Load OpenWeb siderail template
+    ob_start();
+    include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/siderail-template.php' );
+    $template .= ob_get_contents();
+    ob_end_clean();
 
-	/**
-	 * After loading OpenWeb siderail template
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $template Siderail template to load.
-	 * @param int    $ow_id    OpenWeb ID.
-	 */
-	$template = apply_filters( 'after_spotim_siderail', $template, $ow_id );
+    /**
+     * After loading OpenWeb siderail template
+     *
+     * @since 4.0.0
+     *
+     * @param string $template Siderail template to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters( 'after_spotim_siderail', $template, $ow_id );
 
-	return $template;
+    return $template;
 }
 add_shortcode( 'spotim_siderail', 'ow_siderail_shortcode' );

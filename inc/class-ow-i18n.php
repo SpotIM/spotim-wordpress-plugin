@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -14,34 +14,34 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class OW_i18n {
 
-	/**
-	 * Constructor
-	 *
-	 * Get things started.
-	 *
-	 * @since  4.0.1
-	 *
-	 * @access public
-	 */
-	public function __construct() {
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since  4.0.1
+     *
+     * @access public
+     */
+    public function __construct() {
 
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
-	}
+    }
 
-	/**
-	 * Load text domain
-	 *
-	 * Load the plugin translation text domain.
-	 *
-	 * @since  4.0.1
-	 *
-	 * @access public
-	 */
-	public function load_textdomain() {
+    /**
+     * Load text domain
+     *
+     * Load the plugin translation text domain.
+     *
+     * @since  4.0.1
+     *
+     * @access public
+     */
+    public function load_textdomain() {
 
-		load_plugin_textdomain( 'ow' );
+        load_plugin_textdomain( 'ow' );
 
-	}
+    }
 
 }
