@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin auto import cron job.
  *
  * @since 4.0.0
+ * @since 5.0.0 Renamed from `SpotIM_Cron` to `OW_Cron`.
  */
 class OW_Cron {
 

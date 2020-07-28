@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Comments feed.
  *
  * @since 4.1.0
+ * @since 5.0.0 Renamed from `SpotIM_Feed` to `OW_Feed`.
  */
 class OW_Feed {
 

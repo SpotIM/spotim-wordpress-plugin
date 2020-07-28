@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin settings page.
  *
  * @since 1.0.2
+ * @since 5.0.0 Renamed from `SpotIM_Admin` to `OW_Admin`.
  */
 class OW_Admin {
 
@@ -118,19 +119,29 @@ class OW_Admin {
 	public static function create_admin_menu() {
 
 		/**
-		 * User capability to display Spot.IM menu.
+		 * User capability to display OpenWeb menu.
 		 *
-		 * Allows developers to filter the required capability to display Spot.IM settings.
+		 * Allows developers to filter the required capability to display OpenWeb settings.
 		 *
 		 * @since 4.0.4
 		 */
 		$capability = apply_filters( 'spotim_menu_display_capability', 'manage_options' );
 
-		$menu_icon = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Y2hhdCBjb3B5PC90aXRsZT48cGF0aCBkPSJNLjc0IDE1LjkxbC42MzQtMi42MTVjLjA1Ni0uMjMuMDEtLjQ4LS4xMy0uNzA3Qy0xLjg0NyA3LjU3OCAxLjE0NSAxLjAzIDYuNjY1LjExYzUuMzg2LS44OTYgMTAuMDkgMy43OTMgOS4yMzMgOS40MjItLjc4NiA1LjE2Ny02LjE5NCA4LjMxLTEwLjk3IDYuMjYtLjI1LS4xMS0uNTE4LS4xMS0uNzM0LS4wMDNMMS45NCAxNi45MWMtLjY1LjMyMi0xLjM3My0uMjc3LTEuMi0xem0yLjE5LTQuMzFjLjIzLjM3My4zLjguMjA2IDEuMjA1TDIuNjEzIDE1bDEuODU3LS45NGMuMzczLS4xOS44Mi0uMTk1IDEuMjMtLjAxNiAzLjU3IDEuNTU4IDcuNjM1LS44MjIgOC4yMjUtNC43Ny42MzQtNC4yNDUtMi44MjctNy44ODItNi45My03LjE5QzIuODI1IDIuNzk1LjYzIDcuODAyIDIuOTMgMTEuNnoiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
+		// Get svg base64 format to set menu icon.
+		ob_start();
+		include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/site-logo.php';
+		$menu_icon = ob_get_contents();
+		ob_end_clean();
 
+		/**
+		 * Menu and Page title.
+		 *
+		 * @since 5.0.0 Renamed page title from `SpotIM Settings` to `OpenWeb Settings`.
+		 * @since 5.0.0 Renamed menu title from `SpotIM` to `OpenWeb`.
+		 */
 		add_menu_page(
-			esc_html__( 'Spot.IM Settings', 'ow' ), // Page title
-			esc_html__( 'Spot.IM', 'ow' ),          // Menu title
+			esc_html__( 'OpenWeb Settings', 'ow' ), // Page title.
+			esc_html__( 'OpenWeb', 'ow' ),          // Menu title.
 			$capability,
 			self::$options->slug,
 			array( __CLASS__, 'admin_page_callback' ),

@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Form helpers.
  *
  * @since 3.0.0
+ * @since 5.0.0 Renamed from `SpotIM_Form_Helper` to `OW_Form_Helper`.
  */
 class OW_Form_Helper {
 

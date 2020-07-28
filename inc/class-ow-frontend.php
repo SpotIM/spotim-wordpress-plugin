@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin frontend.
  *
  * @since 1.0.2
+ * @since 5.0.0 Renamed from `SpotIM_Frontend` to `OW_Frontend`.
  */
 class OW_Frontend {
 
@@ -106,6 +107,7 @@ class OW_Frontend {
 	 * Has OpenWeb.Com comments
 	 *
 	 * @since  4.0.0
+	 * @since 5.0.0 Renamed from `has_spotim_comments` to `has_ow_comments`.
 	 *
 	 * @access public
 	 * @static
@@ -336,6 +338,7 @@ class OW_Frontend {
 	 * Has OpenWeb.Com questions
 	 *
 	 * @since  4.0.0
+	 * @since 5.0.0 Renamed from `has_spotim_questions` to `has_ow_questions`.
 	 *
 	 * @access public
 	 * @static
@@ -374,6 +377,7 @@ class OW_Frontend {
 	 * Has OpenWeb.Com recirculation
 	 *
 	 * @since  4.0.0
+	 * @since 5.0.0 Renamed from `has_spotim_recirculation` to `has_ow_recirculation`.
 	 *
 	 * @access public
 	 * @static

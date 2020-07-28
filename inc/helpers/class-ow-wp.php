@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WordPress Wrapper functions for all env.
  *
  * @since 3.0.0
+ * @since 5.0.0 Renamed from `SpotIM_WP` to `OW_WP`.
  */
 class OW_WP {
 
