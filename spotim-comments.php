@@ -131,7 +131,7 @@ class WP_OW {
 			'class-ow-frontend.php',
 			'class-ow-feed.php',
 			'class-ow-cron.php',
-			'spotim-shortcodes.php',
+			'ow-shortcodes.php',
 			'spotim-widgets.php',
 		];
 
