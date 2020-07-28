@@ -1,6 +1,6 @@
 <?php
 $options               = OW_Options::get_instance();
-$front                 = new SpotIM_Frontend( $options );
+$front                 = new OW_Frontend( $options );
 $spot_id               = $options->get( 'spot_id' );
 $recirculation_method  = $options->get( 'rc_embed_method' );
 $enable_rating_reviews = 0 === absint( $options->get( 'enable_rating_reviews' ) ) ? 'false' : 'true';
@@ -20,7 +20,7 @@ switch ( $options->get( 'disqus_identifier' ) ) {
 ?>
 <div id="comments-anchor" class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
     <?php
-    if ( ( 'top' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
+    if ( ( 'top' === $recirculation_method ) && ( $front->has_ow_recirculation() ) ) {
         ob_start();
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
         $recirculation = ob_get_contents();
@@ -49,7 +49,7 @@ switch ( $options->get( 'disqus_identifier' ) ) {
             data-wp-v="<?php echo esc_attr( 'p-' . OW_VERSION .'/wp-' . get_bloginfo( 'version' ) ); ?>"
     ></script>
     <?php
-    if ( ( 'bottom' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
+    if ( ( 'bottom' === $recirculation_method ) && ( $front->has_ow_recirculation() ) ) {
         ob_start();
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
         $recirculation = ob_get_contents();

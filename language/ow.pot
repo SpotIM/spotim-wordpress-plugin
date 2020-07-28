@@ -201,7 +201,7 @@ msgid "Let the theme decide"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:291
-msgid "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed."
+msgid "When choosing 'Let the theme decide', please inject the 'OW_Frontend::display_comments()' code wherever comments should be displayed."
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:298

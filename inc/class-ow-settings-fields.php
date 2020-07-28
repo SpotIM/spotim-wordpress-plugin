@@ -288,7 +288,7 @@ class OW_Settings_Fields {
 					'content'  => esc_html__( 'Insert After the Content', 'ow' ),
 					'manual'   => esc_html__( 'Let the theme decide', 'ow' ),
 				),
-				'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed.", 'ow' ),
+				'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'OW_Frontend::display_comments()' code wherever comments should be displayed.", 'ow' ),
 				'value'       => $this->options->get( 'embed_method' )
 			)
 		);

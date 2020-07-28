@@ -78,7 +78,7 @@ class WP_OW {
 		} else {
 
 			// Frontend code: embed script, comments template, comments count.
-			new SpotIM_Frontend( $this->options );
+			new OW_Frontend( $this->options );
 
 		}
 
@@ -128,7 +128,7 @@ class WP_OW {
 			'class-ow-settings-fields.php',
 			'class-ow-metabox.php',
 			'class-ow-admin.php',
-			'class-spotim-frontend.php',
+			'class-ow-frontend.php',
 			'class-spotim-feed.php',
 			'class-spotim-cron.php',
 			'spotim-shortcodes.php',
