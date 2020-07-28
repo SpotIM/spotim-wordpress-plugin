@@ -33,6 +33,7 @@ if ( ! defined( 'OW_VERSION' ) ) {
  * A general class for Spot.IM comments for WordPress.
  *
  * @since 1.0.2
+ * @since 5.0.0 Renamed from `WP_SpotIM` to `WP_OW`.
  */
 class WP_OW {
 
@@ -132,7 +133,7 @@ class WP_OW {
 			'class-ow-feed.php',
 			'class-ow-cron.php',
 			'ow-shortcodes.php',
-			'spotim-widgets.php',
+			'ow-widgets.php',
 		];
 
 		foreach ( $files as $file ) {
@@ -152,6 +153,7 @@ class WP_OW {
  * OW Instance
  *
  * @since 1.0
+ * @since 5.0.0 Renamed from `spotim__instance` to `ow_instance`.
  *
  * @return WP_OW
  */
