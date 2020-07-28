@@ -182,7 +182,7 @@ class OW_Cron {
 	 * @return string Execution token.
 	 */
 	private function generate_single_execution_token() {
-		return sprintf( 'spotim_exec_%s', time() );
+		return sprintf( 'ow_exec_%s', time() );
 	}
 
 	/**
