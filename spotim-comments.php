@@ -68,7 +68,7 @@ class WP_OW {
 		// Run the plugin
 		new OW_i18n();
 		new SpotIM_Cron( $this->options );
-		new SpotIM_Feed();
+		new OW_Feed();
 
 		if ( is_admin() ) {
 
@@ -129,7 +129,7 @@ class WP_OW {
 			'class-ow-metabox.php',
 			'class-ow-admin.php',
 			'class-ow-frontend.php',
-			'class-spotim-feed.php',
+			'class-ow-feed.php',
 			'class-spotim-cron.php',
 			'spotim-shortcodes.php',
 			'spotim-widgets.php',
