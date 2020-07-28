@@ -22,7 +22,7 @@ gulp.task('pot', function () {
             destFile: 'ow.pot',
             bugReport: 'https://github.com/SpotIM/spotim-wordpress-plugin',
             lastTranslator: '',
-            team: 'OpenWeb.com <support@spot.im>'
+            team: 'OpenWeb.com <support@openweb.com>'
         }))
         .pipe(gulp.dest('language'));
 });

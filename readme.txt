@@ -109,7 +109,7 @@ For more information, please visit our website – Spot.IM
 
 = How I can get Spot’s ID? =
 
-You can get it sending them exported data to support@spot.im alongside contact details.
+You can get it sending them exported data to support@openweb.com alongside contact details.
 
 = If I don't set Spot’s ID what will happen? =
 
@@ -139,7 +139,7 @@ All popular browsers support Spot! (Note: Need to consult developers on this)
 
 = How do I moderate content on my Spot? =
 
-Spot.IM offers several moderation tools and options, all of which are either automatic, manual, or user-based. You can find all the information about our moderation tools here and also contact us at support@spot.im for any help, offers, or suggestions.
+Spot.IM offers several moderation tools and options, all of which are either automatic, manual, or user-based. You can find all the information about our moderation tools here and also contact us at support@openweb.com for any help, offers, or suggestions.
 
 = How do I access Spot analytics? =
 
@@ -147,7 +147,7 @@ This feature, coming soon, will be available on our Manage page, which is also l
 
 = How does the Newsfeed work? Can I control what’s on it? =
 
-The Newsfeed works through an algorithm that determines what trending and recent content on your website your users need to see. If you have questions about how that works in more depth, please contact us at support@spot.im.
+The Newsfeed works through an algorithm that determines what trending and recent content on your website your users need to see. If you have questions about how that works in more depth, please contact us at support@openweb.com.
 
 = What is SEO and does Spot support it? =
 
@@ -199,7 +199,7 @@ The plugin supports many hooks. Developers can use them to modify the default be
 
 We know managing a website can get complicated. That’s why we made Spot.IM easy to use, even with its innovation. If you still need help with anything, try our very own Spot.Im Community site. From there, you can examine our Knoweldge Base, our Blog, and more.
 
-You are also always more than welcome to contact our team at support@spot.im. We’ll be glad to help.
+You are also always more than welcome to contact our team at support@openweb.com. We’ll be glad to help.
 
 == Changelog ==
 
