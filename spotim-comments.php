@@ -153,7 +153,7 @@ class WP_OW {
  * OW Instance
  *
  * @since 1.0
- * @since 5.0.0 Renamed from `spotim__instance` to `ow_instance`.
+ * @since 5.0.0 Renamed from `spotim_instance` to `ow_instance`.
  *
  * @return WP_OW
  */
