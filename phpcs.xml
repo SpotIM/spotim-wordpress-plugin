@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="SpotIM">
-	<description>A custom set of rules to check for SpotIM Comments WordPress plugin</description>
+<ruleset name="OpenWeb">
+	<description>A custom set of rules to check for OpenWeb Comments WordPress plugin</description>
 	<rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
