@@ -438,10 +438,10 @@ class OW_Options {
 
         // Return the next cron execution text
         if ( ( $timestamp - time() ) <= 0 ) {
-            return esc_html__( 'Next sync on next page refresh.', 'ow' );
+            return esc_html__( 'Next sync on next page refresh.', 'spotim-comments' );
         } else {
             return sprintf(
-                esc_html__( 'Next sync in %s.', 'ow' ),
+                esc_html__( 'Next sync in %s.', 'spotim-comments' ),
                 human_time_diff( current_time( 'timestamp' ), $timestamp )
             );
         }

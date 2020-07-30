@@ -17,12 +17,12 @@ gulp.task('pot', function () {
     return gulp.src('**/*.php')
         .pipe(sort())
         .pipe(wpPot({
-            package: 'OpenWeb.com Comments',
-            domain: 'ow', //textdomain
-            destFile: 'ow.pot',
-            bugReport: 'https://github.com/SpotIM/spotim-wordpress-plugin',
+            package: 'Spot.IM Comments',
+            domain: 'spotim-comments', //textdomain
+            destFile: 'spotim-comments.pot',
+            bugReport: 'https://github.com/SpotIM/wordpress-comments-plugin',
             lastTranslator: '',
-            team: 'OpenWeb.com <support@openweb.com>'
+            team: 'Spot.IM <support@spot.im>'
         }))
         .pipe(gulp.dest('language'));
 });
@@ -31,7 +31,7 @@ gulp.task('pot', function () {
  ------------------------------------- */
 gulp.task('textdomain', function () {
     var options = {
-        text_domain: 'ow',
+        text_domain: 'spotim-comments',
         keywords: [
             '__:1,2d',
             '_e:1,2d',
@@ -56,4 +56,7 @@ gulp.task('textdomain', function () {
 
 /* Default Gulp task
  ------------------------------------- */
-gulp.task( 'default', gulp.series( 'textdomain', 'pot' ) );
+gulp.task('default', function () {
+    // Run all the tasks!
+    gulp.start('textdomain','pot');
+});

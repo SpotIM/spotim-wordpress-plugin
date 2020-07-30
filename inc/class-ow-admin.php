@@ -64,7 +64,7 @@ class OW_Admin {
 
         if ( 'closed' === get_default_comment_status() ) {
             printf(
-                esc_html__( '%1$sTo properly run %2$sOpenWeb.Com%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on "%2$sAllow people to post comments on new articles%3$s". %6$s', 'ow' ),
+                esc_html__( '%1$sTo properly run %2$sOpenWeb.Com%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on "%2$sAllow people to post comments on new articles%3$s". %6$s', 'spotim-comments' ),
                 '<div class="notice notice-warning"><p>',
                 '<strong>',
                 '</strong>',
@@ -101,8 +101,8 @@ class OW_Admin {
         wp_localize_script( 'admin_javascript', 'spotimVariables', array(
             'pageNumber'          => self::$options->get( 'page_number' ),
             'sync_nonce'          => $nonce,
-            'errorMessage'        => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@openweb.com.', 'ow' ),
-            'cancelImportMessage' => esc_html__( 'Cancel importing...', 'ow' )
+            'errorMessage'        => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@openweb.com.', 'spotim-comments' ),
+            'cancelImportMessage' => esc_html__( 'Cancel importing...', 'spotim-comments' )
         ) );
     }
 
@@ -140,8 +140,8 @@ class OW_Admin {
          * @since 5.0.0 Renamed menu title from `SpotIM` to `OpenWeb`.
          */
         add_menu_page(
-            esc_html__( 'OpenWeb Settings', 'ow' ), // Page title.
-            esc_html__( 'OpenWeb', 'ow' ),          // Menu title.
+            esc_html__( 'OpenWeb Settings', 'spotim-comments' ), // Page title.
+            esc_html__( 'OpenWeb', 'spotim-comments' ),          // Menu title.
             $capability,
             self::$options->slug,
             array( __CLASS__, 'admin_page_callback' ),
@@ -222,14 +222,14 @@ class OW_Admin {
         if ( empty( $spot_id ) ) {
             $import->response( array(
                 'status'  => 'error',
-                'message' => esc_html__( 'OpenWeb ID is missing.', 'ow' )
+                'message' => esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' )
             ) );
 
             // check for import token
         } else if ( empty( $import_token ) ) {
             $import->response( array(
                 'status'  => 'error',
-                'message' => esc_html__( 'Import token is missing.', 'ow' )
+                'message' => esc_html__( 'Import token is missing.', 'spotim-comments' )
             ) );
 
             //  else start the comments importing process

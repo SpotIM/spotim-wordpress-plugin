@@ -1,14 +1,14 @@
-# Copyright (C) 2020 OpenWeb.com Comments
-# This file is distributed under the same license as the OpenWeb.com Comments package.
+# Copyright (C) 2019 Spot.IM Comments
+# This file is distributed under the same license as the Spot.IM Comments package.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenWeb.com Comments\n"
-"Report-Msgid-Bugs-To: https://github.com/SpotIM/spotim-wordpress-plugin\n"
+"Project-Id-Version: Spot.IM Comments\n"
+"Report-Msgid-Bugs-To: https://github.com/SpotIM/wordpress-comments-plugin\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
-"Language-Team: OpenWeb.com <support@openweb.com>\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Language-Team: Spot.IM <support@spot.im>\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -21,7 +21,7 @@ msgid "%1$sTo properly run %2$sSpot.IM%3$s please visit your sites %4$sDiscussio
 msgstr ""
 
 #: inc/class-spotim-admin.php:205
-msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@openweb.com."
+msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
 msgstr ""
 
 #: inc/class-spotim-admin.php:207
@@ -201,7 +201,7 @@ msgid "Let the theme decide"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:291
-msgid "When choosing 'Let the theme decide', please inject the 'OW_Frontend::display_comments()' code wherever comments should be displayed."
+msgid "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed."
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:298
