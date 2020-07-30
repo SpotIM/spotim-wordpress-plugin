@@ -368,7 +368,7 @@ class OW_Message {
     private function soft_delete_comment_data() {
         $comment_data = $this->anonymous_comment_data();
 
-        $comment_data['comment_content'] = esc_html__( 'This message was deleted.', 'spotim-comments' );
+        $comment_data['comment_content'] = esc_html__( 'This message was deleted.', 'ow' );
 
         return $comment_data;
     }
@@ -394,7 +394,7 @@ class OW_Message {
      */
     private function get_comment_author() {
         $author = array(
-            'comment_author'       => esc_html__( 'Guest', 'spotim-comments' ),
+            'comment_author'       => esc_html__( 'Guest', 'ow' ),
             'comment_author_email' => ''
         );
 

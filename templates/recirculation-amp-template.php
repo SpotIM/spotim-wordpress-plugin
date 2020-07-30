@@ -31,7 +31,7 @@ $option = OW_Options::get_instance();
 <div
 class="spotim-title"
 style="border-top-color:#ec2223">
-    <?php esc_html_e( 'Popular in the Community', 'spotim-comments' ); ?>
+    <?php esc_html_e( 'Popular in the Community', 'ow' ); ?>
 </div>
 
 <amp-list
