@@ -136,8 +136,8 @@ class OW_Admin {
         /**
          * Menu and Page title.
          *
-         * @since 5.0.0 Renamed page title from `SpotIM Settings` to `OpenWeb Settings`.
-         * @since 5.0.0 Renamed menu title from `SpotIM` to `OpenWeb`.
+         * @since 5.0.0 Renamed page title from 'SpotIM Settings' to 'OpenWeb Settings'.
+         * @since 5.0.0 Renamed menu title from 'SpotIM' to 'OpenWeb'.
          */
         add_menu_page(
             esc_html__( 'OpenWeb Settings', 'spotim-comments' ), // Page title.
