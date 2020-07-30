@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Comment functions.
  *
  * @since 3.0.0
- * @since 5.0.0 Renamed from `SpotIM_Comment` to `OW_Comment`.
+ * @since 5.0.0 Renamed from 'SpotIM_Comment' to 'OW_Comment'.
  */
 class OW_Comment {
 

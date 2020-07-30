@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * JSON feed.
  *
  * @since 4.1.0
- * @since 5.0.0 Renamed from `SpotIM_JSON_Feed` to `OW_JSON_Feed`.
+ * @since 5.0.0 Renamed from 'SpotIM_JSON_Feed' to 'OW_JSON_Feed'.
  */
 class OW_JSON_Feed {
 

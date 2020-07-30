@@ -33,7 +33,7 @@ if ( ! defined( 'OW_VERSION' ) ) {
  * A general class for Spot.IM comments for WordPress.
  *
  * @since 1.0.2
- * @since 5.0.0 Renamed from `WP_SpotIM` to `WP_OW`.
+ * @since 5.0.0 Renamed from 'WP_SpotIM' to 'WP_OW'.
  */
 class WP_OW {
 
@@ -153,7 +153,7 @@ class WP_OW {
  * OW Instance
  *
  * @since 1.0
- * @since 5.0.0 Renamed from `spotim_instance` to `ow_instance`.
+ * @since 5.0.0 Renamed from 'spotim_instance' to 'ow_instance'.
  *
  * @return WP_OW
  */

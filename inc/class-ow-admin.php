@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin settings page.
  *
  * @since 1.0.2
- * @since 5.0.0 Renamed from `SpotIM_Admin` to `OW_Admin`.
+ * @since 5.0.0 Renamed from 'SpotIM_Admin' to 'OW_Admin'.
  */
 class OW_Admin {
 
