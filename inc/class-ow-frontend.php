@@ -228,12 +228,29 @@ class OW_Frontend {
             /**
              * Before loading OpenWeb comments template.
              *
-             * @since 4.0.0
+             * @since 5.0.0
              *
              * @param string $template Comments template to load.
              * @param int    $ow_id    OpenWeb ID.
              */
-            $template = apply_filters( 'before_spotim_comments', $template, $ow_id );
+            $template = apply_filters( 'before_ow_comments', $template, $ow_id );
+
+            /**
+             * Before loading OpenWeb comments template.
+             *
+             * @since 4.0.0
+             * @deprecated 5.0.0 Use {@see 'before_ow_comments'} instead.
+             *
+             * @param string $template Comments template to load.
+             * @param int    $ow_id    OpenWeb ID.
+             */
+            $template = apply_filters_deprecated(
+                'before_spotim_comments',
+                array( $template, $ow_id ),
+                '5.0.0',
+                'before_ow_comments',
+                OW_FILTER_DEPRECATED_MESSAGE
+            );
 
             // Don't filter the template if page is AMP.
             if ( OW_WP::is_amp() ) {
@@ -251,14 +268,31 @@ class OW_Frontend {
             }
 
             /**
-             * After loading OpenWeb comments template
+             * After loading OpenWeb comments template.
              *
-             * @since 4.0.0
+             * @since 5.0.0
              *
              * @param string $template Comments template to load.
              * @param int    $ow_id    OpenWeb ID.
              */
-            $template = apply_filters( 'after_spotim_comments', $template, $ow_id );
+            $template = apply_filters( 'after_ow_comments', $template, $ow_id );
+
+            /**
+             * After loading OpenWeb comments template.
+             *
+             * @since 4.0.0
+             * @deprecated 5.0.0 Use {@see 'after_ow_comments'} instead.
+             *
+             * @param string $template Comments template to load.
+             * @param int    $ow_id    OpenWeb ID.
+             */
+            $template = apply_filters_deprecated(
+                'after_spotim_comments',
+                array( $template, $ow_id ),
+                '5.0.0',
+                'after_ow_comments',
+                OW_FILTER_DEPRECATED_MESSAGE
+            );
         }
 
         return $template;
@@ -441,12 +475,29 @@ class OW_Frontend {
             /**
              * Before loading OpenWeb recirculation template.
              *
-             * @since 4.0.0
+             * @since 5.0.0
              *
              * @param string $content The post content.
              * @param int    $ow_id   OpenWeb ID.
              */
-            $content = apply_filters( 'before_spotim_recirculation', $content, $ow_id );
+            $content = apply_filters( 'before_ow_recirculation', $content, $ow_id );
+
+            /**
+             * Before loading OpenWeb recirculation template.
+             *
+             * @since 4.0.0
+             * @deprecated 5.0.0 Use {@see 'before_ow_recirculation'} instead.
+             *
+             * @param string $content The post content.
+             * @param int    $ow_id   OpenWeb ID.
+             */
+            $content = apply_filters_deprecated(
+                'before_spotim_recirculation',
+                array( $content, $ow_id ),
+                '5.0.0',
+                'before_ow_recirculation',
+                OW_FILTER_DEPRECATED_MESSAGE
+            );
 
             if ( OW_WP::is_amp() ) {
                 // Load OpenWeb recirculation AMP template.
@@ -465,12 +516,29 @@ class OW_Frontend {
             /**
              * After loading OpenWeb recirculation template
              *
-             * @since 4.0.0
+             * @since 5.0.0
              *
              * @param string $content The post content.
              * @param int    $ow_id OpenWeb ID.
              */
-            $content = apply_filters( 'after_spotim_recirculation', $content, $ow_id );
+            $content = apply_filters( 'after_ow_recirculation', $content, $ow_id );
+
+            /**
+             * After loading OpenWeb recirculation template
+             *
+             * @since 4.0.0
+             * @deprecated 5.0.0 Use {@see 'after_ow_recirculation'} instead.
+             *
+             * @param string $content The post content.
+             * @param int    $ow_id OpenWeb ID.
+             */
+            $content = apply_filters_deprecated(
+                'after_spotim_recirculation',
+                array( $content, $ow_id ),
+                '5.0.0',
+                'after_ow_recirculation',
+                OW_FILTER_DEPRECATED_MESSAGE
+            );
         }
 
         return $content;
@@ -536,11 +604,27 @@ class OW_Frontend {
         /**
          * Filtering the default Open Graph tags added by OpenWeb.Com.
          *
-         * @since 4.3.0
+         * @since 5.0.0
          *
          * @param array $tags Default Open Graph tags.
          */
-        $tags = (array) apply_filters( 'spotim_open_graph_tags', $tags );
+        $tags = (array) apply_filters( 'ow_open_graph_tags', $tags );
+
+        /**
+         * Filtering the default Open Graph tags added by OpenWeb.Com.
+         *
+         * @since 4.3.0
+         * @deprecated 5.0.0 Use {@see 'ow_open_graph_tags'} instead.
+         *
+         * @param array $tags Default Open Graph tags.
+         */
+        $tags = (array) apply_filters_deprecated(
+            'spotim_open_graph_tags',
+            array( $tags ),
+            '5.0.0',
+            'ow_open_graph_tags',
+            OW_FILTER_DEPRECATED_MESSAGE
+        );
 
         // Generate Open Graph tags markup.
         foreach ( $tags as $tagname => $tag ) {

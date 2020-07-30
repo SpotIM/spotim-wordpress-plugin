@@ -118,14 +118,36 @@ class OW_Admin {
      */
     public static function create_admin_menu() {
 
+        $capability = 'manage_options';
+
+        /**
+         * User capability to display OpenWeb menu.
+         *
+         * Allows developers to filter the required capability to display OpenWeb settings.
+         *
+         * @since 5.0.0
+         *
+         * @param string $capability User role capability.
+         */
+        $capability = apply_filters( 'ow_menu_display_capability', $capability );
+
         /**
          * User capability to display OpenWeb menu.
          *
          * Allows developers to filter the required capability to display OpenWeb settings.
          *
          * @since 4.0.4
+         * @deprecated 5.0.0 Use {@see 'ow_menu_display_capability'} instead.
+         *
+         * @param string $capability User role capability.
          */
-        $capability = apply_filters( 'spotim_menu_display_capability', 'manage_options' );
+        $capability = apply_filters_deprecated(
+            'spotim_menu_display_capability',
+            array( $capability ),
+            '5.0.0',
+            'ow_menu_display_capability',
+            OW_FILTER_DEPRECATED_MESSAGE
+        );
 
         // Get svg base64 format to set menu icon.
         ob_start();

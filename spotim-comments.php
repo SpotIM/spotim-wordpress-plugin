@@ -27,6 +27,16 @@ if ( ! defined( 'OW_VERSION' ) ) {
     define( 'OW_VERSION', '4.5.2' );
 }
 
+// Store deprecated filter message.
+if ( ! defined( 'OW_FILTER_DEPRECATED_MESSAGE' ) ) {
+    /**
+     * The filter deprecation message.
+     *
+     * @since  5.0.0
+     */
+    define( 'OW_FILTER_DEPRECATED_MESSAGE', esc_html__( 'This filter may remove in future releases.', 'ow' ) );
+}
+
 /**
  * WP_OW
  *

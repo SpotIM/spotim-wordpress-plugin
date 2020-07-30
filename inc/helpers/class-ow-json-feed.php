@@ -116,13 +116,30 @@ class OW_JSON_Feed {
         /**
          * Filtering the default comments query args used to generate OW JSON feed.
          *
-         * @since 4.1.0
+         * @since 5.0.0
          *
          * @param array $json_feed_query_args Default feed query args.
          */
-        $json_feed_query_args = apply_filters( 'spotim_json_feed_query_args', $json_feed_query_args );
-        $comments_query       = new WP_Comment_Query();
-        $comments             = $comments_query->query( $json_feed_query_args );
+        $json_feed_query_args = apply_filters( 'ow_json_feed_query_args', $json_feed_query_args );
+
+        /**
+         * Filtering the default comments query args used to generate OW JSON feed.
+         *
+         * @since 4.1.0
+         * @deprecated 5.0.0 Use {@see 'ow_json_feed_query_args'} instead.
+         *
+         * @param array $json_feed_query_args Default feed query args.
+         */
+        $json_feed_query_args = apply_filters_deprecated(
+            'spotim_json_feed_query_args',
+            array( $json_feed_query_args ),
+            '5.0.0',
+            'ow_json_feed_query_args',
+            OW_FILTER_DEPRECATED_MESSAGE
+        );
+
+        $comments_query = new WP_Comment_Query();
+        $comments       = $comments_query->query( $json_feed_query_args );
 
         // Structure Comments
         foreach ( $comments as $comment ) {
@@ -137,13 +154,31 @@ class OW_JSON_Feed {
         $this->users        = $this->aggregate_users();
 
         /**
-         * Filter the JSON feed
+         * Filter the JSON feed.
+         *
+         * @since 5.0.0
+         *
+         * @param OW_JSON_Feed $this OpenWeb JSON feed.
+         */
+        $json_data = apply_filters( 'ow_json_feed', wp_json_encode( $this ) );
+
+        /**
+         * Filter the JSON feed.
          *
          * @since 4.1.0
+         * @deprecated 5.0.0 Use {@see 'ow_json_feed'} instead.
          *
-         * @param OW_JSON_Feed $this SpotIM JSON feed.
+         * @param OW_JSON_Feed $json_data OpenWeb JSON feed.
          */
-        return apply_filters( 'spotim_json_feed', wp_json_encode( $this ) );
+        $json_data = apply_filters_deprecated(
+            'spotim_json_feed',
+            array( $json_data ),
+            '5.0.0',
+            'ow_json_feed',
+            OW_FILTER_DEPRECATED_MESSAGE
+        );
+
+        return $json_data;
     }
 
     /**
