@@ -18,8 +18,8 @@ gulp.task('pot', function () {
         .pipe(sort())
         .pipe(wpPot({
             package: 'OpenWeb.com Comments',
-            domain: 'ow', //textdomain
-            destFile: 'ow.pot',
+            domain: 'spotim-comments', //textdomain
+            destFile: 'spotim-comments.pot',
             bugReport: 'https://github.com/SpotIM/spotim-wordpress-plugin',
             lastTranslator: '',
             team: 'OpenWeb.com <support@openweb.com>'
@@ -31,7 +31,7 @@ gulp.task('pot', function () {
  ------------------------------------- */
 gulp.task('textdomain', function () {
     var options = {
-        text_domain: 'ow',
+        text_domain: 'spotim-comments',
         keywords: [
             '__:1,2d',
             '_e:1,2d',

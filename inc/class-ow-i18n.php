@@ -40,7 +40,7 @@ class OW_i18n {
      */
     public function load_textdomain() {
 
-        load_plugin_textdomain( 'ow' );
+        load_plugin_textdomain( 'spotim-comments' );
 
     }
 
