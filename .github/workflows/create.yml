@@ -11,7 +11,6 @@ jobs:
     - name: WordPress Plugin Deploy
       uses: rtCamp/action-wordpress-org-plugin-deploy@master
       env:
-        CUSTOM_COMMAND: npm run prod
         EXCLUDE_LIST: README.md .gitignore package.json package-lock.json phpcs.xml gulpfile.js
         ASSETS_DIR: wp-assets
         SLUG: spotim-comments
