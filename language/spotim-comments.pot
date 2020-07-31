@@ -1,14 +1,14 @@
-# Copyright (C) 2019 Spot.IM Comments
-# This file is distributed under the same license as the Spot.IM Comments package.
+# Copyright (C) 2020 OpenWeb.com Comments
+# This file is distributed under the same license as the OpenWeb.com Comments package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Spot.IM Comments\n"
-"Report-Msgid-Bugs-To: https://github.com/SpotIM/wordpress-comments-plugin\n"
+"Project-Id-Version: OpenWeb.com Comments\n"
+"Report-Msgid-Bugs-To: https://github.com/SpotIM/spotim-wordpress-plugin\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
-"Language-Team: Spot.IM <support@spot.im>\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Language-Team: OpenWeb.com <support@openweb.com>\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -16,340 +16,344 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inc/class-spotim-admin.php:131
-msgid "%1$sTo properly run %2$sSpot.IM%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on \"%2$sAllow people to post comments on new articles%3$s\". %6$s"
+#: inc/class-ow-admin.php:133
+msgid "%1$sTo properly run %2$sOpenWeb.Com%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on \"%2$sAllow people to post comments on new articles%3$s\". %6$s"
 msgstr ""
 
-#: inc/class-spotim-admin.php:205
-msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
+#: inc/class-ow-admin.php:207
+msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@openweb.com."
 msgstr ""
 
-#: inc/class-spotim-admin.php:207
+#: inc/class-ow-admin.php:209
 msgid "Cancel importing..."
 msgstr ""
 
-#: inc/class-spotim-admin.php:263
-msgid "Spot.IM Settings"
+#: inc/class-ow-admin.php:285
+msgid "OpenWeb Settings"
 msgstr ""
 
-#: inc/class-spotim-admin.php:265, inc/class-spotim-metabox.php:199
-msgid "Spot.IM"
+#: inc/class-ow-admin.php:287
+msgid "OpenWeb"
 msgstr ""
 
-#: inc/class-spotim-admin.php:427, inc/class-spotim-settings-fields.php:527
-msgid "Spot ID is missing."
+#: inc/class-ow-admin.php:449, inc/class-ow-settings-fields.php:528
+msgid "OpenWeb ID is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:441, inc/class-spotim-settings-fields.php:528
+#: inc/class-ow-admin.php:463, inc/class-ow-settings-fields.php:529
 msgid "Import token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:555
+#: inc/class-ow-import.php:563
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:657
+#: inc/class-ow-import.php:665
 msgid "Your website doesn't have any posts to sync."
 msgstr ""
 
-#: inc/class-spotim-import.php:663
+#: inc/class-ow-import.php:671
 msgid "Loading %d total posts to sync."
 msgstr ""
 
-#: inc/class-spotim-import.php:681
+#: inc/class-ow-import.php:689
 msgid "%d / %d posts are synchronizing."
 msgstr ""
 
-#: inc/class-spotim-import.php:699
+#: inc/class-ow-import.php:707
 msgid "Some posts have errored."
 msgstr ""
 
-#: inc/class-spotim-import.php:735
+#: inc/class-ow-import.php:743
 msgid "posts has been synced."
 msgstr ""
 
-#: inc/class-spotim-import.php:1115
-msgid "Failed retriving data for Post ID %s"
+#: inc/class-ow-import.php:1123
+msgid "Failed retrieving data for Post ID %s"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:285
+#: inc/class-ow-metabox.php:201
+msgid "OpenWeb.Com"
+msgstr ""
+
+#: inc/class-ow-metabox.php:287
 msgid "Comments"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:291, inc/class-spotim-metabox.php:339, inc/class-spotim-settings-fields.php:195, inc/class-spotim-settings-fields.php:235, inc/class-spotim-settings-fields.php:325, inc/class-spotim-settings-fields.php:343, inc/class-spotim-settings-fields.php:378, inc/class-spotim-settings-fields.php:395
+#: inc/class-ow-metabox.php:293, inc/class-ow-metabox.php:341, inc/class-ow-settings-fields.php:196, inc/class-ow-settings-fields.php:236, inc/class-ow-settings-fields.php:326, inc/class-ow-settings-fields.php:344, inc/class-ow-settings-fields.php:379, inc/class-ow-settings-fields.php:396
 msgid "Enable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:293, inc/class-spotim-metabox.php:341, inc/class-spotim-settings-fields.php:194, inc/class-spotim-settings-fields.php:217, inc/class-spotim-settings-fields.php:234, inc/class-spotim-settings-fields.php:326, inc/class-spotim-settings-fields.php:344, inc/class-spotim-settings-fields.php:377, inc/class-spotim-settings-fields.php:394
+#: inc/class-ow-metabox.php:295, inc/class-ow-metabox.php:343, inc/class-ow-settings-fields.php:195, inc/class-ow-settings-fields.php:218, inc/class-ow-settings-fields.php:235, inc/class-ow-settings-fields.php:327, inc/class-ow-settings-fields.php:345, inc/class-ow-settings-fields.php:378, inc/class-ow-settings-fields.php:395
 msgid "Disable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:297
-msgid "Show Spot.IM comments."
+#: inc/class-ow-metabox.php:299
+msgid "Show OpenWeb.Com comments."
 msgstr ""
 
-#: inc/class-spotim-metabox.php:307
+#: inc/class-ow-metabox.php:309
 msgid "Community Question"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:313
-msgid "Show Spot.IM community question."
+#: inc/class-ow-metabox.php:315
+msgid "Show OpenWeb.Com community question."
 msgstr ""
 
-#: inc/class-spotim-metabox.php:333
+#: inc/class-ow-metabox.php:335
 msgid "Recirculation"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:345
-msgid "Show Spot.IM recirculation."
+#: inc/class-ow-metabox.php:347
+msgid "Show OpenWeb.Com recirculation."
 msgstr ""
 
-#: inc/class-spotim-options.php:440
+#: inc/class-ow-options.php:441
 msgid "Next sync on next page refresh."
 msgstr ""
 
-#: inc/class-spotim-options.php:443
+#: inc/class-ow-options.php:444
 msgid "Next sync in %s."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:61
-msgid "Spot.IM's WordPress plugin is currently available for Spot.IM partners only."
+#: inc/class-ow-settings-fields.php:62
+msgid "OpenWeb.Com's WordPress plugin is currently available for OpenWeb.Com partners only."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:64
-msgid "To become a partner and retrieve your Spot ID, please submit your information %1$shere%2$s"
+#: inc/class-ow-settings-fields.php:65
+msgid "To become a partner and retrieve your OpenWeb ID (OW ID), please submit your information %1$shere%2$s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:81
-msgid "Select where to display Spot.IM."
+#: inc/class-ow-settings-fields.php:82
+msgid "Select where to display OpenWeb.Com comment box."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:94
-msgid "Your Spot.IM account manager may ask you to change these settings after revewing the installation."
+#: inc/class-ow-settings-fields.php:95
+msgid "Your OpenWeb.Com account manager may ask you to change these settings after reviewing the installation."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:108
-msgid "Export your comments from Spot.IM to WordPress."
+#: inc/class-ow-settings-fields.php:109
+msgid "Export your comments from OpenWeb.Com to WordPress."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:110
-msgid "This is different from importing comments from WordPress to Spot.IM."
+#: inc/class-ow-settings-fields.php:111
+msgid "This is different from importing comments from WordPress to OpenWeb.Com."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:112
-msgid "Contact your Spot.IM account manager to configure import from WordPress to Spot.IM."
+#: inc/class-ow-settings-fields.php:113
+msgid "Contact your OpenWeb.Com account manager to configure import from WordPress to OpenWeb.Com."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:130
+#: inc/class-ow-settings-fields.php:131
 msgid "General Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:137
-msgid "Spot ID"
+#: inc/class-ow-settings-fields.php:138
+msgid "OpenWeb ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:144
-msgid "Contact your Spot.IM account manager to get your Spot ID."
+#: inc/class-ow-settings-fields.php:145
+msgid "Contact your OpenWeb.Com account manager to get your OpenWeb ID."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:163
+#: inc/class-ow-settings-fields.php:164
 msgid "Display Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:186
+#: inc/class-ow-settings-fields.php:187
 msgid "Display on %s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:209
+#: inc/class-ow-settings-fields.php:210
 msgid "Display Comments Count"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:218
+#: inc/class-ow-settings-fields.php:219
 msgid "Below title"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:226
+#: inc/class-ow-settings-fields.php:227
 msgid "Display Newsfeed on non-article pages"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:243
+#: inc/class-ow-settings-fields.php:244
 msgid "Comments Per Page"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:249
+#: inc/class-ow-settings-fields.php:250
 msgid "Default: 10"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:272
+#: inc/class-ow-settings-fields.php:273
 msgid "Advanced Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:279
+#: inc/class-ow-settings-fields.php:280
 msgid "Comments Embed Method"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:287
+#: inc/class-ow-settings-fields.php:288
 msgid "Replace WordPress Comments"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:288
+#: inc/class-ow-settings-fields.php:289
 msgid "Insert After the Content"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:289
+#: inc/class-ow-settings-fields.php:290
 msgid "Let the theme decide"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:291
-msgid "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed."
+#: inc/class-ow-settings-fields.php:292
+msgid "When choosing 'Let the theme decide', please inject the 'OW_Frontend::display_comments()' code wherever comments should be displayed."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:298
+#: inc/class-ow-settings-fields.php:299
 msgid "Recirculation Embed Method"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:306
+#: inc/class-ow-settings-fields.php:307
 msgid "Regular"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:307
+#: inc/class-ow-settings-fields.php:308
 msgid "Inline - top"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:308
+#: inc/class-ow-settings-fields.php:309
 msgid "Inline - bottom"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:309
+#: inc/class-ow-settings-fields.php:310
 msgid "None"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:317
+#: inc/class-ow-settings-fields.php:318
 msgid "Recirculation AMP Ad tag"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:328
+#: inc/class-ow-settings-fields.php:329
 msgid "Please contact your account manager to activate the Ad tag for AMP powered pages."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:335
+#: inc/class-ow-settings-fields.php:336
 msgid "Star rating reviews in conversation"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:354
+#: inc/class-ow-settings-fields.php:355
 msgid "Display Priority"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:369
+#: inc/class-ow-settings-fields.php:370
 msgid "Enable SEO"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:386
+#: inc/class-ow-settings-fields.php:387
 msgid "OpenGraph Tags"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:403
+#: inc/class-ow-settings-fields.php:404
 msgid "Container Class"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:416
+#: inc/class-ow-settings-fields.php:417
 msgid "Disqus Shortname"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:429
+#: inc/class-ow-settings-fields.php:430
 msgid "Disqus Identifier Structure"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:437
+#: inc/class-ow-settings-fields.php:438
 msgid "ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:438
+#: inc/class-ow-settings-fields.php:439
 msgid "Short URL"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:439
+#: inc/class-ow-settings-fields.php:440
 msgid "ID + Short URL (Default)"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:447
+#: inc/class-ow-settings-fields.php:448
 msgid "Start Manual Sync"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:454
+#: inc/class-ow-settings-fields.php:455
 msgid "Sync Now"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:458
+#: inc/class-ow-settings-fields.php:459
 msgid "Reset + Sync Now"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:459
+#: inc/class-ow-settings-fields.php:460
 msgid "Use Sync Now to sync data starting from the last sync time."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:459
+#: inc/class-ow-settings-fields.php:460
 msgid "Use Reset + Sync Now to clear any old synced data and start a fresh sync."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:463
+#: inc/class-ow-settings-fields.php:464
 msgid "Cancel"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:486
+#: inc/class-ow-settings-fields.php:487
 msgid "Comments Sync Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:493
+#: inc/class-ow-settings-fields.php:494
 msgid "Sync Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:500
-msgid "Contact your Spot.IM account manager to get your sync token."
+#: inc/class-ow-settings-fields.php:501
+msgid "Contact your OpenWeb.Com account manager to get your sync token."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:507
+#: inc/class-ow-settings-fields.php:508
 msgid "No"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:517
+#: inc/class-ow-settings-fields.php:518
 msgid "Enable Auto Sync"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:524
+#: inc/class-ow-settings-fields.php:525
 msgid "Enable auto-sync and set how often should it reoccur."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:542
+#: inc/class-ow-settings-fields.php:543
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:549
+#: inc/class-ow-settings-fields.php:550
 msgid "On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10."
 msgstr ""
 
-#: inc/helpers/class-spotim-message.php:525
+#: inc/helpers/class-ow-message.php:741
 msgid "This message was deleted."
 msgstr ""
 
-#: inc/helpers/class-spotim-message.php:557
+#: inc/helpers/class-ow-message.php:793
 msgid "Guest"
 msgstr ""
 
-#: inc/spotim-widgets.php:57
-msgid "Spot.IM Recirculation"
+#: inc/ow-widgets.php:59
+msgid "OpenWeb.Com Recirculation"
 msgstr ""
 
-#: inc/spotim-widgets.php:61, inc/spotim-widgets.php:287
-msgid "Spot.IM related content."
+#: inc/ow-widgets.php:63, inc/ow-widgets.php:291
+msgid "OpenWeb.Com related content."
 msgstr ""
 
-#: inc/spotim-widgets.php:183, inc/spotim-widgets.php:409
+#: inc/ow-widgets.php:185, inc/ow-widgets.php:413
 msgid "Title"
 msgstr ""
 
-#: inc/spotim-widgets.php:283
-msgid "Spot.IM Siderail"
+#: inc/ow-widgets.php:287
+msgid "OpenWeb.Com Siderail"
 msgstr ""
 
 #: templates/admin-template.php:5
@@ -369,7 +373,7 @@ msgid "Advanced"
 msgstr ""
 
 #: templates/admin-template.php:9
-msgid "Spot.IM Dashboard"
+msgid "OpenWeb.Com Dashboard"
 msgstr ""
 
 #: templates/recirculation-amp-template.php:34

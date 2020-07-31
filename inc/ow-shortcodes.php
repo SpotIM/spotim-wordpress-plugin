@@ -19,12 +19,29 @@ function ow_comments_shortcode() {
     /**
      * Before loading OpenWeb comments template.
      *
-     * @since 4.0.0
+     * @since 5.0.0
      *
      * @param string $template Comments template file to load.
      * @param int    $ow_id    OpenWeb ID.
      */
-    $template = apply_filters( 'before_spotim_comments', $template, $ow_id );
+    $template = apply_filters( 'before_ow_comments', $template, $ow_id );
+
+    /**
+     * Before loading OpenWeb comments template.
+     *
+     * @since 4.0.0
+     * @deprecated 5.0.0 Use {@see 'before_ow_comments'} instead.
+     *
+     * @param string $template Comments template file to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters_deprecated(
+        'before_spotim_comments',
+        array( $template, $ow_id ),
+        '5.0.0',
+        'before_ow_comments',
+        OW_FILTER_DEPRECATED_MESSAGE
+    );
 
     // Load OpenWeb comments template
     ob_start();
@@ -33,14 +50,31 @@ function ow_comments_shortcode() {
     ob_end_clean();
 
     /**
-     * After loading OpenWeb comments template
+     * After loading OpenWeb comments template.
      *
-     * @since 4.0.0
+     * @since 5.0.0
      *
      * @param string $template Comments template file to load.
      * @param int    $ow_id    OpenWeb ID.
      */
-    $template = apply_filters( 'after_spotim_comments', $template, $ow_id );
+    $template = apply_filters( 'after_ow_comments', $template, $ow_id );
+
+    /**
+     * After loading OpenWeb comments template.
+     *
+     * @since 4.0.0
+     * @deprecated 5.0.0 Use {@see 'after_ow_comments'} instead.
+     *
+     * @param string $template Comments template file to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters_deprecated(
+        'after_spotim_comments',
+        array( $template, $ow_id ),
+        '5.0.0',
+        'after_ow_comments',
+        OW_FILTER_DEPRECATED_MESSAGE
+    );
 
     return $template;
 }
@@ -59,14 +93,31 @@ function ow_recirculation_shortcode() {
     $template = '';
 
     /**
-     * Before loading OpenWeb recirculation template
+     * Before loading OpenWeb recirculation template.
+     *
+     * @since 5.0.0
+     *
+     * @param string $content The post content.
+     * @param int    $ow_id   OpenWeb ID.
+     */
+    $template = apply_filters( 'before_ow_recirculation', $template, $ow_id );
+
+    /**
+     * Before loading OpenWeb recirculation template.
      *
      * @since 4.0.0
+     * @deprecated 5.0.0 Use {@see 'before_ow_recirculation'} instead.
      *
      * @param string $template Recirculation template to load.
      * @param int    $ow_id    OpenWeb ID.
      */
-    $template = apply_filters( 'before_spotim_recirculation', $template, $ow_id );
+    $template = apply_filters_deprecated(
+        'before_spotim_recirculation',
+        array( $template, $ow_id ),
+        '5.0.0',
+        'before_ow_recirculation',
+        OW_FILTER_DEPRECATED_MESSAGE
+    );
 
     // Load OpenWeb recirculation template
     ob_start();
@@ -77,12 +128,29 @@ function ow_recirculation_shortcode() {
     /**
      * After loading OpenWeb recirculation template
      *
-     * @since 4.0.0
+     * @since 5.0.0
      *
      * @param string $template Recirculation template to load.
      * @param int    $ow_id  OpenWeb ID.
      */
-    $template = apply_filters( 'after_spotim_recirculation', $template, $ow_id );
+    $template = apply_filters( 'after_ow_recirculation', $template, $ow_id );
+
+    /**
+     * After loading OpenWeb recirculation template
+     *
+     * @since 4.0.0
+     * @deprecated 5.0.0 Use {@see 'after_ow_recirculation'} instead.
+     *
+     * @param string $template Recirculation template to load.
+     * @param int    $ow_id  OpenWeb ID.
+     */
+    $template = apply_filters_deprecated(
+        'after_spotim_recirculation',
+        array( $template, $ow_id ),
+        '5.0.0',
+        'after_ow_recirculation',
+        OW_FILTER_DEPRECATED_MESSAGE
+    );
 
     return $template;
 }
@@ -101,16 +169,33 @@ function ow_siderail_shortcode() {
     $template = '';
 
     /**
-     * Before loading OpenWeb siderail template
+     * Before loading OpenWeb siderail template.
      *
-     * @since 4.0.0
+     * @since 5.0.0
      *
      * @param string $template Siderail template to load.
      * @param int    $ow_id    OpenWeb ID.
      */
-    $template = apply_filters( 'before_spotim_siderail', $template, $ow_id );
+    $template = apply_filters( 'before_ow_siderail', $template, $ow_id );
 
-    // Load OpenWeb siderail template
+    /**
+     * Before loading OpenWeb siderail template.
+     *
+     * @since 4.0.0
+     * @deprecated 5.0.0 Use {@see 'before_ow_siderail'} instead.
+     *
+     * @param string $template Siderail template to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters_deprecated(
+        'before_spotim_siderail',
+        array( $template, $ow_id ),
+        '5.0.0',
+        'before_ow_siderail',
+        OW_FILTER_DEPRECATED_MESSAGE
+    );
+
+    // Load OpenWeb siderail template.
     ob_start();
     include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/siderail-template.php' );
     $template .= ob_get_contents();
@@ -119,12 +204,29 @@ function ow_siderail_shortcode() {
     /**
      * After loading OpenWeb siderail template
      *
-     * @since 4.0.0
+     * @since 5.0.0
      *
      * @param string $template Siderail template to load.
      * @param int    $ow_id    OpenWeb ID.
      */
-    $template = apply_filters( 'after_spotim_siderail', $template, $ow_id );
+    $template = apply_filters( 'after_ow_siderail', $template, $ow_id );
+
+    /**
+     * After loading OpenWeb siderail template
+     *
+     * @since 4.0.0
+     * @deprecated 5.0.0 Use {@see 'after_ow_siderail'} instead.
+     *
+     * @param string $template Siderail template to load.
+     * @param int    $ow_id    OpenWeb ID.
+     */
+    $template = apply_filters_deprecated(
+        'after_spotim_siderail',
+        array( $template, $ow_id ),
+        '5.0.0',
+        'after_ow_siderail',
+        OW_FILTER_DEPRECATED_MESSAGE
+    );
 
     return $template;
 }
