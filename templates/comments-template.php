@@ -1,7 +1,7 @@
 <?php
 $options               = OW_Options::get_instance();
 $front                 = new OW_Frontend( $options );
-$spot_id               = $options->get( 'spot_id' );
+$ow_id                 = $options->get( 'spot_id' );
 $recirculation_method  = $options->get( 'rc_embed_method' );
 $enable_rating_reviews = 0 === absint( $options->get( 'enable_rating_reviews' ) ) ? 'false' : 'true';
 
@@ -18,7 +18,7 @@ switch ( $options->get( 'disqus_identifier' ) ) {
 }
 
 ?>
-<div id="comments-anchor" class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
+<div id="comments-anchor" class="ow-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
     <?php
     if ( ( 'top' === $recirculation_method ) && ( $front->has_ow_recirculation() ) ) {
         ob_start();
@@ -33,7 +33,7 @@ switch ( $options->get( 'disqus_identifier' ) ) {
     <script async
             data-spotim-module="spotim-launcher"
             data-article-tags="<?php echo esc_attr( implode( ', ', wp_get_post_tags( get_the_ID(), array( 'fields' => 'names' ) ) ) ); ?>"
-            src="<?php echo esc_url( 'https://launcher.spot.im/spot/' . $spot_id ); ?>"
+            src="<?php echo esc_url( 'https://launcher.spot.im/spot/' . $ow_id ); ?>"
             data-social-reviews="<?php echo esc_attr( $enable_rating_reviews ); ?>"
             data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
             data-post-url="<?php echo esc_url( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"
