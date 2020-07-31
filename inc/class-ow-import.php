@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin import class.
  *
  * @since 3.0.0
- * @since 5.0.0 Renamed from `SpotIM_Import` to `OW_Import`.
+ * @since 5.0.0 Renamed from 'SpotIM_Import' to 'OW_Import'.
  */
 class OW_Import {
 
@@ -279,7 +279,7 @@ class OW_Import {
                         $return = array(
                             'status'  => 'error',
                             'message' => sprintf(
-                                esc_html__( 'Could not import comments of from this url: %s', 'ow' ),
+                                esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' ),
                                 esc_attr( $stream->url )
                             )
                         );
@@ -330,10 +330,10 @@ class OW_Import {
         if ( 0 === $total_posts_count ) {
             $this->options->reset( 'is_force_sync', false );
             $response_args['status']  = 'success';
-            $response_args['message'] = sanitize_text_field( __( 'Your website doesn\'t have any posts to sync.', 'ow' ) );
+            $response_args['message'] = sanitize_text_field( __( 'Your website doesn\'t have any posts to sync.', 'spotim-comments' ) );
         } else if ( $this->needto_load_more_changed_posts > 0 ) {
             $parsed_message = sprintf(
-                esc_html__( 'Loading %d total posts to sync.', 'ow' ),
+                esc_html__( 'Loading %d total posts to sync.', 'spotim-comments' ),
                 $total_posts_count
             );
 
@@ -342,7 +342,7 @@ class OW_Import {
 
         } else if ( $current_posts_count < $total_posts_count ) {
             $parsed_message = sprintf(
-                esc_html__( '%d / %d posts are synchronizing.', 'ow' ),
+                esc_html__( '%d / %d posts are synchronizing.', 'spotim-comments' ),
                 $current_posts_count,
                 $total_posts_count
             );
@@ -351,7 +351,7 @@ class OW_Import {
 
             if ( isset( $this->errored_streams ) && $this->errored_streams ) {
                 $response_args['status']   = 'error';
-                $parsed_message            .= ' ' . esc_html__( 'Some posts have errored.', 'ow' );
+                $parsed_message            .= ' ' . esc_html__( 'Some posts have errored.', 'spotim-comments' );
 
                 // Sanitize the error message before sending response.
                 if ( is_array( $this->errored_streams ) ) {
@@ -369,7 +369,7 @@ class OW_Import {
             $response_args['message'] = $parsed_message;
         } else {
             $response_args['status']  = 'success';
-            $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'ow' ), $total_posts_count );
+            $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count );
 
             $this->options->update( 'spotim_last_sync_timestamp', time() );
             $this->options->reset( 'is_force_sync', false );
@@ -559,7 +559,7 @@ class OW_Import {
 
         if ( ! $result->is_ok ) {
             $error = sprintf(
-                esc_html__( 'Failed retrieving data for Post ID %s', 'ow' ),
+                esc_html__( 'Failed retrieving data for Post ID %s', 'spotim-comments' ),
                 esc_html( $query_args['post_id'] )
             );
 

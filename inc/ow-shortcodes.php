@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * OpenWeb Comments Shortcode.
  *
  * @since 4.0.0
- * @since 5.0.0 Renamed from `spotim_comments_shortcode` to `ow_comments_shortcode`.
+ * @since 5.0.0 Renamed from 'spotim_comments_shortcode' to 'ow_comments_shortcode'.
  */
 function ow_comments_shortcode() {
 
@@ -84,7 +84,7 @@ add_shortcode( 'spotim_comments', 'ow_comments_shortcode' );
  * OpenWeb Recirculation Shortcode.
  *
  * @since 4.0.0
- * @since 5.0.0 Renamed from `spotim_recirculation_shortcode` to `ow_recirculation_shortcode`.
+ * @since 5.0.0 Renamed from 'spotim_recirculation_shortcode' to 'ow_recirculation_shortcode'.
  */
 function ow_recirculation_shortcode() {
 
@@ -160,7 +160,7 @@ add_shortcode( 'spotim_recirculation', 'ow_recirculation_shortcode' );
  * OpenWeb Siderail Shortcode
  *
  * @since 4.2.0
- * @since 5.0.0 Renamed from `spotim_siderail_shortcode` to `ow_siderail_shortcode`.
+ * @since 5.0.0 Renamed from 'spotim_siderail_shortcode' to 'ow_siderail_shortcode'.
  */
 function ow_siderail_shortcode() {
 

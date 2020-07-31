@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin translation files.
  *
  * @since 4.0.1
- * @since 5.0.0 Renamed from `SpotIM_i18n` to `OW_i18n`.
+ * @since 5.0.0 Renamed from 'SpotIM_i18n' to 'OW_i18n'.
  */
 class OW_i18n {
 
@@ -40,7 +40,7 @@ class OW_i18n {
      */
     public function load_textdomain() {
 
-        load_plugin_textdomain( 'ow' );
+        load_plugin_textdomain( 'spotim-comments' );
 
     }
 

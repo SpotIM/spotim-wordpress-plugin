@@ -8,7 +8,7 @@
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
  * License URI:         license.txt
- * Text Domain:         ow
+ * Text Domain:         spotim-comments
  * GitHub Plugin URI:   git@github.com:SpotIM/wordpress-comments-plugin.git
  */
 
@@ -43,7 +43,7 @@ if ( ! defined( 'OW_FILTER_DEPRECATED_MESSAGE' ) ) {
  * A general class for Spot.IM comments for WordPress.
  *
  * @since 1.0.2
- * @since 5.0.0 Renamed from `WP_SpotIM` to `WP_OW`.
+ * @since 5.0.0 Renamed from 'WP_SpotIM' to 'WP_OW'.
  */
 class WP_OW {
 
@@ -163,7 +163,7 @@ class WP_OW {
  * OW Instance
  *
  * @since 1.0
- * @since 5.0.0 Renamed from `spotim_instance` to `ow_instance`.
+ * @since 5.0.0 Renamed from 'spotim_instance' to 'ow_instance'.
  *
  * @return WP_OW
  */
