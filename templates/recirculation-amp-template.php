@@ -29,7 +29,7 @@ $option = OW_Options::get_instance();
     </script>
 </amp-analytics>
 <div
-class="spotim-title"
+class="ow-title"
 style="border-top-color:#ec2223">
     <?php esc_html_e( 'Popular in the Community', 'spotim-comments' ); ?>
 </div>
@@ -41,7 +41,7 @@ style="border-top-color:#ec2223">
   max-items="3"
   items="items"
   src="<?php echo esc_url( 'https://recirculation.spot.im/spot/json/' . rawurlencode( $option->get( 'spot_id' ) ) ); ?>"
-  class="spotim-amp-list "
+  class="ow-amp-list "
 >
   <template type="amp-mustache" id="amp-spotim-rc">
     <amp-carousel height="200" layout="fixed-height" type="carousel">
