@@ -1,8 +1,8 @@
-.spot-im-amp {
+.ow-im-amp {
     margin: 0 10px;
     color: #373e44;
 }
-.spotim-title {
+.ow-title {
     font-family: 'OpenSans', Helvetica, Arial, sans-serif;
     font-size: 18px;
     font-weight: bold;
@@ -11,12 +11,12 @@
     line-height: 47px;
     border-top: 2px solid;
 }
-.spot-im-amp amp-ad {
+.ow-im-amp amp-ad {
     margin: 0 auto;
 display: block;
     margin-top: 20px;
 }
-.spotim-amp-list {
+.ow-amp-list {
     margin-top: 10px;
 }
 .item {
@@ -105,7 +105,7 @@ display: block;
     height: 40px;
 }
 
-.spot-im-amp-overflow {
+.ow-im-amp-overflow {
     background: white;
     font-size: 15px;
     padding: 15px 0;
