@@ -7,24 +7,60 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
 
 /**
- * SpotIM_Message
+ * OW_Message
  *
  * Comment functions.
  *
  * @since 3.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Message' to 'OW_Message'.
  */
-class SpotIM_Message {
+class OW_Message {
 
+    /**
+     * Variable to map messages.
+     *
+     * @var array
+     */
     private $messages_map;
 
+    /**
+     * Variable to store message data.
+     *
+     * @var void
+     */
     private $message_data;
 
+    /**
+     * Variable to store comment data.
+     *
+     * @var array
+     */
     private $comment_data;
 
+    /**
+     * Variable to store user details.
+     *
+     * @var object
+     */
     private $users;
 
+    /**
+     * Variable to store post id.
+     *
+     * @var int
+     */
     private $post_id;
 
+    /**
+     * Constructor.
+     *
+     * @param string $type    Type of comment.
+     * @param object $message Message details.
+     * @param object $users   Users details.
+     * @param int    $post_id Post ID.
+     *
+     * @return void
+     */
     public function __construct( $type, $message, $users, $post_id ) {
         $this->message = $message;
         $this->users   = count( (array) $users ) ? $users : new stdClass();
@@ -50,11 +86,16 @@ class SpotIM_Message {
         }
     }
 
+    /**
+     * Function to check is comment is exist or not.
+     *
+     * @return bool
+     */
     public function is_comment_exists() {
         $comment_exists = false;
 
         // Query the spotim_id meta-data to check whether the comment already exist
-        if ( $this->get_comment_by_spot_id() ) {
+        if ( $this->get_comment_by_ow_id() ) {
             return true;
         }
 
@@ -91,6 +132,11 @@ class SpotIM_Message {
         return $comment_exists;
     }
 
+    /**
+     * Function to check same comment or not.
+     *
+     * @return bool
+     */
     public function is_same_comment() {
         $same_comment = false;
         $comment_id   = absint( $this->get_comment_id() );
@@ -109,10 +155,20 @@ class SpotIM_Message {
         return $same_comment;
     }
 
+    /**
+     * Function to get comment data.
+     *
+     * @return array
+     */
     public function get_comment_data() {
         return $this->comment_data;
     }
 
+    /**
+     * Function to get comment ID.
+     *
+     * @return int
+     */
     public function get_comment_id() {
         $comment_id = 0;
 
@@ -124,14 +180,15 @@ class SpotIM_Message {
     }
 
     /**
-     * Query the commentsmeta Table to check if the comment already exists
+     * Query the comments_meta Table to check if the comment already exists.
+     *
      * @return bool
      */
-    public function get_comment_by_spot_id() {
+    public function get_comment_by_ow_id() {
         if ( $this->message->id ) {
-            // Meta query used to get comment by spot id.
+            // Meta query used to get comment by ow id.
             $args = array(
-                'meta_query' => array( // WPCS: slow query ok.
+                'meta_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
                     array(
                         'key'   => 'spotim_id',
                         'value' => $this->message->id
@@ -150,10 +207,24 @@ class SpotIM_Message {
         return false;
     }
 
+    /**
+     * Function to update comment meta.
+     *
+     * @param int $comment_id Comment id to update meta.
+     *
+     * @return int|bool
+     */
     public function update_comment_meta( $comment_id ) {
         return add_comment_meta( $comment_id, 'spotim_id', $this->message->id );
     }
 
+    /**
+     * Function to update message map.
+     *
+     * @param int $comment_id Comment ID.
+     *
+     * @return int|bool
+     */
     public function update_messages_map( $comment_id ) {
         $this->messages_map[ $this->message->id ] = array(
             'comment_id' => $comment_id
@@ -166,6 +237,11 @@ class SpotIM_Message {
         return update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
     }
 
+    /**
+     * Function to get message and children ids map.
+     *
+     * @return array
+     */
     public function get_message_and_children_ids_map() {
         $messages_map  = [];
         $messages_map[ $this->message->id ] = $this->messages_map[ $this->message->id ]['comment_id'];
@@ -180,6 +256,13 @@ class SpotIM_Message {
         return $messages_map;
     }
 
+    /**
+     * Function to delete message from map array.
+     *
+     * @param int $message_id Message id to delete message from map array.
+     *
+     * @return bool
+     */
     public function delete_from_messages_map( $message_id ) {
         if ( isset( $this->messages_map[ $message_id ] ) ) {
             unset( $this->messages_map[ $message_id ] );
@@ -190,6 +273,11 @@ class SpotIM_Message {
         }
     }
 
+    /**
+     * Function to get comment parent ID.
+     *
+     * @return int
+     */
     private function get_comment_parent_id() {
         $comment_parent_id = 0;
 
@@ -202,6 +290,11 @@ class SpotIM_Message {
         return $comment_parent_id;
     }
 
+    /**
+     * Function to get message map.
+     *
+     * @return array
+     */
     private function get_messages_map() {
         $messages_map = get_post_meta( $this->post_id, 'spotim_messages_map', true );
 
@@ -214,6 +307,11 @@ class SpotIM_Message {
         return $messages_map;
     }
 
+    /**
+     * Function to get new comment data.
+     *
+     * @return array
+     */
     private function new_comment_data() {
         $author         = $this->get_comment_author();
         $comment_parent = $this->get_comment_parent_id();
@@ -236,6 +334,11 @@ class SpotIM_Message {
         );
     }
 
+    /**
+     * Function to update comment data.
+     *
+     * @return array
+     */
     private function update_comment_data() {
         $comment_id  = absint( $this->get_comment_id() );
         $old_comment = get_comment( $comment_id, ARRAY_A );
@@ -257,6 +360,11 @@ class SpotIM_Message {
         return $new_comment;
     }
 
+    /**
+     * Function to soft delete comment data.
+     *
+     * @return array
+     */
     private function soft_delete_comment_data() {
         $comment_data = $this->anonymous_comment_data();
 
@@ -265,6 +373,11 @@ class SpotIM_Message {
         return $comment_data;
     }
 
+    /**
+     * Get anonymous comment data.
+     *
+     * @return array
+     */
     private function anonymous_comment_data() {
         $comment_data = $this->update_comment_data();
         $author       = $this->get_comment_author();
@@ -274,6 +387,11 @@ class SpotIM_Message {
         return $comment_data;
     }
 
+    /**
+     * Function to get comment author.
+     *
+     * @return array
+     */
     private function get_comment_author() {
         $author = array(
             'comment_author'       => esc_html__( 'Guest', 'spotim-comments' ),
@@ -288,21 +406,27 @@ class SpotIM_Message {
                 $author['comment_author'] = sanitize_text_field(
                     $this->users->{$this->message->user_id}->nick_name
                 );
-            } else if ( isset( $this->users->{$this->message->user_id}->display_name ) &&
-                        ! empty ( $this->users->{$this->message->user_id}->display_name ) ) {
+            } elseif (
+                isset( $this->users->{$this->message->user_id}->display_name ) &&
+                ! empty ( $this->users->{$this->message->user_id}->display_name )
+            ) {
                 $author['comment_author'] = sanitize_text_field(
                     $this->users->{$this->message->user_id}->display_name
                 );
-            } else if ( isset( $this->users->{$this->message->user_id}->user_name ) &&
-                        ! empty ( $this->users->{$this->message->user_id}->user_name ) ) {
+            } elseif (
+                isset( $this->users->{$this->message->user_id}->user_name ) &&
+                ! empty ( $this->users->{$this->message->user_id}->user_name )
+            ) {
                 $author['comment_author'] = sanitize_text_field(
                     $this->users->{$this->message->user_id}->user_name
                 );
             }
 
             // set author's email
-            if ( isset( $this->users->{$this->message->user_id}->email ) &&
-                 is_email( $this->users->{$this->message->user_id}->email ) ) {
+            if (
+                isset( $this->users->{$this->message->user_id}->email ) &&
+                is_email( $this->users->{$this->message->user_id}->email )
+            ) {
                 $author['comment_author_email'] = $this->users->{$this->message->user_id}->email;
             }
         }

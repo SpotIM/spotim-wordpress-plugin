@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Admin
+ * OW_Admin
  *
  * Plugin settings page.
  *
  * @since 1.0.2
+ * @since 5.0.0 Renamed from 'SpotIM_Admin' to 'OW_Admin'.
  */
-class SpotIM_Admin {
+class OW_Admin {
 
     /**
      * Options
@@ -21,7 +22,7 @@ class SpotIM_Admin {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $options;
 
@@ -32,13 +33,13 @@ class SpotIM_Admin {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      *
      * @return void
      */
     public function __construct( $options ) {
         self::$options = $options;
-        new SpotIM_Meta_Box( $options );
+        new OW_Meta_Box( $options );
 
         add_action( 'admin_menu', array( __CLASS__, 'create_admin_menu' ), 20 );
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
@@ -63,7 +64,7 @@ class SpotIM_Admin {
 
         if ( 'closed' === get_default_comment_status() ) {
             printf(
-                esc_html__( '%1$sTo properly run %2$sSpot.IM%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on "%2$sAllow people to post comments on new articles%3$s". %6$s', 'spotim-comments' ),
+                esc_html__( '%1$sTo properly run %2$sOpenWeb.Com%3$s please visit your sites %4$sDiscussion Settings%5$s and turn on "%2$sAllow people to post comments on new articles%3$s". %6$s', 'spotim-comments' ),
                 '<div class="notice notice-warning"><p>',
                 '<strong>',
                 '</strong>',
@@ -100,7 +101,7 @@ class SpotIM_Admin {
         wp_localize_script( 'admin_javascript', 'spotimVariables', array(
             'pageNumber'          => self::$options->get( 'page_number' ),
             'sync_nonce'          => $nonce,
-            'errorMessage'        => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im.', 'spotim-comments' ),
+            'errorMessage'        => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@openweb.com.', 'spotim-comments' ),
             'cancelImportMessage' => esc_html__( 'Cancel importing...', 'spotim-comments' )
         ) );
     }
@@ -118,19 +119,29 @@ class SpotIM_Admin {
     public static function create_admin_menu() {
 
         /**
-         * User capability to display Spot.IM menu.
+         * User capability to display OpenWeb menu.
          *
-         * Allows developers to filter the required capability to display Spot.IM settings.
+         * Allows developers to filter the required capability to display OpenWeb settings.
          *
          * @since 4.0.4
          */
         $capability = apply_filters( 'spotim_menu_display_capability', 'manage_options' );
 
-        $menu_icon = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Y2hhdCBjb3B5PC90aXRsZT48cGF0aCBkPSJNLjc0IDE1LjkxbC42MzQtMi42MTVjLjA1Ni0uMjMuMDEtLjQ4LS4xMy0uNzA3Qy0xLjg0NyA3LjU3OCAxLjE0NSAxLjAzIDYuNjY1LjExYzUuMzg2LS44OTYgMTAuMDkgMy43OTMgOS4yMzMgOS40MjItLjc4NiA1LjE2Ny02LjE5NCA4LjMxLTEwLjk3IDYuMjYtLjI1LS4xMS0uNTE4LS4xMS0uNzM0LS4wMDNMMS45NCAxNi45MWMtLjY1LjMyMi0xLjM3My0uMjc3LTEuMi0xem0yLjE5LTQuMzFjLjIzLjM3My4zLjguMjA2IDEuMjA1TDIuNjEzIDE1bDEuODU3LS45NGMuMzczLS4xOS44Mi0uMTk1IDEuMjMtLjAxNiAzLjU3IDEuNTU4IDcuNjM1LS44MjIgOC4yMjUtNC43Ny42MzQtNC4yNDUtMi44MjctNy44ODItNi45My03LjE5QzIuODI1IDIuNzk1LjYzIDcuODAyIDIuOTMgMTEuNnoiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
+        // Get svg base64 format to set menu icon.
+        ob_start();
+        include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/site-logo.php';
+        $menu_icon = ob_get_contents();
+        ob_end_clean();
 
+        /**
+         * Menu and Page title.
+         *
+         * @since 5.0.0 Renamed page title from 'SpotIM Settings' to 'OpenWeb Settings'.
+         * @since 5.0.0 Renamed menu title from 'SpotIM' to 'OpenWeb'.
+         */
         add_menu_page(
-            esc_html__( 'Spot.IM Settings', 'spotim-comments' ), // Page title
-            esc_html__( 'Spot.IM', 'spotim-comments' ),          // Menu title
+            esc_html__( 'OpenWeb Settings', 'spotim-comments' ), // Page title.
+            esc_html__( 'OpenWeb', 'spotim-comments' ),          // Menu title.
             $capability,
             self::$options->slug,
             array( __CLASS__, 'admin_page_callback' ),
@@ -150,7 +161,7 @@ class SpotIM_Admin {
      * @return void
      */
     public static function register_settings() {
-        $settings_fields = new SpotIM_Settings_Fields( self::$options );
+        $settings_fields = new OW_Settings_Fields( self::$options );
         $settings_fields->register_settings();
 
         // Register settings fields only for the active tab
@@ -199,7 +210,7 @@ class SpotIM_Admin {
 
         check_ajax_referer( 'sync_nonce', 'security' );
 
-        $import = new SpotIM_Import( self::$options );
+        $import = new OW_Import( self::$options );
 
         $spot_id           = filter_input( INPUT_POST, 'spotim_spot_id', FILTER_SANITIZE_STRING );
         $import_token      = filter_input( INPUT_POST, 'spotim_import_token', FILTER_SANITIZE_STRING );
@@ -207,11 +218,11 @@ class SpotIM_Admin {
         $force             = filter_input( INPUT_POST, 'force', FILTER_SANITIZE_STRING );
         $posts_per_request = filter_input( INPUT_POST, 'spotim_posts_per_request', FILTER_SANITIZE_NUMBER_INT );
 
-        // check for spot id
+        // Check for OpenWeb id.
         if ( empty( $spot_id ) ) {
             $import->response( array(
                 'status'  => 'error',
-                'message' => esc_html__( 'Spot ID is missing.', 'spotim-comments' )
+                'message' => esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' )
             ) );
 
             // check for import token
@@ -251,7 +262,7 @@ class SpotIM_Admin {
 
         check_ajax_referer( 'sync_nonce', 'security' );
 
-        $import      = new SpotIM_Import( self::$options );
+        $import      = new OW_Import( self::$options );
         $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0; // WPCS: input var ok.
 
         update_option( "wp-spotim-settings_total_changed_posts", null );

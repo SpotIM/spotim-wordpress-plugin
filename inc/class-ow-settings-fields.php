@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Settings_Fields
+ * OW_Settings_Fields
  *
  * Plugin settings fields.
  *
  * @since 2.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Settings_Fields' to 'OW_Settings_Fields'.
  */
-class SpotIM_Settings_Fields {
+class OW_Settings_Fields {
 
     /**
      * Constructor
@@ -22,7 +23,7 @@ class SpotIM_Settings_Fields {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      */
     public function __construct( $options ) {
         $this->options = $options;
@@ -58,11 +59,11 @@ class SpotIM_Settings_Fields {
      */
     public function general_settings_section_header() {
         echo '<p>';
-        esc_html_e( 'Spot.IM\'s WordPress plugin is currently available for Spot.IM partners only.', 'spotim-comments' );
+        esc_html_e( 'OpenWeb.Com\'s WordPress plugin is currently available for OpenWeb.Com partners only.', 'spotim-comments' );
         echo '<br>';
         printf(
-            esc_html__( 'To become a partner and retrieve your Spot ID, please submit your information %1$shere%2$s', 'spotim-comments' ),
-            '<a href="https://www.spot.im/request-an-invite/" target="_blank">',
+            esc_html__( 'To become a partner and retrieve your OpenWeb ID (OW ID), please submit your information %1$shere%2$s', 'spotim-comments' ),
+            '<a href="https://www.openweb.com/contact/" target="_blank">',
             '</a>'
         );
         echo '</p>';
@@ -78,7 +79,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function display_settings_section_header() {
-        echo '<p>' . esc_html__( 'Select where to display Spot.IM.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . esc_html__( 'Select where to display OpenWeb.Com comment box.', 'spotim-comments' ) . '</p>';
     }
 
     /**
@@ -91,7 +92,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function advanced_settings_section_header() {
-        echo '<p>' . esc_html__( 'Your Spot.IM account manager may ask you to change these settings after revewing the installation.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . esc_html__( 'Your OpenWeb.Com account manager may ask you to change these settings after reviewing the installation.', 'spotim-comments' ) . '</p>';
     }
 
     /**
@@ -105,11 +106,11 @@ class SpotIM_Settings_Fields {
      */
     public function import_settings_section_header() {
         echo '<p>';
-        esc_html_e( 'Export your comments from Spot.IM to WordPress.', 'spotim-comments' );
+        esc_html_e( 'Export your comments from OpenWeb.Com to WordPress.', 'spotim-comments' );
         echo '<br><em>';
-        esc_html_e( 'This is different from importing comments from WordPress to Spot.IM.', 'spotim-comments' );
+        esc_html_e( 'This is different from importing comments from WordPress to OpenWeb.Com.', 'spotim-comments' );
         echo '<br>';
-        esc_html_e( 'Contact your Spot.IM account manager to configure import from WordPress to Spot.IM.', 'spotim-comments' );
+        esc_html_e( 'Contact your OpenWeb.Com account manager to configure import from WordPress to OpenWeb.Com.', 'spotim-comments' );
         echo '</em></p>';
     }
 
@@ -134,14 +135,14 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'spot_id',
-            esc_html__( 'Spot ID', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            esc_html__( 'OpenWeb ID', 'spotim-comments' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'general_settings_section',
             array(
                 'id'          => 'spot_id',
                 'page'        => $this->options->slug,
-                'description' => esc_html__( 'Contact your Spot.IM account manager to get your Spot ID.', 'spotim-comments' ),
+                'description' => esc_html__( 'Contact your OpenWeb.Com account manager to get your OpenWeb ID.', 'spotim-comments' ),
                 'value'       => $spot_id
             )
         );
@@ -184,7 +185,7 @@ class SpotIM_Settings_Fields {
                     add_settings_field(
                         "display_{$value->name}",
                         sprintf( esc_html__( 'Display on %s', 'spotim-comments' ), $value->label ),
-                        array( 'SpotIM_Form_Helper', 'radio_fields' ),
+                        array( 'OW_Form_Helper', 'radio_fields' ),
                         $this->options->slug,
                         'display_settings_section',
                         array(
@@ -207,7 +208,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_comments_count',
             esc_html__( 'Display Comments Count', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'display_settings_section',
             array(
@@ -224,7 +225,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_newsfeed',
             esc_html__( 'Display Newsfeed on non-article pages', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'display_settings_section',
             array(
@@ -241,7 +242,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'comments_per_page',
             esc_html__( 'Comments Per Page', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
+            array( 'OW_Form_Helper', 'number_field' ),
             $this->options->slug,
             'display_settings_section',
             array(
@@ -277,7 +278,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'embed_method',
             esc_html__( 'Comments Embed Method', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -288,7 +289,7 @@ class SpotIM_Settings_Fields {
                     'content'  => esc_html__( 'Insert After the Content', 'spotim-comments' ),
                     'manual'   => esc_html__( 'Let the theme decide', 'spotim-comments' ),
                 ),
-                'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'SpotIM_Frontend::display_comments()' code wherever comments should be displayed.", 'spotim-comments' ),
+                'description' => esc_html__( "When choosing 'Let the theme decide', please inject the 'OW_Frontend::display_comments()' code wherever comments should be displayed.", 'spotim-comments' ),
                 'value'       => $this->options->get( 'embed_method' )
             )
         );
@@ -296,7 +297,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'rc_embed_method',
             esc_html__( 'Recirculation Embed Method', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -315,7 +316,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_rc_amp_ad_tag',
             esc_html__( 'Recirculation AMP Ad tag', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -333,7 +334,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_rating_reviews',
             esc_html__( 'Star rating reviews in conversation', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -352,7 +353,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'display_priority',
             esc_html__( 'Display Priority', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
+            array( 'OW_Form_Helper', 'number_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -367,7 +368,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_seo',
             esc_html__( 'Enable SEO', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -384,7 +385,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_og',
             esc_html__( 'OpenGraph Tags', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -401,7 +402,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'class',
             esc_html__( 'Container Class', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -414,7 +415,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'disqus_shortname',
             esc_html__( 'Disqus Shortname', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -427,7 +428,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'disqus_identifier',
             esc_html__( 'Disqus Identifier Structure', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -445,7 +446,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'import_button',
             esc_html__( 'Start Manual Sync', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'import_button' ),
+            array( 'OW_Form_Helper', 'import_button' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
@@ -491,13 +492,13 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'import_token',
             esc_html__( 'Sync Token', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
                 'id'          => 'import_token',
                 'page'        => $this->options->slug,
-                'description' => esc_html__( 'Contact your Spot.IM account manager to get your sync token.', 'spotim-comments' ),
+                'description' => esc_html__( 'Contact your OpenWeb.Com account manager to get your sync token.', 'spotim-comments' ),
                 'value'       => $this->options->get( 'import_token' )
             )
         );
@@ -515,7 +516,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'auto_import',
             esc_html__( 'Enable Auto Sync', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            array( 'OW_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'import_settings_section',
             array(
@@ -524,7 +525,7 @@ class SpotIM_Settings_Fields {
                 'description' => esc_html__( 'Enable auto-sync and set how often should it reoccur.', 'spotim-comments' )
                                  . '<br>'
                                  . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
-                                 . ( empty( $spot_id ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
+                                 . ( empty( $spot_id ) ? ' ' . esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' ) : '' )
                                  . ( empty( $import_token ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
                 'fields'      => $schedule_fields,
                 'value'       => $this->options->get( 'auto_import' )
@@ -540,7 +541,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'posts_per_request',
             esc_html__( 'Posts Per Request', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
+            array( 'OW_Form_Helper', 'number_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
@@ -558,7 +559,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'spot_id',
             null,
-            array( 'SpotIM_Form_Helper', 'hidden_field' ),
+            array( 'OW_Form_Helper', 'hidden_field' ),
             $this->options->slug,
             'import_settings_section',
             array(

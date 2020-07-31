@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_i18n
+ * OW_i18n
  *
  * Plugin translation files.
  *
  * @since 4.0.1
+ * @since 5.0.0 Renamed from 'SpotIM_i18n' to 'OW_i18n'.
  */
-class SpotIM_i18n {
+class OW_i18n {
 
     /**
      * Constructor

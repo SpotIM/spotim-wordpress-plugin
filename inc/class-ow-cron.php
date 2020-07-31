@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Cron
+ * OW_Cron
  *
  * Plugin auto import cron job.
  *
  * @since 4.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Cron' to 'OW_Cron'.
  */
-class SpotIM_Cron {
+class OW_Cron {
 
     /**
      * Options
@@ -21,7 +22,7 @@ class SpotIM_Cron {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $options;
 
@@ -32,7 +33,7 @@ class SpotIM_Cron {
      *
      * @since  4.0.0
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      *
      * @access public
      */
@@ -42,7 +43,7 @@ class SpotIM_Cron {
     }
 
     /**
-     * Auto import cron job
+     * Auto import cron job.
      *
      * @since  4.0.0
      *
@@ -52,20 +53,20 @@ class SpotIM_Cron {
      */
     public function auto_import_cron_job() {
 
-        // Auto import interval
+        // Auto import interval.
         $interval = self::$options->get( 'auto_import' );
 
-        // Check if auto import enabled
+        // Check if auto import enabled.
         if ( ! in_array( $interval, array_keys( wp_get_schedules() ), true ) ) {
             return;
         }
 
-        // Schedule cron job event, if not scheduled yet
+        // Schedule cron job event, if not scheduled yet.
         if ( ! wp_next_scheduled( 'spotim_scheduled_import', array() ) ) {
             wp_schedule_event( time(), $interval, 'spotim_scheduled_import' );
         }
 
-        // Run cron job hook - import data
+        // Run cron job hook - import data.
         add_action( 'spotim_scheduled_import', array( $this, 'run_import' ) );
 
     }
@@ -86,23 +87,23 @@ class SpotIM_Cron {
 
         // Are we currently running an auto-sync?
         if ( false !== $execution_token ) {
-            // We have a Cron job running already, let's quit here
+            // We have a Cron job running already, let's quit here.
             return;
         }
 
-        // Create execution token for facilitating a lock mechanism
+        // Create execution token for facilitating a lock mechanism.
         $execution_token = $this->generate_single_execution_token();
 
-        // Register this job with a temporary transient
+        // Register this job with a temporary transient.
         set_transient( 'spotim_auto_sync_cron_token', $execution_token, $this->get_lock_interval() );
 
-        $spot_id           = sanitize_text_field( self::$options->get( 'spot_id' ) );
+        $ow_id             = sanitize_text_field( self::$options->get( 'spot_id' ) );
         $import_token      = sanitize_text_field( self::$options->get( 'import_token' ) );
         $page_number       = 0;
         $posts_per_request = self::$options->get( 'posts_per_request' );
         $posts_per_request = ( ! empty( $posts_per_request ) ) ? absint( $posts_per_request ) : 10;
 
-        if ( empty( $spot_id ) ) {
+        if ( empty( $ow_id ) ) {
             return;
         }
 
@@ -112,25 +113,25 @@ class SpotIM_Cron {
 
         $this->set_time_limit( 0 );
 
-        $import   = new SpotIM_Import( self::$options, true );
+        $import   = new OW_Import( self::$options, true );
         $response = false;
 
-        // Iterate over all posts, in bumps of $posts_per_iteration
+        // Iterate over all posts, in bumps of $posts_per_iteration.
         $import->log( 'Starting Cron auto-sync. Ex. ' . $execution_token );
 
         do {
             $import->log( 'Iteration (start) #' . $page_number . ', Token:' . $execution_token );
-            $import->log( $spot_id, $import_token, $page_number, $posts_per_request );
+            $import->log( $ow_id, $import_token, $page_number, $posts_per_request );
 
-            // Launch import for $posts_per_request posts on page $page_number
-            $response = $import->start( $spot_id, $import_token, $page_number, $posts_per_request );
+            // Launch import for $posts_per_request posts on page $page_number.
+            $response = $import->start( $ow_id, $import_token, $page_number, $posts_per_request );
 
             $import->log( 'Iteration (end) #' . $page_number . ', Token:' . $execution_token );
             $import->log( $response );
 
             if ( $response && 'continue' === $response['status'] ) {
                 $page_number ++;
-            } // Increment
+            } // Increment.
 
         } while ( $response && ( 'continue' === $response['status'] || 'refresh' === $response['status'] ) );
 
@@ -181,7 +182,7 @@ class SpotIM_Cron {
      * @return string Execution token.
      */
     private function generate_single_execution_token() {
-        return sprintf( 'spotim_exec_%s', time() );
+        return sprintf( 'ow_exec_%s', time() );
     }
 
     /**

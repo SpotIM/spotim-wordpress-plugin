@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Feed
+ * OW_Feed
  *
  * Comments feed.
  *
  * @since 4.1.0
+ * @since 5.0.0 Renamed from 'SpotIM_Feed' to 'OW_Feed'.
  */
-class SpotIM_Feed {
+class OW_Feed {
 
     /**
      * Feed
@@ -125,7 +126,7 @@ class SpotIM_Feed {
 
             while ( have_posts() ) {
                 the_post();
-                echo wp_json_encode( new SpotIM_JSON_Feed( get_the_id() ) );
+                echo wp_json_encode( new OW_JSON_Feed( get_the_id() ) );
             }
         }
 

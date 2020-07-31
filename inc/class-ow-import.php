@@ -5,19 +5,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Import
+ * OW_Import
  *
  * Plugin import class.
  *
  * @since 3.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Import' to 'OW_Import'.
  */
-class SpotIM_Import {
+class OW_Import {
 
     /**
      * SpotIM Sync API URL
      */
     const SPOTIM_SYNC_API_URL = 'https://www.spot.im/api/open-api/v1/export/wordpress';
     const SPOTIM_LAST_MODIFIED_API_URL = 'https://www.spot.im/api/open-api/v1/spot-last-modified-conversations';
+
     /**
      * Options
      *
@@ -25,7 +27,7 @@ class SpotIM_Import {
      *
      * @access private
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private $options;
 
@@ -76,7 +78,7 @@ class SpotIM_Import {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      * @param bool           $return  Should return mode be on? This will return values instead of echo to browser.
      *                                Default is false.
      */
@@ -92,15 +94,13 @@ class SpotIM_Import {
     }
 
     /**
-     * Start
-     *
      * Start the import.
      *
      * @since  3.0.0
      *
      * @access public
      *
-     * @param int    $spot_id           Sport ID.
+     * @param int    $ow_id             OpenWeb ID.
      * @param string $import_token      Import token,
      * @param int    $page_number       Page number. Default is 0.
      * @param int    $posts_per_request Posts Per Request. Default is 1.
@@ -108,13 +108,13 @@ class SpotIM_Import {
      *
      * @return void
      */
-    public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1, $force = false ) {
+    public function start( $ow_id, $import_token, $page_number = 0, $posts_per_request = 1, $force = false ) {
 
         // If not run in return mode, update these options
         if ( ! $this->return ) {
 
-            // save spot_id and import_token in plugin's options meta
-            $this->options->update( 'spot_id', $spot_id );
+            // Save ow_id and import_token in plugin's options meta
+            $this->options->update( 'spot_id', $ow_id );
             $this->options->update( 'import_token', $import_token );
 
             $this->page_number = $this->options->update(
@@ -152,7 +152,11 @@ class SpotIM_Import {
         return $this->finish();
     }
 
-
+    /**
+     * Function to reset all variable and options.
+     *
+     * @return void
+     */
     private function reset_params() {
         $this->total_changed_posts            = [];
         $this->page_number                    = $this->options->update( 'page_number', 0 );
@@ -163,7 +167,7 @@ class SpotIM_Import {
     /**
      * Pull Comments
      *
-     * Import comments from Spot.IM and merge them.
+     * Import comments from OpenWeb.Com and merge them.
      *
      * @since  3.0.0
      *
@@ -175,13 +179,13 @@ class SpotIM_Import {
      */
     private function pull_comments( $post_ids = array(), $limit = 10, $offset = 0 ) {
         if ( ! empty( $post_ids ) ) {
-            // import comments data from Spot.IM
+            // import comments data from OpenWeb.Com
             $streams = array();
 
-            $this->log( 'Starting to fetch comments from Spot.IM for ' . count( $post_ids ) . ' Posts.' );
+            $this->log( 'Starting to fetch comments from OpenWeb.Com for ' . count( $post_ids ) . ' Posts.' );
             $streams = $this->fetch_comments( $post_ids, $limit, $offset );
 
-            // sync comments data with wordpress comments
+            // Sync comments data with WordPress comments.
             $this->merge_comments( $streams );
         }
     }
@@ -189,7 +193,7 @@ class SpotIM_Import {
     /**
      * Fetch Comments
      *
-     * Import comments from Spot.IM.
+     * Import comments from OpenWeb.Com.
      *
      * @since  3.0.0
      *
@@ -247,7 +251,7 @@ class SpotIM_Import {
     /**
      * Merge Comments
      *
-     * Sync comments data with wordpress comments.
+     * Sync comments data with WordPress comments.
      *
      * @since  3.0.0
      *
@@ -264,7 +268,7 @@ class SpotIM_Import {
 
             if ( $stream->from_etag < $stream->new_etag ) {
                 if ( ! empty( $stream->events ) ) {
-                    $sync_status = SpotIM_Comment::sync(
+                    $sync_status = OW_Comment::sync(
                         $stream->events,
                         $stream->users,
                         $stream->post_id
@@ -418,7 +422,7 @@ class SpotIM_Import {
         $offset = $this->needto_load_more_changed_posts;
         $limit  = 5000;
 
-        $spot_id = $this->options->get( 'spot_id' );
+        $ow_id = $this->options->get( 'spot_id' );
         $sec_ago = $this->options->get( 'spotim_last_sync_timestamp', null );
 
         if ( ! $sec_ago ) {
@@ -428,7 +432,7 @@ class SpotIM_Import {
         }
 
         $stream = $this->request( array(
-            'spot_id' => $spot_id,
+            'spot_id' => $ow_id,
             'sec_ago' => $sec_ago,
             'limit'   => $limit,
             'offset'  => $offset
@@ -438,8 +442,8 @@ class SpotIM_Import {
 
         if ( is_array( $body ) ) {
 
-            $body = array_map( function ( $val ) use ( $spot_id ) {
-                return str_replace( $spot_id . "_", '', $val );
+            $body = array_map( function ( $val ) use ( $ow_id ) {
+                return str_replace( $ow_id . "_", '', $val );
             }, $body );
 
             if ( ! $this->total_changed_posts ) {
@@ -530,7 +534,7 @@ class SpotIM_Import {
         $result->is_ok = false;
 
         // 60 second timeout will only work in non VIP env.
-        $response = SpotIM_WP::spotim_remote_get( $url, array(
+        $response = OW_WP::remote_get( $url, array(
             'sslverify' => true,
             'timeout'   => 60 //phpcs:ignore
         ), '', 5, 3 );
@@ -555,7 +559,7 @@ class SpotIM_Import {
 
         if ( ! $result->is_ok ) {
             $error = sprintf(
-                esc_html__( 'Failed retriving data for Post ID %s', 'spotim-comments' ),
+                esc_html__( 'Failed retrieving data for Post ID %s', 'spotim-comments' ),
                 esc_html( $query_args['post_id'] )
             );
 
@@ -621,7 +625,7 @@ class SpotIM_Import {
         // @codingStandardsIgnoreStart
         // Can we safely log?
         if ( WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-            $logText = 'SpotIM Log: ';
+            $logText = 'OpenWeb Log: ';
 
             if ( func_num_args() == 1 && is_string( $message ) ) {
                 $logText .= $message;

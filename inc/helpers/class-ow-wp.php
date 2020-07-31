@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Wp
+ * OW_WP
  *
  * WordPress Wrapper functions for all env.
  *
  * @since 3.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_WP' to 'OW_WP'.
  */
-class SpotIM_WP {
+class OW_WP {
 
     /**
      * List of allowed tags for AMP templates.
@@ -102,9 +103,9 @@ class SpotIM_WP {
      *
      * @return WP_Error|array The response or WP_Error on failure.
      */
-    public static function spotim_remote_get( $url, $args = array(), $fallback_value = '', $threshold = 3, $timeout = 1, $retry = 20 ) {
+    public static function remote_get( $url, $args = array(), $fallback_value = '', $threshold = 3, $timeout = 1, $retry = 20 ) {
 
-        if ( spotim_is_vip() ) {
+        if ( ow_is_vip() ) {
             $response = vip_safe_wp_remote_get( $url, $fallback_value, $threshold, $timeout, $retry, $args );
         } else {
             $response = wp_remote_get( $url, $args ); // phpcs:ignore
@@ -121,7 +122,7 @@ class SpotIM_WP {
      *
      * @return bool
      */
-    public static function spotim_is_amp() {
+    public static function is_amp() {
         return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
     }
 }

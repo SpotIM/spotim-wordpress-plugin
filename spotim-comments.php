@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name:         Spot.IM Comments
+ * Plugin Name:         OpenWeb.Com Comments
  * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem.
  * Version:             4.5.2
- * Author:              Spot.IM
+ * Author:              OpenWeb.Com
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
  * License URI:         license.txt
@@ -18,23 +18,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Store Plugin version for internal use.
-if ( ! defined( 'SPOTIM_VERSION' ) ) {
+if ( ! defined( 'OW_VERSION' ) ) {
     /**
      * The version of the plugin
      *
      * @since  4.5.2
      */
-    define( 'SPOTIM_VERSION', '4.5.2' );
+    define( 'OW_VERSION', '4.5.2' );
 }
 
 /**
- * WP_SpotIM
+ * WP_OW
  *
  * A general class for Spot.IM comments for WordPress.
  *
  * @since 1.0.2
+ * @since 5.0.0 Renamed from 'WP_SpotIM' to 'WP_OW'.
  */
-class WP_SpotIM {
+class WP_OW {
 
     /**
      * Instance
@@ -44,7 +45,7 @@ class WP_SpotIM {
      * @access private
      * @static
      *
-     * @var WP_SpotIM
+     * @var WP_OW
      */
     private static $instance;
 
@@ -63,22 +64,22 @@ class WP_SpotIM {
         $this->load_files();
 
         // Get the Options
-        $this->options = SpotIM_Options::get_instance();
+        $this->options = OW_Options::get_instance();
 
         // Run the plugin
-        new SpotIM_i18n();
-        new SpotIM_Cron( $this->options );
-        new SpotIM_Feed();
+        new OW_i18n();
+        new OW_Cron( $this->options );
+        new OW_Feed();
 
         if ( is_admin() ) {
 
             // Admin Page
-            new SpotIM_Admin( $this->options );
+            new OW_Admin( $this->options );
 
         } else {
 
             // Frontend code: embed script, comments template, comments count.
-            new SpotIM_Frontend( $this->options );
+            new OW_Frontend( $this->options );
 
         }
 
@@ -92,7 +93,7 @@ class WP_SpotIM {
      * @access public
      * @static
      *
-     * @return WP_SpotIM
+     * @return WP_OW
      */
     public static function get_instance() {
         if ( is_null( self::$instance ) ) {
@@ -117,22 +118,22 @@ class WP_SpotIM {
         $inc_class_dir = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
 
         $files = [
-            'helpers/class-spotim-form.php',
-            'helpers/class-spotim-message.php',
-            'helpers/class-spotim-comment.php',
-            'helpers/class-spotim-json-feed.php',
-            'helpers/class-spotim-wp.php',
-            'class-spotim-i18n.php',
-            'class-spotim-import.php',
-            'class-spotim-options.php',
-            'class-spotim-settings-fields.php',
-            'class-spotim-metabox.php',
-            'class-spotim-admin.php',
-            'class-spotim-frontend.php',
-            'class-spotim-feed.php',
-            'class-spotim-cron.php',
-            'spotim-shortcodes.php',
-            'spotim-widgets.php',
+            'helpers/class-ow-form.php',
+            'helpers/class-ow-message.php',
+            'helpers/class-ow-comment.php',
+            'helpers/class-ow-json-feed.php',
+            'helpers/class-ow-wp.php',
+            'class-ow-i18n.php',
+            'class-ow-import.php',
+            'class-ow-options.php',
+            'class-ow-settings-fields.php',
+            'class-ow-metabox.php',
+            'class-ow-admin.php',
+            'class-ow-frontend.php',
+            'class-ow-feed.php',
+            'class-ow-cron.php',
+            'ow-shortcodes.php',
+            'ow-widgets.php',
         ];
 
         foreach ( $files as $file ) {
@@ -149,24 +150,24 @@ class WP_SpotIM {
 }
 
 /**
- * Spotim Instance
+ * OW Instance
  *
  * @since 1.0
+ * @since 5.0.0 Renamed from 'spotim_instance' to 'ow_instance'.
  *
- * @return WP_SpotIM
+ * @return WP_OW
  */
-function spotim_instance() {
-    return WP_SpotIM::get_instance();
+function ow_instance() {
+    return WP_OW::get_instance();
 }
-
-add_action( 'plugins_loaded', 'spotim_instance', 0 );
+add_action( 'plugins_loaded', 'ow_instance', 0 );
 
 /**
  * Check if current environment is `VIP-GO` or not.
  *
  * @return bool returns true if current site is available on VIP-GO, otherwise false
  */
-function spotim_is_vip() {
+function ow_is_vip() {
     if ( defined( 'SPOTIM_IS_VIP_DEBUG' ) && SPOTIM_IS_VIP_DEBUG ) { // Setting WPCOM_IS_VIP_ENV in local won't work.
         return true;
     }

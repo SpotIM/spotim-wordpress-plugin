@@ -1,17 +1,18 @@
 <?php
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 /**
- * SpotIM Recirculation Widget
+ * OW_Recirculation_Widget
  *
  * Plugin Widget.
  *
  * @since 4.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Recirculation_Widget' to 'OW_Recirculation_Widget'.
  */
-class SpotIM_Recirculation_Widget extends WP_Widget {
+class OW_Recirculation_Widget extends WP_Widget {
 
     /**
      * Constructor
@@ -26,9 +27,9 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
         parent::__construct(
             'spotim_recirculation_widget',
-            esc_html__( 'Spot.IM Recirculation', 'spotim-comments' ),
+            esc_html__( 'OpenWeb.Com Recirculation', 'spotim-comments' ),
             array(
-                'description' => esc_html__( 'Spot.IM related content.', 'spotim-comments' ),
+                'description' => esc_html__( 'OpenWeb.Com related content.', 'spotim-comments' ),
                 'classname'   => 'spotim_recirculation',
             )
         );
@@ -46,24 +47,24 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {
 
-        $options = SpotIM_Options::get_instance();
+        $options = OW_Options::get_instance();
 
-        // ignoring warning as variable is used in included template.
+        // Ignoring warning as variable is used in included template.
         $spot_id = $options->get( 'spot_id' ); //phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
         $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
-        // Before widget tag
+        // Before widget tag.
         echo wp_kses_post( $args['before_widget'] );
 
-        // Title
+        // Title.
         if ( ! empty( $title ) ) {
             echo wp_kses_post( $args['before_title'] . $title . $args['after_title'] );
         }
 
-        // Recirculation
+        // Recirculation.
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
 
-        // After widget tag
+        // After widget tag.
         echo wp_kses_post( $args['after_widget'] );
 
     }
@@ -79,15 +80,15 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      */
     public function form( $instance ) {
 
-        // Set default values
+        // Set default values.
         $instance = wp_parse_args( (array) $instance, array(
             'spotim_title' => '',
         ) );
 
-        // Retrieve an existing value from the database
+        // Retrieve an existing value from the database.
         $spotim_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
-        // Form fields
+        // Form fields.
         echo '<p>';
         echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
         echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
@@ -118,13 +119,14 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
 
 /**
- * SpotIM Siderail Widget
+ * OW_Siderail_Widget
  *
  * Plugin Widget.
  *
  * @since 4.2.0
+ * @since 5.0.0 Renamed from 'SpotIM_Siderail_Widget' to 'OW_Siderail_Widget'.
  */
-class SpotIM_Siderail_Widget extends WP_Widget {
+class OW_Siderail_Widget extends WP_Widget {
 
     /**
      * Constructor
@@ -139,9 +141,9 @@ class SpotIM_Siderail_Widget extends WP_Widget {
 
         parent::__construct(
             'spotim_siderail_widget',
-            __( 'Spot.IM Siderail', 'spotim-comments' ),
+            __( 'OpenWeb.Com Siderail', 'spotim-comments' ),
             array(
-                'description' => __( 'Spot.IM related content.', 'spotim-comments' ),
+                'description' => __( 'OpenWeb.Com related content.', 'spotim-comments' ),
                 'classname'   => 'spotim_siderail',
             )
         );
@@ -159,24 +161,24 @@ class SpotIM_Siderail_Widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {
 
-        $options = SpotIM_Options::get_instance();
+        $options = OW_Options::get_instance();
 
-        // ignoring warning as variable is used in included template.
+        // Ignoring warning as variable is used in included template.
         $spot_id = $options->get( 'spot_id' ); // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
         $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
-        // Before widget tag
+        // Before widget tag.
         echo wp_kses_post( $args['before_widget'] );
 
-        // Title
+        // Title.
         if ( ! empty( $title ) ) {
             echo wp_kses_post( $args['before_title'] . $title . $args['after_title'] );
         }
 
-        // Siderail
+        // Siderail.
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/siderail-template.php' );
 
-        // After widget tag
+        // After widget tag.
         echo wp_kses_post( $args['after_widget'] );
 
     }
@@ -192,15 +194,15 @@ class SpotIM_Siderail_Widget extends WP_Widget {
      */
     public function form( $instance ) {
 
-        // Set default values
+        // Set default values.
         $instance = wp_parse_args( (array) $instance, array(
             'spotim_title' => '',
         ) );
 
-        // Retrieve an existing value from the database
+        // Retrieve an existing value from the database.
         $spotim_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
-        // Form fields
+        // Form fields.
         echo '<p>';
         echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
         echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
@@ -231,16 +233,16 @@ class SpotIM_Siderail_Widget extends WP_Widget {
 
 
 /**
- * Register SpotIM Widgets
+ * Register OpenWeb Widgets
  *
  * Register recirculation and siderail widgets.
  *
  * @since 4.0.0
- * @since 4.2.0 Renamed from `spotim_register_recirculation_widgets()` to `spotim_register_widgets()`
+ * @since 4.2.0 Renamed from 'spotim_register_recirculation_widgets' to 'spotim_register_widgets'.
+ * @since 5.0.0 Renamed from 'spotim_register_widgets' to 'ow_register_widgets'.
  */
-function spotim_register_widgets() {
-    register_widget( 'SpotIM_Recirculation_Widget' );
-    register_widget( 'SpotIM_Siderail_Widget' );
+function ow_register_widgets() {
+    register_widget( 'OW_Recirculation_Widget' );
+    register_widget( 'OW_Siderail_Widget' );
 }
-
-add_action( 'widgets_init', 'spotim_register_widgets' );
+add_action( 'widgets_init', 'ow_register_widgets' );

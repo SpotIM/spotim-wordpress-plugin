@@ -5,14 +5,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Comment
+ * OW_Comment
  *
  * Comment functions.
  *
  * @since 3.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Comment' to 'OW_Comment'.
  */
-class SpotIM_Comment {
+class OW_Comment {
 
+    /**
+     * Function to sync comments.
+     *
+     * @param object $events  Fetched comment event details.
+     * @param object $users   Commented users details.
+     * @param int    $post_id Post ID.
+     *
+     * @return bool
+     */
     public static function sync( $events, $users, $post_id ) {
         $flag = true;
 
@@ -47,32 +57,50 @@ class SpotIM_Comment {
         return $flag;
     }
 
-    private static function add_new_comment( $sp_message, $sp_users, $post_id ) {
+    /**
+     * Function to add new comment.
+     *
+     * @param object $ow_message Comment details.
+     * @param object $ow_users   User details.
+     * @param int    $post_id    Post ID.
+     *
+     * @return bool
+     */
+    private static function add_new_comment( $ow_message, $ow_users, $post_id ) {
         $comment_created = false;
 
-        $message = new SpotIM_Message( 'new', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'new', $ow_message, $ow_users, $post_id );
 
         if ( ! $message->is_comment_exists() ) {
             $comment_id = wp_insert_comment( $message->get_comment_data() );
 
             if ( $comment_id ) {
 
-                //Generate the spotim_id comment meta-data
+                // Generate the ow_id comment meta-data.
                 $message->update_comment_meta( $comment_id );
 
                 $comment_created = $message->update_messages_map( $comment_id );
             }
         } else {
-            $comment_created = self::update_comment( $sp_message, $sp_users, $post_id );
+            $comment_created = self::update_comment( $ow_message, $ow_users, $post_id );
         }
 
         return ! ! $comment_created;
     }
 
-    private static function update_comment( $sp_message, $sp_users, $post_id ) {
+    /**
+     * Function to update comment.
+     *
+     * @param object $ow_message Comment details.
+     * @param object $ow_users   User details.
+     * @param int    $post_id    Post ID.
+     *
+     * @return bool
+     */
+    private static function update_comment( $ow_message, $ow_users, $post_id ) {
         $comment_updated = false;
 
-        $message = new SpotIM_Message( 'update', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'update', $ow_message, $ow_users, $post_id );
 
         if ( $message->is_comment_exists() && ! $message->is_same_comment() ) {
             $comment_updated = wp_update_comment( $message->get_comment_data() );
@@ -83,11 +111,20 @@ class SpotIM_Comment {
         return ! ! $comment_updated;
     }
 
-    private static function delete_comment( $sp_message, $sp_users, $post_id ) {
+    /**
+     * Function to delete comment.
+     *
+     * @param object $ow_message Comment details.
+     * @param object $ow_users   User details.
+     * @param int    $post_id    Post ID.
+     *
+     * @return bool
+     */
+    private static function delete_comment( $ow_message, $ow_users, $post_id ) {
         $comment_deleted          = false;
         $message_deleted_from_map = false;
 
-        $message = new SpotIM_Message( 'delete', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'delete', $ow_message, $ow_users, $post_id );
         if ( $message->get_comment_id() ) {
             $messages_ids = $message->get_message_and_children_ids_map();
 
@@ -112,10 +149,19 @@ class SpotIM_Comment {
         return ! ! $comment_deleted && ! ! $message_deleted_from_map;
     }
 
-    private static function soft_delete_comment( $sp_message, $sp_users, $post_id ) {
+    /**
+     * Function to soft delete comment.
+     *
+     * @param object $ow_message Comment details.
+     * @param object $ow_users   User details.
+     * @param int    $post_id    Post ID.
+     *
+     * @return bool
+     */
+    private static function soft_delete_comment( $ow_message, $ow_users, $post_id ) {
         $comment_soft_deleted = false;
 
-        $message = new SpotIM_Message( 'soft_delete', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'soft_delete', $ow_message, $ow_users, $post_id );
 
         if ( $message->is_comment_exists() ) {
             $comment_soft_deleted = wp_update_comment( $message->get_comment_data() );
@@ -124,10 +170,19 @@ class SpotIM_Comment {
         return ! ! $comment_soft_deleted;
     }
 
-    private static function anonymous_comment( $sp_message, $sp_users, $post_id ) {
+    /**
+     * Function to add anonymous comment.
+     *
+     * @param object $ow_message Comment details.
+     * @param object $ow_users   User details.
+     * @param int    $post_id    Post ID.
+     *
+     * @return bool
+     */
+    private static function anonymous_comment( $ow_message, $ow_users, $post_id ) {
         $comment_anonymized = false;
 
-        $message = new SpotIM_Message( 'anonymous_comment', $sp_message, $sp_users, $post_id );
+        $message = new OW_Message( 'anonymous_comment', $ow_message, $ow_users, $post_id );
 
         if ( $message->is_comment_exists() && ! $message->is_same_comment() ) {
             $comment_anonymized = wp_update_comment( $message->get_comment_data() );

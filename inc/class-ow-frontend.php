@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Frontend
+ * OW_Frontend
  *
  * Plugin frontend.
  *
  * @since 1.0.2
+ * @since 5.0.0 Renamed from 'SpotIM_Frontend' to 'OW_Frontend'.
  */
-class SpotIM_Frontend {
+class OW_Frontend {
 
     /**
      * Options
@@ -21,7 +22,7 @@ class SpotIM_Frontend {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $options;
 
@@ -32,7 +33,7 @@ class SpotIM_Frontend {
      *
      * @access public
      *
-     * @param SpotIM_Options $options Plugin options.
+     * @param OW_Options $options Plugin options.
      *
      * @return void
      */
@@ -41,10 +42,10 @@ class SpotIM_Frontend {
         // Set options
         self::$options = $options;
 
-        // Make sure Spot ID is not empty.
-        $spot_id = self::$options->get( 'spot_id' );
+        $ow_id = self::$options->get( 'spot_id' );
 
-        if ( empty( $spot_id ) ) {
+        // Make sure OW ID is not empty.
+        if ( empty( $ow_id ) ) {
             return;
         }
 
@@ -52,30 +53,30 @@ class SpotIM_Frontend {
         $rc_embed_method  = self::$options->get( 'rc_embed_method' );
         $display_priority = self::$options->get( 'display_priority' );
 
-        // SpotIM Newsfeed
-        add_action( 'wp_footer', array( __CLASS__, 'add_spotim_newsfeed' ) );
+        // OpenWeb Newsfeed.
+        add_action( 'wp_footer', array( __CLASS__, 'add_ow_newsfeed' ) );
 
-        // SpotIM Recirculation
+        // OpenWeb Recirculation.
         if ( 'regular' === $rc_embed_method ) {
 
-            // Add Recirculation after the content
-            add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ), $display_priority );
+            // Add Recirculation after the content.
+            add_action( 'the_content', array( __CLASS__, 'add_ow_recirculation' ), $display_priority );
 
         }
 
-        // SpotIM Comments
+        // OpenWeb Comments.
         if ( 'content' === $embed_method ) {
 
-            // Add after the content
+            // Add after the content.
             add_action( 'the_content', array( __CLASS__, 'the_content_comments_template' ), $display_priority );
-            //Remove WP comments section (We expect for SPOT.IM section, we don't need the WP one)
+            // Remove WP comments section (We expect for OpenWeb.Com section, we don't need the WP one).
             add_filter( 'comments_template', array( __CLASS__, 'empty_comments_template' ) );
 
         } else if ( 'comments' === $embed_method ) {
-            // Replace the WordPress comments
+            // Replace the WordPress comments.
             add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
         } else if ( 'manual' === $embed_method ) {
-            //Remove WP comments section (We expect for SPOT.IM section, we don't need the WP one)
+            // Remove WP comments section (We expect for OpenWeb.Com section, we don't need the WP one).
             add_filter( 'comments_template', array( __CLASS__, 'empty_comments_template' ) );
         }
 
@@ -103,16 +104,17 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Has Spot.IM comments
+     * Has OpenWeb.Com comments
      *
      * @since  4.0.0
+     * @since 5.0.0 Renamed from 'has_spotim_comments' to 'has_ow_comments'.
      *
      * @access public
      * @static
      *
      * @return bool
      */
-    public static function has_spotim_comments() {
+    public static function has_ow_comments() {
         global $post;
 
         // Bail if it's not a singular template
@@ -120,17 +122,17 @@ class SpotIM_Frontend {
             return false;
         }
 
-        // Bail if comments are closed
+        // Bail if comments are closed.
         if ( ! comments_open() ) {
             return false;
         }
 
-        // Bail if Spot.IM is disabled for this post type
+        // Bail if OpenWeb.Com is disabled for this post type.
         if ( '0' === self::$options->get( "display_{$post->post_type}" ) ) {
             return false;
         }
 
-        // Bail if Spot.IM Comments are disabled for this specific content item
+        // Bail if OpenWeb.Com Comments are disabled for this specific content item.
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
         $specific_display = in_array( $specific_display, array(
             'enable',
@@ -140,7 +142,7 @@ class SpotIM_Frontend {
             return false;
         }
 
-        // Return true if all tests passed
+        // Return true if all tests passed.
         return true;
     }
 
@@ -158,7 +160,7 @@ class SpotIM_Frontend {
      */
     public static function empty_comments_template( $template ) {
 
-        if ( self::has_spotim_comments() ) {
+        if ( self::has_ow_comments() ) {
 
             // Load empty comments template
             $require_template_path = self::$options->require_template( 'comments-template-empty.php', true );
@@ -185,10 +187,10 @@ class SpotIM_Frontend {
      */
     public static function the_content_comments_template( $content ) {
 
-        if ( self::has_spotim_comments() ) {
+        if ( self::has_ow_comments() ) {
 
-            if ( ! SpotIM_WP::spotim_is_amp() ) {
-                // Load SpotIM comments template
+            if ( ! OW_WP::is_amp() ) {
+                // Load OpenWeb comments template.
                 ob_start();
                 include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
                 $content .= ob_get_contents();
@@ -220,28 +222,28 @@ class SpotIM_Frontend {
      * @return string
      */
     public static function filter_comments_template( $template ) {
-        if ( self::has_spotim_comments() ) {
-            $spot_id = self::$options->get( 'spot_id' );
+        if ( self::has_ow_comments() ) {
+            $ow_id = self::$options->get( 'spot_id' );
 
             /**
-             * Before loading SpotIM comments template
+             * Before loading OpenWeb comments template.
              *
              * @since 4.0.0
              *
              * @param string $template Comments template to load.
-             * @param int    $spot_id  SpotIM ID.
+             * @param int    $ow_id    OpenWeb ID.
              */
-            $template = apply_filters( 'before_spotim_comments', $template, $spot_id );
+            $template = apply_filters( 'before_spotim_comments', $template, $ow_id );
 
             // Don't filter the template if page is AMP.
-            if ( SpotIM_WP::spotim_is_amp() ) {
-                // Load SpotIM comments template
+            if ( OW_WP::is_amp() ) {
+                // Load OpenWeb comments template.
                 $require_amp_template_path = self::$options->require_template( 'comments-amp-template.php', true );
                 if ( ! empty( $require_amp_template_path ) ) {
                     $template = $require_amp_template_path;
                 }
             } else {
-                // Load SpotIM comments template
+                // Load OpenWeb comments template.
                 $require_template_path = self::$options->require_template( 'comments-template.php', true );
                 if ( ! empty( $require_template_path ) ) {
                     $template = $require_template_path;
@@ -249,21 +251,21 @@ class SpotIM_Frontend {
             }
 
             /**
-             * After loading SpotIM comments template
+             * After loading OpenWeb comments template
              *
              * @since 4.0.0
              *
              * @param string $template Comments template to load.
-             * @param int    $spot_id  SpotIM ID.
+             * @param int    $ow_id    OpenWeb ID.
              */
-            $template = apply_filters( 'after_spotim_comments', $template, $spot_id );
+            $template = apply_filters( 'after_spotim_comments', $template, $ow_id );
         }
 
         return $template;
     }
 
     /**
-     * Add the comments number scripts
+     * Add the comments number scripts.
      *
      * @since  4.3.1
      *
@@ -274,12 +276,12 @@ class SpotIM_Frontend {
      */
     public static function comments_number_tags() {
 
-        // Check wheter the singular and applied spotIm comments
+        // Check whether the singular and applied OpenWeb comments.
         if ( false !== self::$options->get( 'display_comments_count' ) && '0' !== self::$options->get( 'display_comments_count' ) ) {
 
-            $spot_id = self::$options->get( 'spot_id' );
+            $ow_id = self::$options->get( 'spot_id' );
 
-            if ( ! empty( $spot_id ) ) {
+            if ( ! empty( $ow_id ) ) {
                 wp_enqueue_style( 'comments_number_stylesheet', self::$options->require_stylesheet( 'comments-number.css', true ) );
                 self::$options->require_template( 'comments-number-template.php' );
             }
@@ -299,7 +301,7 @@ class SpotIM_Frontend {
      */
     public static function filter_comments_number( $content ) {
 
-        if ( SpotIM_WP::spotim_is_amp() ) {
+        if ( OW_WP::is_amp() ) {
             return $content;
         }
 
@@ -307,12 +309,12 @@ class SpotIM_Frontend {
 
         $counterPosition = self::$options->get( 'display_comments_count' );
 
-        if ( '0' !== $counterPosition && self::has_spotim_comments() ) {
+        if ( '0' !== $counterPosition && self::has_ow_comments() ) {
 
             // Comments count scripts
             add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
-            $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
+            $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="ow-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
             return $commentsNumberContainerSpan . $content;
 
@@ -323,7 +325,7 @@ class SpotIM_Frontend {
             // Comments count scripts.
             add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
-            $commentsNumberContainerSpan = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
+            $commentsNumberContainerSpan = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"><span class="ow-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
             return $content . $commentsNumberContainerSpan;
 
@@ -333,19 +335,20 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Has Spot.IM questions
+     * Has OpenWeb.Com questions
      *
      * @since  4.0.0
+     * @since 5.0.0 Renamed from 'has_spotim_questions' to 'has_ow_questions'.
      *
      * @access public
      * @static
      *
      * @return bool
      */
-    public static function has_spotim_questions() {
+    public static function has_ow_questions() {
         global $post;
 
-        // Bail if it's not a singular template
+        // Bail if it's not a singular template.
         if ( ! is_singular() ) {
             return false;
         }
@@ -355,12 +358,12 @@ class SpotIM_Frontend {
             return false;
         }
 
-        // Bail if Spot.IM is disabled for this post type
+        // Bail if OpenWeb.Com is disabled for this post type
         if ( '0' === self::$options->get( "display_{$post->post_type}" ) ) {
             return false;
         }
 
-        // Bail if Spot.IM questions are disabled for this specific content item
+        // Bail if OpenWeb.Com questions are disabled for this specific content item
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_question', true );
         if ( empty( $specific_display ) ) {
             return false;
@@ -371,39 +374,40 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Has Spot.IM recirculation
+     * Has OpenWeb.Com recirculation
      *
      * @since  4.0.0
+     * @since 5.0.0 Renamed from 'has_spotim_recirculation' to 'has_ow_recirculation'.
      *
      * @access public
      * @static
      *
      * @return bool
      */
-    public static function has_spotim_recirculation() {
+    public static function has_ow_recirculation() {
         global $post;
 
-        // Bail if it's not a singular template
+        // Bail if it's not a singular template.
         if ( ! is_singular() ) {
             return false;
         }
 
-        // Bail if comments are closed
+        // Bail if comments are closed.
         if ( ! comments_open() ) {
             return false;
         }
 
-        // Bail if Spot.IM is disabled for this post type
+        // Bail if OpenWeb.Com is disabled for this post type.
         if ( '0' === self::$options->get( "display_{$post->post_type}" ) ) {
             return false;
         }
 
-        // Bail if Recirculation are disabled
+        // Bail if Recirculation are disabled.
         if ( 'none' === self::$options->get( 'rc_embed_method' ) ) {
             return false;
         }
 
-        // Bail if Spot.IM Recirculation are disabled for this specific content item
+        // Bail if OpenWeb.Com Recirculation are disabled for this specific content item.
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_recirculation', true );
         $specific_display = in_array( $specific_display, array(
             'enable',
@@ -418,7 +422,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Add Spot.IM recirculation to the content
+     * Add OpenWeb.Com recirculation to the content.
      *
      * @since  4.0.0
      *
@@ -429,29 +433,29 @@ class SpotIM_Frontend {
      *
      * @return bool
      */
-    public static function add_spotim_recirculation( $content ) {
+    public static function add_ow_recirculation( $content ) {
 
-        if ( self::has_spotim_recirculation() ) {
-            $spot_id = self::$options->get( 'spot_id' );
+        if ( self::has_ow_recirculation() ) {
+            $ow_id = self::$options->get( 'spot_id' );
 
             /**
-             * Before loading SpotIM recirculation template
+             * Before loading OpenWeb recirculation template.
              *
              * @since 4.0.0
              *
              * @param string $content The post content.
-             * @param int    $spot_id SpotIM ID.
+             * @param int    $ow_id   OpenWeb ID.
              */
-            $content = apply_filters( 'before_spotim_recirculation', $content, $spot_id );
+            $content = apply_filters( 'before_spotim_recirculation', $content, $ow_id );
 
-            if ( SpotIM_WP::spotim_is_amp() ) {
-                // Load SpotIM recirculation AMP template.
+            if ( OW_WP::is_amp() ) {
+                // Load OpenWeb recirculation AMP template.
                 ob_start();
                 include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-amp-template.php';
                 $content .= ob_get_contents();
                 ob_end_clean();
             } else {
-                // Load SpotIM recirculation template.
+                // Load OpenWeb recirculation template.
                 ob_start();
                 include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php';
                 $content .= ob_get_contents();
@@ -459,21 +463,21 @@ class SpotIM_Frontend {
             }
 
             /**
-             * After loading SpotIM recirculation template
+             * After loading OpenWeb recirculation template
              *
              * @since 4.0.0
              *
              * @param string $content The post content.
-             * @param int    $spot_id SpotIM ID.
+             * @param int    $ow_id OpenWeb ID.
              */
-            $content = apply_filters( 'after_spotim_recirculation', $content, $spot_id );
+            $content = apply_filters( 'after_spotim_recirculation', $content, $ow_id );
         }
 
         return $content;
     }
 
     /**
-     * Add Spot.IM newsfeed
+     * Add OpenWeb.Com newsfeed
      *
      * @since  4.3.0
      *
@@ -482,12 +486,12 @@ class SpotIM_Frontend {
      *
      * @return void
      */
-    public static function add_spotim_newsfeed() {
+    public static function add_ow_newsfeed() {
 
         if ( 1 === absint( self::$options->get( 'display_newsfeed' ) ) ) {
-            $spot_id = self::$options->get( 'spot_id' );
+            $ow_id = self::$options->get( 'spot_id' );
 
-            if ( ! empty( $spot_id ) ) {
+            if ( ! empty( $ow_id ) ) {
                 self::$options->require_template( 'newsfeed-template.php' );
             }
         }
@@ -495,7 +499,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Add Spot.IM Open Graph tags to the header
+     * Add OpenWeb.Com Open Graph tags to the header
      *
      * @since  4.3.0
      *
@@ -504,12 +508,12 @@ class SpotIM_Frontend {
      */
     public static function open_graph_tags() {
 
-        // Bail if it's not a singular template
+        // Bail if it's not a singular template.
         if ( ! is_singular() ) {
             return;
         }
 
-        // Bail if Spot.IM Open Graph tags are disabled
+        // Bail if OpenWeb.Com Open Graph tags are disabled.
         if ( 'true' !== self::$options->get( 'enable_og' ) ) {
             return;
         }
@@ -518,7 +522,7 @@ class SpotIM_Frontend {
         // which will cause issues when post doesn't have an excerpt.
         setup_postdata( get_the_ID() );
 
-        // Set default Open Graph tags
+        // Set default Open Graph tags.
         $tags = array(
             'og:url'         => get_permalink(),
             'og:type'        => 'article',
@@ -530,7 +534,7 @@ class SpotIM_Frontend {
         }
 
         /**
-         * Filtering the default Open Graph tags added by Spot.IM.
+         * Filtering the default Open Graph tags added by OpenWeb.Com.
          *
          * @since 4.3.0
          *
@@ -538,7 +542,7 @@ class SpotIM_Frontend {
          */
         $tags = (array) apply_filters( 'spotim_open_graph_tags', $tags );
 
-        // Generate Open Graph tags markup
+        // Generate Open Graph tags markup.
         foreach ( $tags as $tagname => $tag ) {
             printf(
                 '<meta property="%s" content="%s" />',
@@ -564,13 +568,13 @@ class SpotIM_Frontend {
      * Display the markup of AMP comments.
      */
     public static function display_amp_comments() {
-        if ( self::has_spotim_comments() ) {
+        if ( self::has_ow_comments() ) {
             ob_start();
-            // Load SpotIM AMP comments template.
+            // Load OpenWeb AMP comments template.
             include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-amp-template.php';
             $amp_comments = ob_get_contents();
             ob_end_clean();
-            echo wp_kses( $amp_comments, SpotIM_WP::$allowed_amp_tags );
+            echo wp_kses( $amp_comments, OW_WP::$allowed_amp_tags );
         }
     }
 
@@ -584,7 +588,7 @@ class SpotIM_Frontend {
      * @return array
      */
     public static function amp_recirculation_scripts( $data ) {
-        if ( SpotIM_WP::spotim_is_amp() && self::has_spotim_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
+        if ( OW_WP::is_amp() && self::has_ow_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
             $data['amp_component_scripts']['amp-ad']        = 'https://cdn.ampproject.org/v0/amp-ad-0.1.js';
             $data['amp_component_scripts']['amp-list']      = 'https://cdn.ampproject.org/v0/amp-list-0.1.js';
             $data['amp_component_scripts']['amp-carousel']  = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
@@ -602,7 +606,7 @@ class SpotIM_Frontend {
      * @return void
      */
     public static function amp_recirculation_styles() {
-        if ( SpotIM_WP::spotim_is_amp() && self::has_spotim_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
+        if ( OW_WP::is_amp() && self::has_ow_recirculation() && 'none' !== self::$options->get( 'rc_embed_method' ) ) {
             wp_enqueue_style( 'amp-recirculation-style', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/recirculation-amp.css' );
         }
     }

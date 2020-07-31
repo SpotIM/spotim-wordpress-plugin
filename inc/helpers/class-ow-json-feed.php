@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_JSON_Feed
+ * OW_JSON_Feed
  *
  * JSON feed.
  *
  * @since 4.1.0
+ * @since 5.0.0 Renamed from 'SpotIM_JSON_Feed' to 'OW_JSON_Feed'.
  */
-class SpotIM_JSON_Feed {
+class OW_JSON_Feed {
 
     /**
      * Post ID
@@ -101,7 +102,7 @@ class SpotIM_JSON_Feed {
      *
      * @param mixed $post_id The ID of the post.
      *
-     * @return SpotIM_JSON_Feed SpotIM JSON feed.
+     * @return OW_JSON_Feed SpotIM JSON feed.
      */
     public function __construct( $post_id ) {
         $this->post_id = $post_id;
@@ -113,7 +114,7 @@ class SpotIM_JSON_Feed {
         );
 
         /**
-         * Filtering the default comments query args used to generate SpotIM JSON feed.
+         * Filtering the default comments query args used to generate OW JSON feed.
          *
          * @since 4.1.0
          *
@@ -140,7 +141,7 @@ class SpotIM_JSON_Feed {
          *
          * @since 4.1.0
          *
-         * @param SpotIM_JSON_Feed $this SpotIM JSON feed.
+         * @param OW_JSON_Feed $this SpotIM JSON feed.
          */
         return apply_filters( 'spotim_json_feed', wp_json_encode( $this ) );
     }
@@ -180,7 +181,7 @@ class SpotIM_JSON_Feed {
      *
      * @param object $comment Comment object.
      *
-     * @return bool Whether the comments has a perent comment.
+     * @return bool Whether the comments has a parent comment.
      */
     public static function has_parent_comment( $comment ) {
         return ( 0 === absint( $comment->comment_parent ) );

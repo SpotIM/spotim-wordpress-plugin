@@ -5,13 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * SpotIM_Options
+ * OW_Options
  *
  * Plugin options.
  *
  * @since 2.0.0
+ * @since 5.0.0 Renamed from 'SpotIM_Options' to 'OW_Options'.
  */
-class SpotIM_Options {
+class OW_Options {
 
     /**
      * Instance
@@ -21,7 +22,7 @@ class SpotIM_Options {
      * @access private
      * @static
      *
-     * @var SpotIM_Options
+     * @var OW_Options
      */
     private static $instance;
 
@@ -135,7 +136,7 @@ class SpotIM_Options {
      * @access public
      * @static
      *
-     * @return SpotIM_Options
+     * @return OW_Options
      */
     public static function get_instance() {
         if ( is_null( self::$instance ) ) {
@@ -212,8 +213,8 @@ class SpotIM_Options {
      *
      * @access public
      *
-     * @param string $name
-     * @param string $value
+     * @param string $name  Option Name.
+     * @param string $value Option Value.
      *
      * @return array
      */
@@ -222,7 +223,7 @@ class SpotIM_Options {
         $new_option          = array();
         $new_option[ $name ] = $value;
 
-        // validate new option and retrive with old ones to update as a whole
+        // Validate new option and retrieve with old ones to update as a whole
         $options = $this->validate( $new_option );
 
         $options_updated = update_option( $this->slug, $options );
@@ -336,7 +337,7 @@ class SpotIM_Options {
             if ( $return_path ) {
                 $output = $path;
             } else {
-                require_once( $path );
+                require_once $path; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
                 $output = $valid;
             }
         } else {
