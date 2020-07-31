@@ -28,20 +28,24 @@ msgstr ""
 msgid "Cancel importing..."
 msgstr ""
 
-#: inc/class-ow-admin.php:285
+#: inc/class-ow-admin.php:329
 msgid "OpenWeb Settings"
 msgstr ""
 
-#: inc/class-ow-admin.php:287
+#: inc/class-ow-admin.php:331
 msgid "OpenWeb"
 msgstr ""
 
-#: inc/class-ow-admin.php:449, inc/class-ow-settings-fields.php:528
+#: inc/class-ow-admin.php:493, inc/class-ow-settings-fields.php:528
 msgid "OpenWeb ID is missing."
 msgstr ""
 
-#: inc/class-ow-admin.php:463, inc/class-ow-settings-fields.php:529
+#: inc/class-ow-admin.php:507, inc/class-ow-settings-fields.php:529
 msgid "Import token is missing."
+msgstr ""
+
+#: inc/class-ow-frontend.php:1309
+msgid "This action may remove in future releases."
 msgstr ""
 
 #: inc/class-ow-import.php:563
@@ -354,6 +358,10 @@ msgstr ""
 
 #: inc/ow-widgets.php:287
 msgid "OpenWeb.Com Siderail"
+msgstr ""
+
+#: spotim-comments.php:73
+msgid "This filter may remove in future releases."
 msgstr ""
 
 #: templates/admin-template.php:5
