@@ -50,8 +50,8 @@ class OW_Recirculation_Widget extends WP_Widget {
         $options = OW_Options::get_instance();
 
         // Ignoring warning as variable is used in included template.
-        $spot_id = $options->get( 'spot_id' ); //phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
-        $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
+        $ow_id = $options->get( 'spot_id' ); //phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
+        $title = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
         // Before widget tag.
         echo wp_kses_post( $args['before_widget'] );
@@ -164,8 +164,8 @@ class OW_Siderail_Widget extends WP_Widget {
         $options = OW_Options::get_instance();
 
         // Ignoring warning as variable is used in included template.
-        $spot_id = $options->get( 'spot_id' ); // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
-        $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
+        $ow_id = $options->get( 'spot_id' ); // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
+        $title = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
         // Before widget tag.
         echo wp_kses_post( $args['before_widget'] );
