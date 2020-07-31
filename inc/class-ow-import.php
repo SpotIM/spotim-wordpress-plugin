@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin import class.
  *
  * @since 3.0.0
- * @since 5.0.0 Renamed from `SpotIM_Import` to `OW_Import`.
+ * @since 5.0.0 Renamed from 'SpotIM_Import' to 'OW_Import'.
  */
 class OW_Import {
 

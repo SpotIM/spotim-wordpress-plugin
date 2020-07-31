@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin meta box displayed in posts and pages.
  *
  * @since 4.0.0
- * @since 5.0.0 Renamed from `SpotIM_Meta_Box` to `OW_Meta_Box`.
+ * @since 5.0.0 Renamed from 'SpotIM_Meta_Box' to 'OW_Meta_Box'.
  */
 class OW_Meta_Box {
 

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Widget.
  *
  * @since 4.0.0
- * @since 5.0.0 Renamed from `SpotIM_Recirculation_Widget` to `OW_Recirculation_Widget`.
+ * @since 5.0.0 Renamed from 'SpotIM_Recirculation_Widget' to 'OW_Recirculation_Widget'.
  */
 class OW_Recirculation_Widget extends WP_Widget {
 
@@ -124,7 +124,7 @@ class OW_Recirculation_Widget extends WP_Widget {
  * Plugin Widget.
  *
  * @since 4.2.0
- * @since 5.0.0 Renamed from `SpotIM_Siderail_Widget` to `OW_Siderail_Widget`.
+ * @since 5.0.0 Renamed from 'SpotIM_Siderail_Widget' to 'OW_Siderail_Widget'.
  */
 class OW_Siderail_Widget extends WP_Widget {
 
@@ -238,8 +238,8 @@ class OW_Siderail_Widget extends WP_Widget {
  * Register recirculation and siderail widgets.
  *
  * @since 4.0.0
- * @since 4.2.0 Renamed from `spotim_register_recirculation_widgets()` to `spotim_register_widgets()`
- * @since 5.0.0 Renamed from `spotim_register_widgets()` to `ow_register_widgets()`
+ * @since 4.2.0 Renamed from 'spotim_register_recirculation_widgets' to 'spotim_register_widgets'.
+ * @since 5.0.0 Renamed from 'spotim_register_widgets' to 'ow_register_widgets'.
  */
 function ow_register_widgets() {
     register_widget( 'OW_Recirculation_Widget' );

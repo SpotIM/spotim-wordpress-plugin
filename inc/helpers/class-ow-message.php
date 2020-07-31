@@ -12,7 +12,7 @@ define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
  * Comment functions.
  *
  * @since 3.0.0
- * @since 5.0.0 Renamed from `SpotIM_Message` to `OW_Message`.
+ * @since 5.0.0 Renamed from 'SpotIM_Message' to 'OW_Message'.
  */
 class OW_Message {
 

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin settings fields.
  *
  * @since 2.0.0
- * @since 5.0.0 Renamed from `SpotIM_Settings_Fields` to `OW_Settings_Fields`.
+ * @since 5.0.0 Renamed from 'SpotIM_Settings_Fields' to 'OW_Settings_Fields'.
  */
 class OW_Settings_Fields {
 
