@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin options.
  *
  * @since 2.0.0
- * @since 5.0.0 Renamed from `SpotIM_Options` to `OW_Options`.
+ * @since 5.0.0 Renamed from 'SpotIM_Options' to 'OW_Options'.
  */
 class OW_Options {
 
@@ -337,7 +337,7 @@ class OW_Options {
             if ( $return_path ) {
                 $output = $path;
             } else {
-                require_once( $path ); // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
+                require_once $path; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
                 $output = $valid;
             }
         } else {
