@@ -34,7 +34,7 @@ if ( ! defined( 'OW_FILTER_DEPRECATED_MESSAGE' ) ) {
      *
      * @since  5.0.0
      */
-    define( 'OW_FILTER_DEPRECATED_MESSAGE', esc_html__( 'This filter may remove in future releases.', 'ow' ) );
+    define( 'OW_FILTER_DEPRECATED_MESSAGE', esc_html__( 'This filter may remove in future releases.', 'spotim-comments' ) );
 }
 
 /**

@@ -635,7 +635,25 @@ class OW_Frontend {
             );
         }
 
-        do_action( 'spotim_after_open_tags' );
+        /**
+         * Action runs after open tags.
+         *
+         * @since 5.0.0
+         */
+        do_action( 'ow_after_open_tags' );
+
+        /**
+         * Action runs after open tags.
+         *
+         * @deprecated 5.0.0 Use {@see 'ow_after_open_tags'} instead.
+         */
+        do_action_deprecated(
+            'spotim_after_open_tags',
+            array(),
+            '5.0.0',
+            'ow_after_open_tags',
+            esc_html__( 'This action may remove in future releases.', 'spotim-comments' )
+        );
     }
 
     /**
