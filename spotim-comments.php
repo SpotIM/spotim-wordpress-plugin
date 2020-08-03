@@ -128,6 +128,7 @@ class WP_OW {
         $inc_class_dir = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
 
         $files = [
+            'helpers/ow-functions.php',
             'helpers/class-ow-form.php',
             'helpers/class-ow-message.php',
             'helpers/class-ow-comment.php',
@@ -151,7 +152,7 @@ class WP_OW {
             $file = $inc_class_dir . $file;
 
             if ( file_exists( $file ) ) {
-                require_once( $file );
+                require_once $file; //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
             }
         }
 

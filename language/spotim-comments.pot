@@ -80,35 +80,35 @@ msgstr ""
 msgid "OpenWeb.Com"
 msgstr ""
 
-#: inc/class-ow-metabox.php:287
+#: inc/class-ow-metabox.php:295
 msgid "Comments"
 msgstr ""
 
-#: inc/class-ow-metabox.php:293, inc/class-ow-metabox.php:341, inc/class-ow-settings-fields.php:196, inc/class-ow-settings-fields.php:236, inc/class-ow-settings-fields.php:326, inc/class-ow-settings-fields.php:344, inc/class-ow-settings-fields.php:379, inc/class-ow-settings-fields.php:396
+#: inc/class-ow-metabox.php:301, inc/class-ow-metabox.php:349, inc/class-ow-settings-fields.php:196, inc/class-ow-settings-fields.php:236, inc/class-ow-settings-fields.php:326, inc/class-ow-settings-fields.php:344, inc/class-ow-settings-fields.php:379, inc/class-ow-settings-fields.php:396
 msgid "Enable"
 msgstr ""
 
-#: inc/class-ow-metabox.php:295, inc/class-ow-metabox.php:343, inc/class-ow-settings-fields.php:195, inc/class-ow-settings-fields.php:218, inc/class-ow-settings-fields.php:235, inc/class-ow-settings-fields.php:327, inc/class-ow-settings-fields.php:345, inc/class-ow-settings-fields.php:378, inc/class-ow-settings-fields.php:395
+#: inc/class-ow-metabox.php:303, inc/class-ow-metabox.php:351, inc/class-ow-settings-fields.php:195, inc/class-ow-settings-fields.php:218, inc/class-ow-settings-fields.php:235, inc/class-ow-settings-fields.php:327, inc/class-ow-settings-fields.php:345, inc/class-ow-settings-fields.php:378, inc/class-ow-settings-fields.php:395
 msgid "Disable"
 msgstr ""
 
-#: inc/class-ow-metabox.php:299
+#: inc/class-ow-metabox.php:307
 msgid "Show OpenWeb.Com comments."
 msgstr ""
 
-#: inc/class-ow-metabox.php:309
+#: inc/class-ow-metabox.php:317
 msgid "Community Question"
 msgstr ""
 
-#: inc/class-ow-metabox.php:315
+#: inc/class-ow-metabox.php:323
 msgid "Show OpenWeb.Com community question."
 msgstr ""
 
-#: inc/class-ow-metabox.php:335
+#: inc/class-ow-metabox.php:343
 msgid "Recirculation"
 msgstr ""
 
-#: inc/class-ow-metabox.php:347
+#: inc/class-ow-metabox.php:355
 msgid "Show OpenWeb.Com recirculation."
 msgstr ""
 
@@ -342,6 +342,10 @@ msgstr ""
 
 #: inc/helpers/class-ow-message.php:793
 msgid "Guest"
+msgstr ""
+
+#: inc/helpers/ow-functions.php:51
+msgid "Meta key %1$s is deprecated. This meta %1$s may remove in future. Please use %2$s meta instead."
 msgstr ""
 
 #: inc/ow-widgets.php:59

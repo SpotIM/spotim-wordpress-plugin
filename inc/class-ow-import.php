@@ -216,7 +216,7 @@ class OW_Import {
 
             $this->log( 'Syncing Comments for Post Id :- ' . $post_id );
 
-            $post_etag = $this->is_force_sync ? 0 : get_post_meta( $post_id, 'spotim_etag', true );
+            $post_etag = $this->is_force_sync ? 0 : ow_get_post_meta( $post_id, 'ow_etag', true );
 
             $stream = $this->request( array(
                 'spot_id' => $this->options->get( 'spot_id' ),

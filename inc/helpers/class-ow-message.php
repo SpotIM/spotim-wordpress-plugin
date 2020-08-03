@@ -296,7 +296,7 @@ class OW_Message {
      * @return array
      */
     private function get_messages_map() {
-        $messages_map = get_post_meta( $this->post_id, 'spotim_messages_map', true );
+        $messages_map = ow_get_post_meta( $this->post_id, 'ow_messages_map', true );
 
         if ( is_string( $messages_map ) ) {
             $messages_map = array();

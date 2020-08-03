@@ -133,7 +133,7 @@ class OW_Frontend {
         }
 
         // Bail if OpenWeb.Com Comments are disabled for this specific content item.
-        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
+        $specific_display = ow_get_post_meta( absint( $post->ID ), 'ow_display_comments', true );
         $specific_display = in_array( $specific_display, array(
             'enable',
             'disable'
@@ -398,7 +398,7 @@ class OW_Frontend {
         }
 
         // Bail if OpenWeb.Com questions are disabled for this specific content item
-        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_question', true );
+        $specific_display = ow_get_post_meta( absint( $post->ID ), 'ow_display_question', true );
         if ( empty( $specific_display ) ) {
             return false;
         }
@@ -442,7 +442,7 @@ class OW_Frontend {
         }
 
         // Bail if OpenWeb.Com Recirculation are disabled for this specific content item.
-        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_recirculation', true );
+        $specific_display = ow_get_post_meta( absint( $post->ID ), 'ow_display_recirculation', true );
         $specific_display = in_array( $specific_display, array(
             'enable',
             'disable'
