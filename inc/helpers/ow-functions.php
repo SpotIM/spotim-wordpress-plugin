@@ -25,7 +25,7 @@ function ow_get_post_meta( $post_id, $key, $single = false ) {
 
     $meta_value = get_post_meta( $post_id, $key, $single );
 
-    if ( ! empty( $meta_value ) ) {
+    if ( true === metadata_exists( 'post', $post_id, $key ) ) {
         return $meta_value;
     }
 
@@ -40,10 +40,6 @@ function ow_get_post_meta( $post_id, $key, $single = false ) {
     // Replace 'ow' with 'spotim' to match old meta key.
     $spot_im_key = str_replace( 'ow', 'spotim', $key );
     $meta_value  = get_post_meta( $post_id, $spot_im_key, $single );
-
-    if ( empty( $meta_value ) ) {
-        return $meta_value;
-    }
 
     // Set old key data to new one.
     update_post_meta( $post_id, $key, $meta_value );
