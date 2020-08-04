@@ -92,7 +92,7 @@ class OW_Options {
      */
     protected function __construct() {
         $this->slug            = 'wp-ow-settings';
-        $this->option_group    = 'wp-spotim-options';
+        $this->option_group    = 'wp-ow-options';
         $this->default_options = array(
             // General
             'ow_id'                        => '',

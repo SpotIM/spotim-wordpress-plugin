@@ -89,7 +89,7 @@ class OW_Admin {
      * @return void
      */
     public static function admin_assets( $hook ) {
-        if ( 'toplevel_page_wp-spotim-settings' !== $hook ) {
+        if ( 'toplevel_page_wp-ow-settings' !== $hook ) {
             return;
         }
 
