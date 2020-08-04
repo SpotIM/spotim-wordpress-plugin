@@ -40,7 +40,7 @@ if ( ! defined( 'OW_FILTER_DEPRECATED_MESSAGE' ) ) {
 /**
  * WP_OW
  *
- * A general class for Spot.IM comments for WordPress.
+ * A general class for OpenWeb comments for WordPress.
  *
  * @since 1.0.2
  * @since 5.0.0 Renamed from 'WP_SpotIM' to 'WP_OW'.
@@ -179,7 +179,7 @@ add_action( 'plugins_loaded', 'ow_instance', 0 );
  * @return bool returns true if current site is available on VIP-GO, otherwise false
  */
 function ow_is_vip() {
-    if ( defined( 'SPOTIM_IS_VIP_DEBUG' ) && SPOTIM_IS_VIP_DEBUG ) { // Setting WPCOM_IS_VIP_ENV in local won't work.
+    if ( defined( 'OW_IS_VIP_DEBUG' ) && OW_IS_VIP_DEBUG ) { // Setting WPCOM_IS_VIP_ENV in local won't work.
         return true;
     }
 
