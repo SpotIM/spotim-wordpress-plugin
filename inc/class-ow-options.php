@@ -503,6 +503,22 @@ class OW_Options {
             return;
         }
 
+        // Check if old option is available.
+        // If not available then set default setting.
+        $this->check_and_update_settings();
+
+        // Migrate single options.
+        $this->migrate_option( 'wp-spotim-settings_total_changed_posts', 'wp-ow-settings_total_changed_posts', [] );
+
+    }
+
+    /**
+     * Function to check and update setting using old settings.
+     *
+     * @return void
+     */
+    protected function check_and_update_settings() {
+
         // Check setting option is already available.
         $is_setting_available = get_option( $this->slug, array() );
 
@@ -512,12 +528,49 @@ class OW_Options {
         }
 
         // Old option group.
-        $old_settings = get_option( 'wp-spotim-settings', array() );
-
+        $old_settings   = get_option( 'wp-spotim-settings', array() );
         $final_settings = wp_parse_args( $old_settings, $this->default_options );
+
+        if ( isset( $final_settings['spotim_last_sync_timestamp'] ) ) {
+            $final_settings['ow_last_sync_timestamp'] = $final_settings['spotim_last_sync_timestamp'];
+        }
 
         // Update old options in new setting option.
         update_option( $this->slug, $final_settings );
+
+    }
+
+    /**
+     * Function to migrate option.
+     *
+     * @param string $old_option_name Old option name.
+     * @param string $new_option_name New option name.
+     * @param mixed  $default         Default value to set.
+     *
+     * @return void
+     */
+    protected function migrate_option( $old_option_name, $new_option_name, $default = '' ) {
+
+        // If empty param return false.
+        if ( empty( $old_option_name ) || empty( $new_option_name ) ) {
+            return false;
+        }
+
+        // Get value from new option.
+        $new_value = get_option( $new_option_name, $default );
+
+        // If value found in new option then return.
+        if ( ! empty( $new_value ) ) {
+            return true;
+        }
+
+        // Get old option value.
+        $old_value = get_option( $old_option_name, $default );
+
+        // Set old value to new option.
+        update_option( $new_option_name, $old_value );
+
+        return true;
     }
 
 }
