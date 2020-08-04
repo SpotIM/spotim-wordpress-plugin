@@ -11,7 +11,7 @@ target="_blank">
   layout="fixed-height"
   max-items="1"
   items="items"
-  src="<?php echo esc_url( sprintf( 'https://spotops.spot.im/spot/%s/recirculation/amp', rawurlencode( $option->get( 'spot_id' ) ) ) ); ?>"
+  src="<?php echo esc_url( sprintf( 'https://spotops.spot.im/spot/%s/recirculation/amp', rawurlencode( $option->get( 'ow_id' ) ) ) ); ?>"
   class="ow-amp-list-ad">
 
     <template type="amp-mustache" id="amp-spotim-rc">
@@ -21,7 +21,7 @@ target="_blank">
         height={{height}}
         type="{{type}}"
         data-slot="{{code}}"
-        json='{"targeting": {"ampRCSpotId": ["<?php echo esc_attr( $option->get( 'spot_id' ) ); ?>"] }}'>
+        json='{"targeting": {"ampRCSpotId": ["<?php echo esc_attr( $option->get( 'ow_id' ) ); ?>"] }}'>
         <div placeholder></div>
         <div fallback></div>
     </amp-ad>

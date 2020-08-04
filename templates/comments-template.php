@@ -1,7 +1,7 @@
 <?php
 $options               = OW_Options::get_instance();
 $front                 = new OW_Frontend( $options );
-$ow_id                 = $options->get( 'spot_id' );
+$ow_id                 = $options->get( 'ow_id' );
 $recirculation_method  = $options->get( 'rc_embed_method' );
 $enable_rating_reviews = 0 === absint( $options->get( 'enable_rating_reviews' ) ) ? 'false' : 'true';
 

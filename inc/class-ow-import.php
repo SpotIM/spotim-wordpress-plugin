@@ -114,7 +114,7 @@ class OW_Import {
         if ( ! $this->return ) {
 
             // Save ow_id and import_token in plugin's options meta
-            $this->options->update( 'spot_id', $ow_id );
+            $this->options->update( 'ow_id', $ow_id );
             $this->options->update( 'import_token', $import_token );
 
             $this->page_number = $this->options->update(
@@ -219,7 +219,7 @@ class OW_Import {
             $post_etag = $this->is_force_sync ? 0 : ow_get_post_meta( $post_id, 'ow_etag', true );
 
             $stream = $this->request( array(
-                'spot_id' => $this->options->get( 'spot_id' ),
+                'spot_id' => $this->options->get( 'ow_id' ),
                 'post_id' => $post_id,
                 'etag'    => absint( $post_etag ),
                 'count'   => 1000,
@@ -422,7 +422,7 @@ class OW_Import {
         $offset = $this->needto_load_more_changed_posts;
         $limit  = 5000;
 
-        $ow_id = $this->options->get( 'spot_id' );
+        $ow_id = $this->options->get( 'ow_id' );
         $sec_ago = $this->options->get( 'spotim_last_sync_timestamp', null );
 
         if ( ! $sec_ago ) {

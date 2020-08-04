@@ -95,7 +95,7 @@ class OW_Options {
         $this->option_group    = 'wp-spotim-options';
         $this->default_options = array(
             // General
-            'spot_id'                      => '',
+            'ow_id'                        => '',
             // Display
             'display_post'                 => '1',
             'display_page'                 => '1',
@@ -318,7 +318,7 @@ class OW_Options {
                         wp_schedule_event( time(), $new_interval, 'spotim_scheduled_import' );
                     }
                     break;
-                case 'spot_id':
+                case 'ow_id':
                 case 'import_token':
                 default:
                     $options[ $key ] = sanitize_text_field( $value );

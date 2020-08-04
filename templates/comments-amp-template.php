@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 $options              = OW_Options::get_instance();
-$ow_id                = $options->get( 'spot_id' );
+$ow_id                = $options->get( 'ow_id' );
 $ow_post_id           = get_the_ID();
 $front                = new OW_Frontend( $options );
 $recirculation_method = $options->get( 'rc_embed_method' );

@@ -1,6 +1,6 @@
 <?php
 $options = OW_Options::get_instance();
-$ow_id   = $options->get( 'spot_id' );
+$ow_id   = $options->get( 'ow_id' );
 ?>
 <script async
         data-spotim-module="spotim-launcher"
