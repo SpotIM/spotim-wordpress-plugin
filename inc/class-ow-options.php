@@ -531,7 +531,11 @@ class OW_Options {
         $old_settings   = get_option( 'wp-spotim-settings', array() );
         $final_settings = wp_parse_args( $old_settings, $this->default_options );
 
-        if ( isset( $final_settings['spotim_last_sync_timestamp'] ) ) {
+        if ( isset( $final_settings['spot_id'] ) && ! empty( $final_settings['spot_id'] ) && empty( $final_settings['ow_id'] ) ) {
+            $final_settings['ow_id'] = $final_settings['spot_id'];
+        }
+
+        if ( isset( $final_settings['spotim_last_sync_timestamp'] ) && empty( $final_settings['ow_last_sync_timestamp'] ) ) {
             $final_settings['ow_last_sync_timestamp'] = $final_settings['spotim_last_sync_timestamp'];
         }
 
