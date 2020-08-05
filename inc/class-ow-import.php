@@ -161,7 +161,7 @@ class OW_Import {
         $this->total_changed_posts            = [];
         $this->page_number                    = $this->options->update( 'page_number', 0 );
         $this->needto_load_more_changed_posts = $this->options->update( 'needto_load_more_changed_posts', 0 );
-        $this->options->update( 'ow_last_sync_timestamp', null );
+        $this->options->update( 'last_sync_timestamp', null );
     }
 
     /**
@@ -371,7 +371,7 @@ class OW_Import {
             $response_args['status']  = 'success';
             $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count );
 
-            $this->options->update( 'ow_last_sync_timestamp', time() );
+            $this->options->update( 'last_sync_timestamp', time() );
             $this->options->reset( 'is_force_sync', false );
             update_option( 'wp-ow-settings_total_changed_posts', [] );
 
@@ -423,7 +423,7 @@ class OW_Import {
         $limit  = 5000;
 
         $ow_id = $this->options->get( 'ow_id' );
-        $sec_ago = $this->options->get( 'ow_last_sync_timestamp', null );
+        $sec_ago = $this->options->get( 'last_sync_timestamp', null );
 
         if ( ! $sec_ago ) {
             $sec_ago = time() + ( 60 * 30 );

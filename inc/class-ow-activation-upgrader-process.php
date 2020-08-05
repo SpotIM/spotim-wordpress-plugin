@@ -176,8 +176,8 @@ class OW_Activation_Upgrader_Process {
             unset( $final_settings['spot_id'] ); // Remove this from array as its not required in new setting.
         }
 
-        if ( isset( $final_settings['spotim_last_sync_timestamp'] ) && empty( $final_settings['ow_last_sync_timestamp'] ) ) {
-            $final_settings['ow_last_sync_timestamp'] = $final_settings['spotim_last_sync_timestamp'];
+        if ( isset( $final_settings['spotim_last_sync_timestamp'] ) && empty( $final_settings['last_sync_timestamp'] ) ) {
+            $final_settings['last_sync_timestamp'] = $final_settings['spotim_last_sync_timestamp'];
         }
 
         // Update old options in new setting option.
