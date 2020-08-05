@@ -18,15 +18,15 @@ switch ( $options->get( 'disqus_identifier' ) ) {
 }
 
 $ow_comment_class   = $options->get( 'class' );
-$post_id            = get_the_ID();
+$current_post_id    = get_the_ID();
 $permalink          = get_permalink();
-$short_url          = site_url( '/?p=' . $post_id );
+$short_url          = site_url( '/?p=' . $current_post_id );
 $comment_per_page   = $options->get( 'comments_per_page' );
-$wp_import_endpoint = get_post_comments_feed_link( $post_id, 'spotim' );
+$wp_import_endpoint = get_post_comments_feed_link( $current_post_id, 'spotim' );
 $fb_url             = $permalink;
 $disqus_short_name  = $options->get( 'disqus_shortname' );
 $disqus_url         = $permalink;
-$question           = get_post_meta( $post_id, 'spotim_display_question', true );
+$question           = ow_get_post_meta( $current_post_id, 'ow_display_question', true );
 $enable_seo         = $options->get( 'enable_seo' );
 
 /**
@@ -58,20 +58,20 @@ $ow_comment_class = apply_filters_deprecated(
  *
  * @since 5.0.0
  *
- * @param int $post_id Current post ID.
+ * @param int $current_post_id Current post ID.
  */
-$post_id = apply_filters( 'ow_comments_post_id', $post_id );
+$current_post_id = apply_filters( 'ow_comments_post_id', $current_post_id );
 
 /**
  * Filtering post id.
  *
  * @deprecated 5.0.0 Use {@see 'ow_comments_post_id'} instead.
  *
- * @param int $post_id Current post ID.
+ * @param int $current_post_id Current post ID.
  */
-$post_id = apply_filters_deprecated(
+$current_post_id = apply_filters_deprecated(
     'spotim_comments_post_id',
-    array( $post_id ),
+    array( $current_post_id ),
     '5.0.0',
     'ow_comments_post_id',
     OW_FILTER_DEPRECATED_MESSAGE
@@ -337,7 +337,7 @@ $enable_seo = apply_filters_deprecated(
             data-article-tags="<?php echo esc_attr( implode( ', ', wp_get_post_tags( get_the_ID(), array( 'fields' => 'names' ) ) ) ); ?>"
             src="<?php echo esc_url( 'https://launcher.spot.im/spot/' . $ow_id ); ?>"
             data-social-reviews="<?php echo esc_attr( $enable_rating_reviews ); ?>"
-            data-post-id="<?php echo esc_attr( $post_id ); ?>"
+            data-post-id="<?php echo esc_attr( $current_post_id ); ?>"
             data-post-url="<?php echo esc_url( $permalink ); ?>"
             data-short-url="<?php echo esc_url( $short_url ); ?>"
             data-messages-count="<?php echo esc_attr( $comment_per_page ); ?>"

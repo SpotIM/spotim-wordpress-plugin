@@ -122,39 +122,43 @@ class OW_Meta_Box {
         wp_nonce_field( 'nonce_action', 'nonce' );
 
         // Retrieve an existing value from the database.
-        $spotim_display_comments      = get_post_meta( $post->ID, 'spotim_display_comments', true );
-        $spotim_display_question      = get_post_meta( $post->ID, 'spotim_display_question', true );
-        $spotim_display_recirculation = get_post_meta( $post->ID, 'spotim_display_recirculation', true );
+        $ow_display_comments      = ow_get_post_meta( $post->ID, 'ow_display_comments', true );
+        $ow_display_question      = ow_get_post_meta( $post->ID, 'ow_display_question', true );
+        $ow_display_recirculation = ow_get_post_meta( $post->ID, 'ow_display_recirculation', true );
 
         // Set default values.
-        if ( empty( $spotim_display_comments ) ) {
-            $spotim_display_comments = 'enable';
+        if ( empty( $ow_display_comments ) ) {
+            $ow_display_comments = 'enable';
         }
-        if ( empty( $spotim_display_question ) ) {
-            $spotim_display_question = '';
+
+        // Set default values.
+        if ( empty( $ow_display_question ) ) {
+            $ow_display_question = '';
         }
-        if ( empty( $spotim_display_recirculation ) ) {
-            $spotim_display_recirculation = 'enable';
+
+        // Set default values.
+        if ( empty( $ow_display_recirculation ) ) {
+            $ow_display_recirculation = 'enable';
         }
 
         // Form fields.
         echo '<table class="form-table">';
 
         echo '    <tr>';
-        echo '		<th><label for="ow_display_comments" class="spotim_display_comments_label">' . esc_html__( 'Comments', 'spotim-comments' ) . '</label></th>';
+        echo '		<th><label for="ow_display_comments" class="ow_display_comments_label">' . esc_html__( 'Comments', 'spotim-comments' ) . '</label></th>';
         echo '		<td>';
-        echo '			<select id="ow_display_comments" name="spotim_display_comments" class="spotim_display_comments_field">';
-        echo '			<option value="enable" ' . selected( $spotim_display_comments, 'enable', false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
-        echo '			<option value="disable" ' . selected( $spotim_display_comments, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
+        echo '			<select id="ow_display_comments" name="ow_display_comments" class="ow_display_comments_field">';
+        echo '			<option value="enable" ' . selected( $ow_display_comments, 'enable', false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+        echo '			<option value="disable" ' . selected( $ow_display_comments, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
         echo '			</select>';
         echo '			<p class="description">' . esc_html__( 'Show OpenWeb.Com comments.', 'spotim-comments' ) . '</p>';
         echo '		</td>';
         echo '	</tr>';
 
         echo '	<tr>';
-        echo '		<th><label for="ow_display_question" class="spotim_display_question_label">' . esc_html__( 'Community Question', 'spotim-comments' ) . '</label></th>';
+        echo '		<th><label for="ow_display_question" class="ow_display_question_label">' . esc_html__( 'Community Question', 'spotim-comments' ) . '</label></th>';
         echo '		<td>';
-        echo '			<input type="text" id="ow_display_question" name="spotim_display_question" class="spotim_display_question_field" value="' . esc_attr( $spotim_display_question ) . '">';
+        echo '			<input type="text" id="ow_display_question" name="ow_display_question" class="ow_display_question_field" value="' . esc_attr( $ow_display_question ) . '">';
         echo '			<p class="description">' . esc_html__( 'Show OpenWeb.Com community question.', 'spotim-comments' ) . '</p>';
         echo '		</td>';
         echo '	</tr>';
@@ -165,11 +169,11 @@ class OW_Meta_Box {
         } else {
             echo '<tr>';
         }
-        echo '		<th><label for="ow_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
+        echo '		<th><label for="ow_display_recirculation" class="ow_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
         echo '		<td>';
-        echo '			<select id="ow_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
-        echo '			<option value="enable" ' . selected( $spotim_display_recirculation, 'enable', false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
-        echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
+        echo '			<select id="ow_display_recirculation" name="ow_display_recirculation" class="ow_display_recirculation_field">';
+        echo '			<option value="enable" ' . selected( $ow_display_recirculation, 'enable', false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+        echo '			<option value="disable" ' . selected( $ow_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
         echo '			</select>';
         echo '			<p class="description">' . esc_html__( 'Show OpenWeb.Com recirculation.', 'spotim-comments' ) . '</p>';
         echo '		</td>';
@@ -213,18 +217,18 @@ class OW_Meta_Box {
         }
 
         // Sanitize user input.
-        $display_comments_value      = filter_input( INPUT_POST, 'spotim_display_comments', FILTER_SANITIZE_STRING );
-        $display_question_value      = filter_input( INPUT_POST, 'spotim_display_question', FILTER_SANITIZE_STRING );
-        $display_recirculation_value = filter_input( INPUT_POST, 'spotim_display_recirculation', FILTER_SANITIZE_STRING );
+        $display_comments_value      = filter_input( INPUT_POST, 'ow_display_comments', FILTER_SANITIZE_STRING );
+        $display_question_value      = filter_input( INPUT_POST, 'ow_display_question', FILTER_SANITIZE_STRING );
+        $display_recirculation_value = filter_input( INPUT_POST, 'ow_display_recirculation', FILTER_SANITIZE_STRING );
 
-        $new_spotim_display_comments      = ( ! empty( $display_comments_value ) ) ? $display_comments_value : '';
-        $new_spotim_display_question      = ( ! empty( $display_question_value ) ) ? $display_question_value : '';
-        $new_spotim_display_recirculation = ( ! empty( $display_recirculation_value ) ) ? $display_recirculation_value : '';
+        $new_ow_display_comments      = ( ! empty( $display_comments_value ) ) ? $display_comments_value : '';
+        $new_ow_display_question      = ( ! empty( $display_question_value ) ) ? $display_question_value : '';
+        $new_ow_display_recirculation = ( ! empty( $display_recirculation_value ) ) ? $display_recirculation_value : '';
 
         // Update the meta field in the database.
-        update_post_meta( $post_id, 'spotim_display_comments', $new_spotim_display_comments );
-        update_post_meta( $post_id, 'spotim_display_question', $new_spotim_display_question );
-        update_post_meta( $post_id, 'spotim_display_recirculation', $new_spotim_display_recirculation );
+        update_post_meta( $post_id, 'ow_display_comments', $new_ow_display_comments );
+        update_post_meta( $post_id, 'ow_display_question', $new_ow_display_question );
+        update_post_meta( $post_id, 'ow_display_recirculation', $new_ow_display_recirculation );
 
     }
 
