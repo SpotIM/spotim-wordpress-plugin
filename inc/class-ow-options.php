@@ -91,34 +91,9 @@ class OW_Options {
      * @access protected
      */
     protected function __construct() {
-        $this->slug            = 'wp-spotim-settings';
-        $this->option_group    = 'wp-spotim-options';
-        $this->default_options = array(
-            // General
-            'spot_id'                      => '',
-            // Display
-            'display_post'                 => '1',
-            'display_page'                 => '1',
-            'display_attachment'           => '1',
-            'comments_per_page'            => 10,
-            'display_comments_count'       => '0',
-            'display_newsfeed'             => '0',
-            // Advanced
-            'embed_method'                 => 'content',
-            'rc_embed_method'              => 'regular',
-            'display_rc_amp_ad_tag'        => '0',
-            'enable_rating_reviews'        => '0',
-            'display_priority'             => 9999,
-            'enable_seo'                   => 'false',
-            'enable_og'                    => 'false',
-            'class'                        => 'comments-area',
-            'disqus_shortname'             => '',
-            'disqus_identifier'            => 'id_short_url',
-            // Import
-            'import_token'                 => '',
-            'auto_import'                  => 0,
-            'posts_per_request'            => 10,
-        );
+        $this->slug            = OW_OPTION_SLUG;
+        $this->option_group    = OW_OPTION_GROUP_NAME;
+        $this->default_options = OW_SETTING_DEFAULT_OPTIONS;
 
         $this->data = $this->get_meta_data();
 
@@ -126,6 +101,7 @@ class OW_Options {
 
         // Tab value is stored and only used for current tab verification.
         $this->active_tab = ( ! empty( $tab ) ) ? $tab : 'general';
+
     }
 
     /**
@@ -307,7 +283,7 @@ class OW_Options {
                         wp_schedule_event( time(), $new_interval, 'spotim_scheduled_import' );
                     }
                     break;
-                case 'spot_id':
+                case 'ow_id':
                 case 'import_token':
                 default:
                     $options[ $key ] = sanitize_text_field( $value );

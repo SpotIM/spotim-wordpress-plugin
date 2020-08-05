@@ -124,7 +124,7 @@ class OW_Settings_Fields {
      * @return void
      */
     public function register_general_section() {
-        $spot_id = $this->options->get( 'spot_id' );
+        $spot_id = $this->options->get( 'ow_id' );
 
         add_settings_section(
             'general_settings_section',
@@ -134,13 +134,13 @@ class OW_Settings_Fields {
         );
 
         add_settings_field(
-            'spot_id',
+            'ow_id',
             esc_html__( 'OpenWeb ID', 'spotim-comments' ),
             array( 'OW_Form_Helper', 'text_field' ),
             $this->options->slug,
             'general_settings_section',
             array(
-                'id'          => 'spot_id',
+                'id'          => 'ow_id',
                 'page'        => $this->options->slug,
                 'description' => esc_html__( 'Contact your OpenWeb.Com account manager to get your OpenWeb ID.', 'spotim-comments' ),
                 'value'       => $spot_id
@@ -503,7 +503,7 @@ class OW_Settings_Fields {
             )
         );
 
-        $spot_id              = $this->options->get( 'spot_id' );
+        $spot_id              = $this->options->get( 'ow_id' );
         $import_token         = $this->options->get( 'import_token' );
         $schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
         $registered_schedules = wp_get_schedules();
@@ -557,13 +557,13 @@ class OW_Settings_Fields {
 
         // hidden spot id for the import js
         add_settings_field(
-            'spot_id',
+            'ow_id',
             null,
             array( 'OW_Form_Helper', 'hidden_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
-                'id'    => 'spot_id',
+                'id'    => 'ow_id',
                 'page'  => $this->options->slug,
                 'value' => $spot_id
             )

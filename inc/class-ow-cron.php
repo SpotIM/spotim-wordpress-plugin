@@ -97,7 +97,7 @@ class OW_Cron {
         // Register this job with a temporary transient.
         set_transient( 'spotim_auto_sync_cron_token', $execution_token, $this->get_lock_interval() );
 
-        $ow_id             = sanitize_text_field( self::$options->get( 'spot_id' ) );
+        $ow_id             = sanitize_text_field( self::$options->get( 'ow_id' ) );
         $import_token      = sanitize_text_field( self::$options->get( 'import_token' ) );
         $page_number       = 0;
         $posts_per_request = self::$options->get( 'posts_per_request' );

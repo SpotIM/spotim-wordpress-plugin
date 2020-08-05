@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function ow_comments_shortcode() {
 
     $options  = OW_Options::get_instance();
-    $ow_id    = $options->get( 'spot_id' );
+    $ow_id    = $options->get( 'ow_id' );
     $template = '';
 
     /**
@@ -89,7 +89,7 @@ add_shortcode( 'spotim_comments', 'ow_comments_shortcode' );
 function ow_recirculation_shortcode() {
 
     $options  = OW_Options::get_instance();
-    $ow_id  = $options->get( 'spot_id' );
+    $ow_id  = $options->get( 'ow_id' );
     $template = '';
 
     /**
@@ -165,7 +165,7 @@ add_shortcode( 'spotim_recirculation', 'ow_recirculation_shortcode' );
 function ow_siderail_shortcode() {
 
     $options  = OW_Options::get_instance();
-    $ow_id    = $options->get( 'spot_id' );
+    $ow_id    = $options->get( 'ow_id' );
     $template = '';
 
     /**

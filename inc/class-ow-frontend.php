@@ -42,7 +42,7 @@ class OW_Frontend {
         // Set options
         self::$options = $options;
 
-        $ow_id = self::$options->get( 'spot_id' );
+        $ow_id = self::$options->get( 'ow_id' );
 
         // Make sure OW ID is not empty.
         if ( empty( $ow_id ) ) {
@@ -223,7 +223,7 @@ class OW_Frontend {
      */
     public static function filter_comments_template( $template ) {
         if ( self::has_ow_comments() ) {
-            $ow_id = self::$options->get( 'spot_id' );
+            $ow_id = self::$options->get( 'ow_id' );
 
             /**
              * Before loading OpenWeb comments template.
@@ -313,7 +313,7 @@ class OW_Frontend {
         // Check whether the singular and applied OpenWeb comments.
         if ( false !== self::$options->get( 'display_comments_count' ) && '0' !== self::$options->get( 'display_comments_count' ) ) {
 
-            $ow_id = self::$options->get( 'spot_id' );
+            $ow_id = self::$options->get( 'ow_id' );
 
             if ( ! empty( $ow_id ) ) {
                 wp_enqueue_style( 'comments_number_stylesheet', self::$options->require_stylesheet( 'comments-number.css', true ) );
@@ -470,7 +470,7 @@ class OW_Frontend {
     public static function add_ow_recirculation( $content ) {
 
         if ( self::has_ow_recirculation() ) {
-            $ow_id = self::$options->get( 'spot_id' );
+            $ow_id = self::$options->get( 'ow_id' );
 
             /**
              * Before loading OpenWeb recirculation template.
@@ -557,7 +557,7 @@ class OW_Frontend {
     public static function add_ow_newsfeed() {
 
         if ( 1 === absint( self::$options->get( 'display_newsfeed' ) ) ) {
-            $ow_id = self::$options->get( 'spot_id' );
+            $ow_id = self::$options->get( 'ow_id' );
 
             if ( ! empty( $ow_id ) ) {
                 self::$options->require_template( 'newsfeed-template.php' );

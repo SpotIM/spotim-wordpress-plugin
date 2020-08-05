@@ -114,7 +114,7 @@ class OW_Import {
         if ( ! $this->return ) {
 
             // Save ow_id and import_token in plugin's options meta
-            $this->options->update( 'spot_id', $ow_id );
+            $this->options->update( 'ow_id', $ow_id );
             $this->options->update( 'import_token', $import_token );
 
             $this->page_number = $this->options->update(
@@ -127,7 +127,7 @@ class OW_Import {
             $this->is_force_sync                  = $this->options->get(
                 'is_force_sync', false
             );
-            $this->total_changed_posts            = get_option( "wp-spotim-settings_total_changed_posts", [] );
+            $this->total_changed_posts            = get_option( "wp-ow-settings_total_changed_posts", [] );
             $this->needto_load_more_changed_posts = $this->options->get( 'needto_load_more_changed_posts', 0 );
         } else {
             $this->page_number       = $page_number;
@@ -161,7 +161,7 @@ class OW_Import {
         $this->total_changed_posts            = [];
         $this->page_number                    = $this->options->update( 'page_number', 0 );
         $this->needto_load_more_changed_posts = $this->options->update( 'needto_load_more_changed_posts', 0 );
-        $this->options->update( 'spotim_last_sync_timestamp', null );
+        $this->options->update( 'last_sync_timestamp', null );
     }
 
     /**
@@ -219,7 +219,7 @@ class OW_Import {
             $post_etag = $this->is_force_sync ? 0 : ow_get_post_meta( $post_id, 'ow_etag', true );
 
             $stream = $this->request( array(
-                'spot_id' => $this->options->get( 'spot_id' ),
+                'spot_id' => $this->options->get( 'ow_id' ),
                 'post_id' => $post_id,
                 'etag'    => absint( $post_etag ),
                 'count'   => 1000,
@@ -371,9 +371,9 @@ class OW_Import {
             $response_args['status']  = 'success';
             $response_args['message'] = sprintf( '%s ' . esc_html__( 'posts has been synced.', 'spotim-comments' ), $total_posts_count );
 
-            $this->options->update( 'spotim_last_sync_timestamp', time() );
+            $this->options->update( 'last_sync_timestamp', time() );
             $this->options->reset( 'is_force_sync', false );
-            update_option( 'wp-spotim-settings_total_changed_posts', [] );
+            update_option( 'wp-ow-settings_total_changed_posts', [] );
 
             if ( ! $this->return ) {
                 $this->options->reset( 'page_number' );
@@ -422,8 +422,8 @@ class OW_Import {
         $offset = $this->needto_load_more_changed_posts;
         $limit  = 5000;
 
-        $ow_id = $this->options->get( 'spot_id' );
-        $sec_ago = $this->options->get( 'spotim_last_sync_timestamp', null );
+        $ow_id = $this->options->get( 'ow_id' );
+        $sec_ago = $this->options->get( 'last_sync_timestamp', null );
 
         if ( ! $sec_ago ) {
             $sec_ago = time() + ( 60 * 30 );
@@ -451,7 +451,7 @@ class OW_Import {
             }
 
             $this->total_changed_posts = array_merge( $body, $this->total_changed_posts );
-            update_option( 'wp-spotim-settings_total_changed_posts', $this->total_changed_posts );
+            update_option( 'wp-ow-settings_total_changed_posts', $this->total_changed_posts );
 
             $offset += $limit;
 
