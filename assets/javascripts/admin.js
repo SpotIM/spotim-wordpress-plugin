@@ -1,7 +1,7 @@
 jQuery( document ).ready(function ( $ ) {
     var cancelImportProcess = false;
 
-    spotimVariables.pageNumber = parseInt( spotimVariables.pageNumber, 10 );
+    owVariables.pageNumber = parseInt( owVariables.pageNumber, 10 );
 
     // Import
     $( '.sync-button' ).on( 'click', function( event ) {
@@ -9,30 +9,30 @@ jQuery( document ).ready(function ( $ ) {
             $parentElement = $importButton.parent(),
             $messageField = $importButton.siblings( '.description' ),
             $errorsField = $importButton.siblings( '.errors' ),
-            spotIdInputValue = $importButton.data( 'spot-id' ).trim(),
+            owIdInputValue = $importButton.data( 'spot-id' ).trim(),
             importTokenInputValue = $importButton.data( 'import-token' ).trim(),
             postsPerRequestValue = parseInt( $importButton.data( 'posts-per-request' ) );
 
         $parentElement.addClass( 'in-progress' );
 
-        // Empty message field from any text and reset css
+        // Empty message field from any text and reset css.
         $messageField
             .removeClass( 'red-color' )
             .empty();
 
-        // Disable the import button
+        // Disable the import button.
         $( '.sync-button' ).attr( 'disabled', true );
 
         var data = {
             'action': 'start_import',
-            'spotim_spot_id': spotIdInputValue,
+            'spotim_spot_id': owIdInputValue,
             'spotim_import_token': importTokenInputValue,
             'spotim_posts_per_request': postsPerRequestValue,
-            'security' : spotimVariables.sync_nonce,
+            'security' : owVariables.sync_nonce,
 
             // pageNumber is defined in options class,
-            // inject from admin_javascript > spotim_variables.
-            'spotim_page_number': spotimVariables.pageNumber
+            // inject from admin_javascript > owVariables.
+            'spotim_page_number': owVariables.pageNumber
         };
 
         if($importButton.hasClass('force'))
@@ -51,7 +51,7 @@ jQuery( document ).ready(function ( $ ) {
             data = {
                 'action': 'cancel_import',
                 'spotim_page_number': 0,
-                'security' : spotimVariables.sync_nonce,
+                'security' : owVariables.sync_nonce,
             };
 
         $parentElement.removeClass( 'in-progress' );
@@ -59,7 +59,7 @@ jQuery( document ).ready(function ( $ ) {
 
         $messageField
             .removeClass( 'red-color' )
-            .text( spotimVariables.cancelImportMessage );
+            .text( owVariables.cancelImportMessage );
 
         $.post( ajaxurl, data, function() {
             window.location.reload( true );
@@ -73,7 +73,7 @@ jQuery( document ).ready(function ( $ ) {
     });
 
     // Checks for page number to be above zero to trigger #import_button
-    if ( !! spotimVariables.pageNumber ) {
+    if ( !! owVariables.pageNumber ) {
         $( '#import_button' ).trigger( 'click' );
     }
 
@@ -102,7 +102,7 @@ jQuery( document ).ready(function ( $ ) {
                             .removeClass( 'in-progress' );
 
                     // Reset page number to zero
-                    spotimVariables.pageNumber = 0;
+                    owVariables.pageNumber = 0;
                     break;
                 case 'error':
                     var displayErrorLog = false;
@@ -138,7 +138,7 @@ jQuery( document ).ready(function ( $ ) {
                         $errorsField.removeClass( 'spotim-hide' );
                     }
 
-                    // Keep importing, don't stop
+                    // Keep importing, don't stop.
                     params.spotim_page_number = params.spotim_page_number + 1;
                     importCommentsToWP( params, $importButton, $messageField, $errorsField );
 
@@ -150,21 +150,21 @@ jQuery( document ).ready(function ( $ ) {
                     break;
             }
 
-            // Show response message inside message field
+            // Show response message inside message field.
             $messageField.text( response.message );
 
         }, 'json' )
         .fail(function( response ) {
             $messageField.addClass( 'red-color' );
 
-            // Enable the import button and hide cancel link
+            // Enable the import button and hide cancel link.
             $importButton
                 .attr( 'disabled', false )
                 .parent()
                     .removeClass( 'in-progress' );
 
-            // Show response message inside message field
-            $messageField.text( spotimVariables.errorMessage );
+            // Show response message inside message field.
+            $messageField.text( owVariables.errorMessage );
         });
     }
 

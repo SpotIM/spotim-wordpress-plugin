@@ -98,7 +98,7 @@ class OW_Admin {
 
         $nonce = wp_create_nonce( 'sync_nonce' );
 
-        wp_localize_script( 'admin_javascript', 'spotimVariables', array(
+        wp_localize_script( 'admin_javascript', 'owVariables', array(
             'pageNumber'          => self::$options->get( 'page_number' ),
             'sync_nonce'          => $nonce,
             'errorMessage'        => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@openweb.com.', 'spotim-comments' ),
