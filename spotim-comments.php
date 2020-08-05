@@ -190,7 +190,7 @@ class WP_OW {
         $inc_class_dir = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR;
 
         $files = [
-            'helpers/ow-functions.php',
+            'helpers/custom-functions.php',
             'helpers/class-ow-form.php',
             'helpers/class-ow-message.php',
             'helpers/class-ow-comment.php',
