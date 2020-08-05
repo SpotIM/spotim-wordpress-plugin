@@ -7,10 +7,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * OpenWeb Comments Shortcode.
  *
+ * @param array  $attr          List of attribute pass in shortcode.
+ * @param string $content       Content.
+ * @param string $shortcode_tag Shortcode tag.
+ *
  * @since 4.0.0
  * @since 5.0.0 Renamed from 'spotim_comments_shortcode' to 'ow_comments_shortcode'.
  */
-function ow_comments_shortcode() {
+function ow_comments_shortcode( $attr, $content, $shortcode_tag ) {
+
+    /**
+     * Add notice for old shortcode.
+     *
+     * @since 5.0.0
+     */
+    if ( 'spotim_comments' === $shortcode_tag ) {
+        ow_deprecated( __( '[spotim_comments] shortcode is deprecated in version 5.0.0 and may remove in future release. Please use [ow_comments] shortcode instead.', 'spotim-comments' ) );
+    }
 
     $options  = OW_Options::get_instance();
     $ow_id    = $options->get( 'ow_id' );
@@ -79,14 +92,28 @@ function ow_comments_shortcode() {
     return $template;
 }
 add_shortcode( 'spotim_comments', 'ow_comments_shortcode' );
+add_shortcode( 'ow_comments', 'ow_comments_shortcode' );
 
 /**
  * OpenWeb Recirculation Shortcode.
  *
+ * @param array  $attr          List of attribute pass in shortcode.
+ * @param string $content       Content.
+ * @param string $shortcode_tag Shortcode tag.
+ *
  * @since 4.0.0
  * @since 5.0.0 Renamed from 'spotim_recirculation_shortcode' to 'ow_recirculation_shortcode'.
  */
-function ow_recirculation_shortcode() {
+function ow_recirculation_shortcode( $attr, $content, $shortcode_tag ) {
+
+    /**
+     * Add notice for old shortcode.
+     *
+     * @since 5.0.0
+     */
+    if ( 'spotim_recirculation' === $shortcode_tag ) {
+        ow_deprecated( __( '[spotim_recirculation] shortcode is deprecated in version 5.0.0 and may remove in future release. Please use [ow_recirculation] shortcode instead.', 'spotim-comments' ) );
+    }
 
     $options  = OW_Options::get_instance();
     $ow_id  = $options->get( 'ow_id' );
@@ -155,14 +182,28 @@ function ow_recirculation_shortcode() {
     return $template;
 }
 add_shortcode( 'spotim_recirculation', 'ow_recirculation_shortcode' );
+add_shortcode( 'ow_recirculation', 'ow_recirculation_shortcode' );
 
 /**
  * OpenWeb Siderail Shortcode
  *
+ * @param array  $attr          List of attribute pass in shortcode.
+ * @param string $content       Content.
+ * @param string $shortcode_tag Shortcode tag.
+ *
  * @since 4.2.0
  * @since 5.0.0 Renamed from 'spotim_siderail_shortcode' to 'ow_siderail_shortcode'.
  */
-function ow_siderail_shortcode() {
+function ow_siderail_shortcode( $attr, $content, $shortcode_tag ) {
+
+    /**
+     * Add notice for old shortcode.
+     *
+     * @since 5.0.0
+     */
+    if ( 'spotim_siderail' === $shortcode_tag ) {
+        ow_deprecated( __( '[spotim_siderail] shortcode is deprecated in version 5.0.0 and may remove in future release. Please use [ow_siderail] shortcode instead.', 'spotim-comments' ) );
+    }
 
     $options  = OW_Options::get_instance();
     $ow_id    = $options->get( 'ow_id' );
@@ -231,3 +272,4 @@ function ow_siderail_shortcode() {
     return $template;
 }
 add_shortcode( 'spotim_siderail', 'ow_siderail_shortcode' );
+add_shortcode( 'ow_siderail', 'ow_siderail_shortcode' );
