@@ -287,7 +287,7 @@ class OW_Admin {
         $import      = new OW_Import( self::$options );
         $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0; // WPCS: input var ok.
 
-        update_option( "wp-spotim-settings_total_changed_posts", null );
+        update_option( "wp-ow-settings_total_changed_posts", null );
         self::$options->update( 'page_number', $page_number );
         self::$options->reset( 'is_force_sync' );
 

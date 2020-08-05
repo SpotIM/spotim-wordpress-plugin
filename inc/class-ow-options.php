@@ -91,34 +91,9 @@ class OW_Options {
      * @access protected
      */
     protected function __construct() {
-        $this->slug            = 'wp-ow-settings';
-        $this->option_group    = 'wp-ow-options';
-        $this->default_options = array(
-            // General
-            'ow_id'                        => '',
-            // Display
-            'display_post'                 => '1',
-            'display_page'                 => '1',
-            'display_attachment'           => '1',
-            'comments_per_page'            => 10,
-            'display_comments_count'       => '0',
-            'display_newsfeed'             => '0',
-            // Advanced
-            'embed_method'                 => 'content',
-            'rc_embed_method'              => 'regular',
-            'display_rc_amp_ad_tag'        => '0',
-            'enable_rating_reviews'        => '0',
-            'display_priority'             => 9999,
-            'enable_seo'                   => 'false',
-            'enable_og'                    => 'false',
-            'class'                        => 'comments-area',
-            'disqus_shortname'             => '',
-            'disqus_identifier'            => 'id_short_url',
-            // Import
-            'import_token'                 => '',
-            'auto_import'                  => 0,
-            'posts_per_request'            => 10,
-        );
+        $this->slug            = OW_OPTION_SLUG;
+        $this->option_group    = OW_OPTION_GROUP_NAME;
+        $this->default_options = OW_SETTING_DEFAULT_OPTIONS;
 
         $this->data = $this->get_meta_data();
 
@@ -127,16 +102,6 @@ class OW_Options {
         // Tab value is stored and only used for current tab verification.
         $this->active_tab = ( ! empty( $tab ) ) ? $tab : 'general';
 
-        $this->setup_hooks();
-    }
-
-    /**
-     * To setup action/filter.
-     *
-     * @return void
-     */
-    protected function setup_hooks() {
-        add_action( 'upgrader_process_complete', [ $this, 'migrate_old_settings' ], 10, 2 );
     }
 
     /**
@@ -457,67 +422,6 @@ class OW_Options {
             );
         }
 
-    }
-
-    /**
-     * Function to migrate old setting to new setting options.
-     *
-     * @param Object $plugin_updater_object Plugin updater class object.
-     * @param array  $options               Action options.
-     *
-     * @return void
-     */
-    public function migrate_old_settings( $plugin_updater_object, $options ) {
-
-        // Return if plugin details not found.
-        if ( empty( $plugin_updater_object ) || empty( $plugin_updater_object->result ) || empty( $plugin_updater_object->result['destination_name'] ) ) {
-            return;
-        }
-
-        $plugin_slug = $plugin_updater_object->result['destination_name'];
-
-        // If plugin is not spotim comments plugin then return.
-        if ( 'spotim-comments' !== $plugin_slug ) {
-            return;
-        }
-
-        $plugin_main_file = $plugin_updater_object->plugin_info();
-
-        // If plugin main file not found then return.
-        if ( empty( $plugin_main_file ) ) {
-            return;
-        }
-
-        if ( defined( 'WP_PLUGIN_DIR' ) ) {
-            $plugin_dir = WP_PLUGIN_DIR;
-        } else {
-            $plugin_dir = __DIR__;
-        }
-
-	    $plugin_folder_path = $plugin_dir .'/' . $plugin_main_file;
-        $plugin_header      = get_plugin_data( $plugin_folder_path, false, false );
-
-        // If plugin header not found or plugin version not found or
-        // New plugin version less than 5.0.0 then return.
-        if ( empty( $plugin_header ) || empty( $plugin_header['Version'] ) || version_compare( $plugin_header['Version'], '5.0.0', '<' ) ) {
-            return;
-        }
-
-        // Check setting option is already available.
-        $is_setting_available = get_option( $this->slug, array() );
-
-        // If setting option is already available then return.
-        if ( ! empty( $is_setting_available ) ) {
-            return;
-        }
-
-        // Old option group.
-        $old_settings = get_option( 'wp-spotim-settings', array() );
-
-        $final_settings = wp_parse_args( $old_settings, $this->default_options );
-
-        // Update old options in new setting option.
-        update_option( $this->slug, $final_settings );
     }
 
 }
