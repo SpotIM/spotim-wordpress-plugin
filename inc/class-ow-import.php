@@ -17,8 +17,8 @@ class OW_Import {
     /**
      * SpotIM Sync API URL
      */
-    const SPOTIM_SYNC_API_URL = 'https://www.spot.im/api/open-api/v1/export/wordpress';
-    const SPOTIM_LAST_MODIFIED_API_URL = 'https://www.spot.im/api/open-api/v1/spot-last-modified-conversations';
+    const OW_SYNC_API_URL          = 'https://www.spot.im/api/open-api/v1/export/wordpress';
+    const OW_LAST_MODIFIED_API_URL = 'https://www.spot.im/api/open-api/v1/spot-last-modified-conversations';
 
     /**
      * Options
@@ -436,7 +436,7 @@ class OW_Import {
             'sec_ago' => $sec_ago,
             'limit'   => $limit,
             'offset'  => $offset
-        ), self::SPOTIM_LAST_MODIFIED_API_URL );
+        ), self::OW_LAST_MODIFIED_API_URL );
 
         $body = ( $stream && isset( $stream->body ) ) ? $stream->body : null;
 
@@ -528,7 +528,7 @@ class OW_Import {
      * @return object
      */
     private function request( $query_args, $custom_url = null ) {
-        $url = add_query_arg( $query_args, ( $custom_url ) ? $custom_url : self::SPOTIM_SYNC_API_URL );
+        $url = add_query_arg( $query_args, ( $custom_url ) ? $custom_url : self::OW_SYNC_API_URL );
 
         $result        = new stdClass();
         $result->is_ok = false;
