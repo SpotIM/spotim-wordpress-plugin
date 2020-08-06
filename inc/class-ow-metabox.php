@@ -97,7 +97,7 @@ class OW_Meta_Box {
 
         // Add metaboxes to selected post types
         add_meta_box(
-            'spotim',
+            'openweb',
             esc_html__( 'OpenWeb.Com', 'spotim-comments' ),
             array( $this, 'render_metabox' ),
             $screen,
@@ -194,10 +194,10 @@ class OW_Meta_Box {
      */
     public function save_metabox( $post_id, $post ) {
 
-        $spot_nonce = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
+        $nonce = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
 
         // Check if a nonce is set and is valid.
-        if ( empty( $spot_nonce ) || ! wp_verify_nonce( $spot_nonce, 'nonce_action' ) ) {
+        if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'nonce_action' ) ) {
             return;
         }
 
