@@ -124,7 +124,7 @@ class OW_Settings_Fields {
      * @return void
      */
     public function register_general_section() {
-        $spot_id = $this->options->get( 'ow_id' );
+        $ow_id = $this->options->get( 'ow_id' );
 
         add_settings_section(
             'general_settings_section',
@@ -143,7 +143,7 @@ class OW_Settings_Fields {
                 'id'          => 'ow_id',
                 'page'        => $this->options->slug,
                 'description' => esc_html__( 'Contact your OpenWeb.Com account manager to get your OpenWeb ID.', 'spotim-comments' ),
-                'value'       => $spot_id
+                'value'       => $ow_id
             )
         );
 
@@ -503,7 +503,7 @@ class OW_Settings_Fields {
             )
         );
 
-        $spot_id              = $this->options->get( 'ow_id' );
+        $ow_id                = $this->options->get( 'ow_id' );
         $import_token         = $this->options->get( 'import_token' );
         $schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
         $registered_schedules = wp_get_schedules();
@@ -525,7 +525,7 @@ class OW_Settings_Fields {
                 'description' => esc_html__( 'Enable auto-sync and set how often should it reoccur.', 'spotim-comments' )
                                  . '<br>'
                                  . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
-                                 . ( empty( $spot_id ) ? ' ' . esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' ) : '' )
+                                 . ( empty( $ow_id ) ? ' ' . esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' ) : '' )
                                  . ( empty( $import_token ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
                 'fields'      => $schedule_fields,
                 'value'       => $this->options->get( 'auto_import' )
@@ -555,7 +555,7 @@ class OW_Settings_Fields {
             )
         );
 
-        // hidden spot id for the import js
+        // Hidden ow id for the import js.
         add_settings_field(
             'ow_id',
             null,
@@ -565,7 +565,7 @@ class OW_Settings_Fields {
             array(
                 'id'    => 'ow_id',
                 'page'  => $this->options->slug,
-                'value' => $spot_id
+                'value' => $ow_id
             )
         );
 
