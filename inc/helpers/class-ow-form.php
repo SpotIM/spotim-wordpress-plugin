@@ -261,7 +261,7 @@ class OW_Form_Helper {
 
         // Description template
         $template .= self::get_description_html();
-        $template .= '<div class="errors spotim-errors spotim-hide red-color"></div>';
+        $template .= '<div class="errors ow-errors ow-hide red-color"></div>';
 
         echo wp_kses( $template, self::get_whitelisted_tags() );
     }

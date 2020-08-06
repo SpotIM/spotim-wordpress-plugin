@@ -144,7 +144,7 @@ class OW_Siderail_Widget extends WP_Widget {
             __( 'OpenWeb.Com Siderail', 'spotim-comments' ),
             array(
                 'description' => __( 'OpenWeb.Com related content.', 'spotim-comments' ),
-                'classname'   => 'spotim_siderail',
+                'classname'   => 'ow_siderail',
             )
         );
 
