@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
+define( 'OW_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
 
 /**
  * OW_Message
@@ -94,8 +94,8 @@ class OW_Message {
     public function is_comment_exists() {
         $comment_exists = false;
 
-        // Query the spotim_id meta-data to check whether the comment already exist
-        if ( $this->get_comment_by_ow_id() ) {
+        // Query the ow_comment_id meta-data to check whether the comment already exist
+        if ( $this->get_comment_by_ow_comment_id() ) {
             return true;
         }
 
@@ -184,15 +184,20 @@ class OW_Message {
      *
      * @return bool
      */
-    public function get_comment_by_ow_id() {
+    public function get_comment_by_ow_comment_id() {
         if ( $this->message->id ) {
             // Meta query used to get comment by ow id.
             $args = array(
                 'meta_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+                    'relation' => 'OR',
+                    array(
+                        'key'   => 'ow_comment_id',
+                        'value' => $this->message->id
+                    ),
                     array(
                         'key'   => 'spotim_id',
                         'value' => $this->message->id
-                    )
+                    ),
                 )
             );
 
@@ -215,7 +220,7 @@ class OW_Message {
      * @return int|bool
      */
     public function update_comment_meta( $comment_id ) {
-        return add_comment_meta( $comment_id, 'spotim_id', $this->message->id );
+        return add_comment_meta( $comment_id, 'ow_comment_id', $this->message->id );
     }
 
     /**
@@ -234,7 +239,7 @@ class OW_Message {
             $this->messages_map[ $this->message->id ]['parent_message_id'] = $this->message->comment_id;
         }
 
-        return update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+        return update_post_meta( $this->post_id, 'ow_messages_map', $this->messages_map );
     }
 
     /**
@@ -267,7 +272,7 @@ class OW_Message {
         if ( isset( $this->messages_map[ $message_id ] ) ) {
             unset( $this->messages_map[ $message_id ] );
 
-            return ! ! update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+            return ! ! update_post_meta( $this->post_id, 'ow_messages_map', $this->messages_map );
         } else {
             return true;
         }
@@ -301,7 +306,7 @@ class OW_Message {
         if ( is_string( $messages_map ) ) {
             $messages_map = array();
 
-            add_post_meta( $this->post_id, 'spotim_messages_map', $messages_map );
+            add_post_meta( $this->post_id, 'ow_messages_map', $messages_map );
         }
 
         return $messages_map;
@@ -319,7 +324,7 @@ class OW_Message {
         $date_gmt       = get_gmt_from_date( $date );
 
         return array(
-            'comment_agent'        => SPOTIM_COMMENT_IMPORT_AGENT,
+            'comment_agent'        => OW_COMMENT_IMPORT_AGENT,
             'comment_approved'     => 1,
             'comment_author'       => $author['comment_author'],
             'comment_author_email' => $author['comment_author_email'],

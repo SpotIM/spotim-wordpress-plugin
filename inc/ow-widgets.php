@@ -30,7 +30,7 @@ class OW_Recirculation_Widget extends WP_Widget {
             esc_html__( 'OpenWeb.Com Recirculation', 'spotim-comments' ),
             array(
                 'description' => esc_html__( 'OpenWeb.Com related content.', 'spotim-comments' ),
-                'classname'   => 'spotim_recirculation',
+                'classname'   => 'ow_recirculation',
             )
         );
 
@@ -86,12 +86,12 @@ class OW_Recirculation_Widget extends WP_Widget {
         ) );
 
         // Retrieve an existing value from the database.
-        $spotim_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
+        $ow_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
         // Form fields.
         echo '<p>';
         echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
-        echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
+        echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $ow_title ) . '">';
         echo '</p>';
 
     }
@@ -200,12 +200,12 @@ class OW_Siderail_Widget extends WP_Widget {
         ) );
 
         // Retrieve an existing value from the database.
-        $spotim_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
+        $ow_title = ! empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
         // Form fields.
         echo '<p>';
         echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
-        echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
+        echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $ow_title ) . '">';
         echo '</p>';
 
     }
