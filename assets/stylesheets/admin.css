@@ -33,7 +33,7 @@
 .ow-page-wrap .red-color {
     color: #db3737;
 }
-.ow-page-wrap .spotim-errors {
+.ow-page-wrap .ow-errors {
     max-height: 200px;
     overflow: scroll;
     display: inline-block;
@@ -42,7 +42,7 @@
     margin-top: 1em;
     min-width: 50%;
 }
-.ow-page-wrap .spotim-hide {
+.ow-page-wrap .ow-hide {
     display: none;
 }
 .ow-page-wrap #force_import_button{

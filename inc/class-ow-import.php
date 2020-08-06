@@ -294,7 +294,7 @@ class OW_Import {
                 if ( false === $did_error ) {
                     update_post_meta(
                         absint( $stream->post_id ),
-                        'spotim_etag',
+                        'ow_etag',
                         absint( $stream->new_etag ),
                         absint( $stream->from_etag )
                     );

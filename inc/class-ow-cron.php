@@ -83,7 +83,7 @@ class OW_Cron {
     public function run_import() {
 
         // Get auto_sync token value.
-        $execution_token = get_transient( 'spotim_auto_sync_cron_token' );
+        $execution_token = get_transient( 'ow_auto_sync_cron_token' );
 
         // Are we currently running an auto-sync?
         if ( false !== $execution_token ) {
@@ -95,7 +95,7 @@ class OW_Cron {
         $execution_token = $this->generate_single_execution_token();
 
         // Register this job with a temporary transient.
-        set_transient( 'spotim_auto_sync_cron_token', $execution_token, $this->get_lock_interval() );
+        set_transient( 'ow_auto_sync_cron_token', $execution_token, $this->get_lock_interval() );
 
         $ow_id             = sanitize_text_field( self::$options->get( 'ow_id' ) );
         $import_token      = sanitize_text_field( self::$options->get( 'import_token' ) );
@@ -138,7 +138,7 @@ class OW_Cron {
         $import->log( 'Finished Cron auto-sync', $response );
 
         // Delete lock
-        delete_transient( 'spotim_auto_sync_cron_token' );
+        delete_transient( 'ow_auto_sync_cron_token' );
 
         // Are we successful?
         if ( 'success' === $response['status'] ) {

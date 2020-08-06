@@ -25,14 +25,14 @@ jQuery( document ).ready(function ( $ ) {
 
         var data = {
             'action': 'start_import',
-            'spotim_spot_id': owIdInputValue,
-            'spotim_import_token': importTokenInputValue,
-            'spotim_posts_per_request': postsPerRequestValue,
+            'ow_id': owIdInputValue,
+            'import_token': importTokenInputValue,
+            'posts_per_request': postsPerRequestValue,
             'security' : owVariables.sync_nonce,
 
             // pageNumber is defined in options class,
             // inject from admin_javascript > owVariables.
-            'spotim_page_number': owVariables.pageNumber
+            'page_number': owVariables.pageNumber
         };
 
         if($importButton.hasClass('force'))
@@ -50,7 +50,7 @@ jQuery( document ).ready(function ( $ ) {
             $parentElement = cancelImportLink.parent(),
             data = {
                 'action': 'cancel_import',
-                'spotim_page_number': 0,
+                'page_number': 0,
                 'security' : owVariables.sync_nonce,
             };
 
@@ -91,7 +91,7 @@ jQuery( document ).ready(function ( $ ) {
                     importCommentsToWP( params, $importButton, $messageField, $errorsField );
                     break;
                 case 'continue':
-                    params.spotim_page_number = params.spotim_page_number + 1;
+                    params.page_number = params.page_number + 1;
                     importCommentsToWP( params, $importButton, $messageField, $errorsField );
                     break;
                 case 'success':
@@ -135,18 +135,12 @@ jQuery( document ).ready(function ( $ ) {
                     }
 
                     if ( displayErrorLog ) {
-                        $errorsField.removeClass( 'spotim-hide' );
+                        $errorsField.removeClass( 'ow-hide' );
                     }
 
                     // Keep importing, don't stop.
-                    params.spotim_page_number = params.spotim_page_number + 1;
+                    params.page_number = params.page_number + 1;
                     importCommentsToWP( params, $importButton, $messageField, $errorsField );
-
-                    // Enable the import button and hide cancel link
-                    // $importButton
-                    //     .attr( 'disabled', false )
-                    //     .parent()
-                    //         .removeClass( 'in-progress' );
                     break;
             }
 
