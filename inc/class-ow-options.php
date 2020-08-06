@@ -276,11 +276,11 @@ class OW_Options {
                 case 'auto_import':
                     $options[ $key ] = sanitize_text_field( $value );
                     // update scheduled cron job interval
-                    $old_interval = wp_get_schedule( 'spotim_scheduled_import' );
+                    $old_interval = wp_get_schedule( 'ow_scheduled_import' );
                     $new_interval = $value;
                     if ( $old_interval !== $new_interval ) {
-                        wp_clear_scheduled_hook( 'spotim_scheduled_import' );
-                        wp_schedule_event( time(), $new_interval, 'spotim_scheduled_import' );
+                        wp_clear_scheduled_hook( 'ow_scheduled_import' );
+                        wp_schedule_event( time(), $new_interval, 'ow_scheduled_import' );
                     }
                     break;
                 case 'ow_id':
