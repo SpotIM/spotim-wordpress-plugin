@@ -112,11 +112,11 @@ msgstr ""
 msgid "Show OpenWeb.Com recirculation."
 msgstr ""
 
-#: inc/class-ow-options.php:441
+#: inc/class-ow-options.php:417
 msgid "Next sync on next page refresh."
 msgstr ""
 
-#: inc/class-ow-options.php:444
+#: inc/class-ow-options.php:420
 msgid "Next sync in %s."
 msgstr ""
 
@@ -344,8 +344,20 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: inc/helpers/ow-functions.php:51
+#: inc/helpers/custom-functions.php:96
 msgid "Meta key %1$s is deprecated. This meta %1$s may remove in future. Please use %2$s meta instead."
+msgstr ""
+
+#: inc/ow-shortcodes.php:49
+msgid "[spotim_comments] shortcode is deprecated in version 5.0.0 and may remove in future release. Please use [ow_comments] shortcode instead."
+msgstr ""
+
+#: inc/ow-shortcodes.php:229
+msgid "[spotim_recirculation] shortcode is deprecated in version 5.0.0 and may remove in future release. Please use [ow_recirculation] shortcode instead."
+msgstr ""
+
+#: inc/ow-shortcodes.php:409
+msgid "[spotim_siderail] shortcode is deprecated in version 5.0.0 and may remove in future release. Please use [ow_siderail] shortcode instead."
 msgstr ""
 
 #: inc/ow-widgets.php:59

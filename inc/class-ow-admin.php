@@ -234,14 +234,14 @@ class OW_Admin {
 
         $import = new OW_Import( self::$options );
 
-        $spot_id           = filter_input( INPUT_POST, 'spotim_spot_id', FILTER_SANITIZE_STRING );
-        $import_token      = filter_input( INPUT_POST, 'spotim_import_token', FILTER_SANITIZE_STRING );
-        $page_number       = filter_input( INPUT_POST, 'spotim_page_number', FILTER_SANITIZE_NUMBER_INT );
+        $ow_id             = filter_input( INPUT_POST, 'ow_id', FILTER_SANITIZE_STRING );
+        $import_token      = filter_input( INPUT_POST, 'import_token', FILTER_SANITIZE_STRING );
+        $page_number       = filter_input( INPUT_POST, 'page_number', FILTER_SANITIZE_NUMBER_INT );
         $force             = filter_input( INPUT_POST, 'force', FILTER_SANITIZE_STRING );
-        $posts_per_request = filter_input( INPUT_POST, 'spotim_posts_per_request', FILTER_SANITIZE_NUMBER_INT );
+        $posts_per_request = filter_input( INPUT_POST, 'posts_per_request', FILTER_SANITIZE_NUMBER_INT );
 
         // Check for OpenWeb id.
-        if ( empty( $spot_id ) ) {
+        if ( empty( $ow_id ) ) {
             $import->response( array(
                 'status'  => 'error',
                 'message' => esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' )
@@ -266,7 +266,7 @@ class OW_Admin {
                 $posts_per_request = 1;
             }
 
-            $import->start( $spot_id, $import_token, $page_number, $posts_per_request, $force );
+            $import->start( $ow_id, $import_token, $page_number, $posts_per_request, $force );
         }
     }
 
@@ -285,7 +285,7 @@ class OW_Admin {
         check_ajax_referer( 'sync_nonce', 'security' );
 
         $import      = new OW_Import( self::$options );
-        $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0; // WPCS: input var ok.
+        $page_number = isset( $_POST['page_number'] ) ? absint( $_POST['page_number'] ) : 0; // WPCS: input var ok.
 
         update_option( "wp-ow-settings_total_changed_posts", null );
         self::$options->update( 'page_number', $page_number );
