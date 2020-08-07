@@ -62,12 +62,12 @@ class OW_Cron {
         }
 
         // Schedule cron job event, if not scheduled yet.
-        if ( ! wp_next_scheduled( 'spotim_scheduled_import', array() ) ) {
-            wp_schedule_event( time(), $interval, 'spotim_scheduled_import' );
+        if ( ! wp_next_scheduled( 'ow_scheduled_import', array() ) ) {
+            wp_schedule_event( time(), $interval, 'ow_scheduled_import' );
         }
 
         // Run cron job hook - import data.
-        add_action( 'spotim_scheduled_import', array( $this, 'run_import' ) );
+        add_action( 'ow_scheduled_import', array( $this, 'run_import' ) );
 
     }
 

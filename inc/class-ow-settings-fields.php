@@ -524,7 +524,7 @@ class OW_Settings_Fields {
                 'page'        => $this->options->slug,
                 'description' => esc_html__( 'Enable auto-sync and set how often should it reoccur.', 'spotim-comments' )
                                  . '<br>'
-                                 . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
+                                 . $this->options->get_next_cron_execution( wp_next_scheduled( 'ow_scheduled_import' ) )
                                  . ( empty( $ow_id ) ? ' ' . esc_html__( 'OpenWeb ID is missing.', 'spotim-comments' ) : '' )
                                  . ( empty( $import_token ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
                 'fields'      => $schedule_fields,

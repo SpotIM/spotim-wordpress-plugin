@@ -159,6 +159,9 @@ class OW_Activation_Upgrader_Process {
             return;
         }
 
+        // To delete old cron event.
+        $this->check_and_delete_old_cron();
+
         // Check setting option is already available.
         $is_setting_available = get_option( $this->slug, array() );
 
@@ -220,6 +223,23 @@ class OW_Activation_Upgrader_Process {
         update_option( $new_option_name, $old_value );
 
         return true;
+    }
+
+    /**
+     * Function to check if old cron schedule then remove it.
+     *
+     * @return void
+     */
+    protected function check_and_delete_old_cron() {
+
+        $schedule_name         = 'spotim_scheduled_import';
+        $is_old_cron_scheduled = wp_get_schedule( $schedule_name );
+
+        if ( false === $is_old_cron_scheduled ) {
+            return;
+        }
+
+        wp_clear_scheduled_hook( $schedule_name );
     }
 
 }
