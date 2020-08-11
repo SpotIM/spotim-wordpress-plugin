@@ -201,7 +201,7 @@ class OW_Activation_Upgrader_Process {
      *
      * @return void
      */
-    protected function migrate_option( $old_option_name, $new_option_name, $default = '' ) {
+    public function migrate_option( $old_option_name, $new_option_name, $default = '' ) {
 
         // If empty param return false.
         if ( empty( $old_option_name ) || empty( $new_option_name ) ) {
@@ -230,7 +230,7 @@ class OW_Activation_Upgrader_Process {
      *
      * @return void
      */
-    protected function check_and_delete_old_cron() {
+    public function check_and_delete_old_cron() {
 
         $schedule_name         = 'spotim_scheduled_import';
         $is_old_cron_scheduled = wp_get_schedule( $schedule_name );

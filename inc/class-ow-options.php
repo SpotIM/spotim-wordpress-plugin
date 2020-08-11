@@ -132,9 +132,31 @@ class OW_Options {
      * @return array
      */
     private function create_options() {
-        update_option( $this->slug, $this->default_options );
 
-        return $this->default_options;
+        // Check old options.
+        $old_options = get_option( 'wp-spotim-settings', [] );
+        $options     = $this->default_options;
+
+        if ( ! empty( $old_options ) ) {
+
+            $options = wp_parse_args( $old_options, $options );
+
+            if ( ! empty( $options['spot_id'] ) && empty( $options['ow_id'] ) ) {
+                $options['ow_id'] = $options['spot_id'];
+                unset( $options['spot_id'] ); // Remove this from array as its not required in new setting.
+            }
+
+            if ( isset( $options['spotim_last_sync_timestamp'] ) && empty( $options['last_sync_timestamp'] ) ) {
+                $options['last_sync_timestamp'] = $options['spotim_last_sync_timestamp'];
+            }
+
+            $this->update_other_setting();
+
+        }
+
+        update_option( $this->slug, $options );
+
+        return $options;
     }
 
     /**
@@ -421,6 +443,28 @@ class OW_Options {
                 human_time_diff( current_time( 'timestamp' ), $timestamp )
             );
         }
+
+    }
+
+    /**
+     * Update other settings.
+     *
+     * @return void
+     */
+    protected function update_other_setting() {
+
+        // Return if class not exist.
+        if ( ! class_exists( 'OW_Activation_Upgrader_Process' ) ) {
+            return;
+        }
+
+        $ow_activation_upgrader_process = OW_Activation_Upgrader_Process::get_instance();
+
+        // Migrate single options.
+        $ow_activation_upgrader_process->migrate_option( 'wp-spotim-settings_total_changed_posts', 'wp-ow-settings_total_changed_posts', [] );
+
+        // Remove old cron.
+        $ow_activation_upgrader_process->check_and_delete_old_cron();
 
     }
 
