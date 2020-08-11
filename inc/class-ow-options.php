@@ -132,9 +132,18 @@ class OW_Options {
      * @return array
      */
     private function create_options() {
-        update_option( $this->slug, $this->default_options );
 
-        return $this->default_options;
+        // Check old options.
+        $old_options = get_option( 'wp-spotim-settings', [] );
+        $options     = $this->default_options;
+
+        if ( ! empty( $old_options ) ) {
+            $options = wp_parse_args( $old_options, $options );
+        }
+
+        update_option( $this->slug, $options );
+
+        return $options;
     }
 
     /**
