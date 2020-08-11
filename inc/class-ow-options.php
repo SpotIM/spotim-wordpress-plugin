@@ -138,7 +138,18 @@ class OW_Options {
         $options     = $this->default_options;
 
         if ( ! empty( $old_options ) ) {
+
             $options = wp_parse_args( $old_options, $options );
+
+            if ( ! empty( $options['spot_id'] ) && empty( $options['ow_id'] ) ) {
+                $options['ow_id'] = $options['spot_id'];
+                unset( $options['spot_id'] ); // Remove this from array as its not required in new setting.
+            }
+
+            if ( isset( $options['spotim_last_sync_timestamp'] ) && empty( $options['last_sync_timestamp'] ) ) {
+                $options['last_sync_timestamp'] = $options['spotim_last_sync_timestamp'];
+            }
+
         }
 
         update_option( $this->slug, $options );
