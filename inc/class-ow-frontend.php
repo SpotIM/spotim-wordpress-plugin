@@ -348,7 +348,7 @@ class OW_Frontend {
             // Comments count scripts
             add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
-            $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="ow-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
+            $commentsNumberContainerSpan = '<a href="#comments-anchor"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
             return $commentsNumberContainerSpan . $content;
 
@@ -359,7 +359,7 @@ class OW_Frontend {
             // Comments count scripts.
             add_action( 'wp_footer', array( __CLASS__, 'comments_number_tags' ) );
 
-            $commentsNumberContainerSpan = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"><span class="ow-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
+            $commentsNumberContainerSpan = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"><span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span></a>';
 
             return $content . $commentsNumberContainerSpan;
 

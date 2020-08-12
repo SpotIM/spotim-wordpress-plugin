@@ -112,11 +112,11 @@ msgstr ""
 msgid "Show OpenWeb.Com recirculation."
 msgstr ""
 
-#: inc/class-ow-options.php:417
+#: inc/class-ow-options.php:439
 msgid "Next sync on next page refresh."
 msgstr ""
 
-#: inc/class-ow-options.php:420
+#: inc/class-ow-options.php:442
 msgid "Next sync in %s."
 msgstr ""
 
@@ -336,11 +336,11 @@ msgstr ""
 msgid "On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10."
 msgstr ""
 
-#: inc/helpers/class-ow-message.php:741
+#: inc/helpers/class-ow-message.php:751
 msgid "This message was deleted."
 msgstr ""
 
-#: inc/helpers/class-ow-message.php:793
+#: inc/helpers/class-ow-message.php:803
 msgid "Guest"
 msgstr ""
 
