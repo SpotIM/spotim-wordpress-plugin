@@ -33,7 +33,7 @@ if ( ! empty( $ow_id ) && ! empty( $ow_post_id ) ) :
     layout="responsive" frameborder="0"
     src="<?php echo esc_url( sprintf( 'https://amp.spot.im/production.html?spot_im_highlight_immediate=true&spotId=%s&postId=%d', rawurlencode( $ow_id ), intval( $ow_post_id ) ) ); ?>" style="background:transparent" >
     <amp-img placeholder height="815" layout="fill" src="//amp.spot.im/loader.png"></amp-img>
-    <div overflow class="ow-im-amp-overflow" tabindex="0" role="button" aria-label="Read more">Load more...</div>
+    <div overflow class="spot-im-amp-overflow" tabindex="0" role="button" aria-label="Read more">Load more...</div>
 </amp-iframe>
     <?php
     if ( ( 'bottom' === $recirculation_method ) && ( $front->has_ow_recirculation() ) ) {
