@@ -39,6 +39,18 @@ function ow_get_post_meta( $post_id, $key, $single = false ) {
 
     // Replace 'ow' with 'spotim' to match old meta key.
     $spot_im_key = str_replace( 'ow', 'spotim', $key );
+
+    // Remove filter to prevent deprecation message on meta data exist check.
+    remove_filter( 'get_post_metadata', 'ow_deprecated_meta', 10 );
+
+    // If meta not exist then no need to get meta value.
+    if ( false === metadata_exists( 'post', $post_id, $spot_im_key ) ) {
+        return $meta_value;
+    }
+
+    // Add filter to show deprecation message.
+    add_filter( 'get_post_metadata', 'ow_deprecated_meta', 10, 4 );
+
     $meta_value  = get_post_meta( $post_id, $spot_im_key, $single );
 
     // Set old key data to new one.
